@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Coffee Break POS',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        fontFamily: 'Inter'
       ),
       home: Menu()
     );

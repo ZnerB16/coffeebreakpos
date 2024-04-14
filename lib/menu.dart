@@ -1,3 +1,5 @@
+import 'package:coffee_break_pos/menus/coffee_menu.dart';
+import 'package:coffee_break_pos/sidebar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,108 +29,87 @@ class _MenuState extends State<Menu>{
     return Scaffold(
       body: Row(
         children: [
-          Container(
-            width: 150,
-            height: double.infinity,
-            color: Colors.black12,
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
+          // Sidebar container
+          const Sidebar(),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: [
-                  Image.asset(
-                      'assets/images/Logo_brown.png'
+                  Container(
+                    width: 170,
+                    height: 50,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(10),
+                        bottomRight: Radius.circular(10)
+                      ),
+                      color: Color(0xf0634832),
+                    ),
+                    child: TextButton(
+                      onPressed: (){
+
+                      },
+                      child: const Text(
+                        'Coffee',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 220,
+                    height: 50,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomRight: Radius.circular(10)
+                      ),
+                    ),
+                    child: TextButton(
+                      onPressed: (){
+
+                      },
+                      child: const Text(
+                        'Signature Latte',
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 24
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 120,
+                    height: 50,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomRight: Radius.circular(10)
+                      ),
+                    ),
+                    child: TextButton(
+                      onPressed: (){
+
+                      },
+                      child: const Text(
+                        'Croffles',
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 24
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
-            ),
+              const CoffeeMenu(),
+            ],
           ),
-          SizedBox(
-              width: 600,
-              height: double.infinity,
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 150,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: const Color(0xf0634832),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: TextButton(
-                          onPressed: (){
-
-                          },
-                          child: const Text(
-                            'Coffee',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 180,
-                        height: 50,
-                        child: TextButton(
-                          onPressed: (){
-
-                          },
-                          child: const Text(
-                            'Signature Latte',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 100,
-                        height: 50,
-                        child: TextButton(
-                          onPressed: (){
-
-                          },
-                          child: const Text(
-                            'Croffles',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                  Container(
-                    width: 600,
-                    height: double.infinity,
-                    color: const Color(0xf0ECE0D1),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 150,
-                              child: TextField(
-
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              )
-            ),
         ],
-      ),
+      )
     );
   }
 
