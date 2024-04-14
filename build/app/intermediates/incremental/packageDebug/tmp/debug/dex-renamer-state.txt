@@ -1,0 +1,4 @@
+#Sat Apr 13 00:05:20 PST 2024
+base.0=C\:\\Users\\Brenz Gwynne Hababag\\Desktop\\Android Dev\\Flutter Dev Journey\\coffee_break_pos\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
