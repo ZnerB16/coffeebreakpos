@@ -104,7 +104,15 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                   )
                 ),
               ],
+            ),
+            Center(
+              child: GridView.count(
+                crossAxisCount: 3,
+                children: [
+                ],
+              ),
             )
+
           ],
         ),
       )
