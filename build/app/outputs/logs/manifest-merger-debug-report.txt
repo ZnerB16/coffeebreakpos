@@ -17,6 +17,7 @@ INJECTED from C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Jour
 INJECTED from C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:1:1-44:12
 INJECTED from C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:1:1-44:12
 MERGED from C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:1:1-44:12
+MERGED from [:sqflite] C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\sqflite\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\142c24f2530665bb6deb4123ab140714\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:17:1-23:12
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:17:1-33:12
 MERGED from [androidx.fragment:fragment:1.1.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\d16d53746166143fe30054cbfe559e31\transformed\fragment-1.1.0\AndroidManifest.xml:17:1-24:12
@@ -67,6 +68,8 @@ uses-sdk
 INJECTED from C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml
 INJECTED from C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml
+MERGED from [:sqflite] C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\sqflite\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:sqflite] C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\sqflite\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\142c24f2530665bb6deb4123ab140714\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\142c24f2530665bb6deb4123ab140714\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:20:5-22:41
