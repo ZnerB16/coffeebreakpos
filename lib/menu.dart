@@ -38,92 +38,12 @@ class _MenuState extends State<Menu>{
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-    return Scaffold(
+    return const Scaffold(
       body: Row(
         children: [
           // Sidebar container
           Sidebar(),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 170,
-                    height: 50,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10),
-                        bottomRight: Radius.circular(10)
-                      ),
-                      color: Color(0xf0634832),
-                    ),
-                    child: TextButton(
-                      onPressed: (){
-
-                      },
-                      child: const Text(
-                        'Coffee',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 220,
-                    height: 50,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(10),
-                          bottomRight: Radius.circular(10)
-                      ),
-                    ),
-                    child: TextButton(
-                      onPressed: (){
-
-                      },
-                      child: const Text(
-                        'Signature Latte',
-                        style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 120,
-                    height: 50,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(10),
-                          bottomRight: Radius.circular(10)
-                      ),
-                    ),
-                    child: TextButton(
-                      onPressed: (){
-
-                      },
-                      child: const Text(
-                        'Croffles',
-                        style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              CoffeeMenu(),
-
-            ],
-          ),
+          CoffeeMenu(),
           CurrentOrderScreen(),
         ],
 

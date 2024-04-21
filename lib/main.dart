@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Inter'
       ),
-      home: const Menu()
+      home: const Menu(),
+
     );
   }
 }
