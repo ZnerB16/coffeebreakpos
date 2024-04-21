@@ -10,3 +10,4 @@ com.example.coffee_break_pos.app-rs-8 C:\Users\Brenz Gwynne Hababag\Desktop\Andr
 com.example.coffee_break_pos.app-mergeDebugResources-9 C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
 com.example.coffee_break_pos.app-mergeDebugResources-10 C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
 com.example.coffee_break_pos.app-merged_res-11 C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\app\intermediates\merged_res\debug
+com.example.coffee_break_pos.app-packaged_res-12 C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\sqflite\intermediates\packaged_res\debug

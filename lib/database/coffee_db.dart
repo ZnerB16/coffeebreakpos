@@ -23,7 +23,7 @@ class CoffeeDB{
       );
       """
     );
-    await insertProducts();
+    await insertIcedProducts();
     await database.execute(
       """ CREATE TABLE IF NOT EXISTS $hotTable(
       "hot_id" INTEGER NOT NULL,
@@ -34,6 +34,7 @@ class CoffeeDB{
       );
       """
     );
+    await insertHotCoffee();
     await database.execute(
       """ CREATE TABLE IF NOT EXISTS $latteTable(
       "latte_id" INTEGER NOT NULL,
@@ -45,6 +46,7 @@ class CoffeeDB{
       );
       """
     );
+    await insertLatte();
     await database.execute(
       """ CREATE TABLE IF NOT EXISTS $crofflesTable(
       "croffle_id" INTEGER NOT NULL,  
@@ -55,6 +57,7 @@ class CoffeeDB{
       );
       """
     );
+    await insertCroffles();
     await database.execute(
       """ CREATE TABLE IF NOT EXISTS $ordersTable(
       "order_id" INTEGER NOT NULL,
@@ -98,11 +101,11 @@ class CoffeeDB{
     );
 
   }
-  Future<void> insertProducts() async {
+  Future<void> insertIcedProducts() async {
     final database = await DatabaseService().database;
     await database.rawInsert(
       """
-      INSERT OR IGNORE INTO $icedTable(name, size, price, status)
+      INSERT OR IGNORE INTO $icedTable(name, size, price)
       VALUES("Caramel Macchiato",
       "16oz",
       49.0,
@@ -155,6 +158,203 @@ class CoffeeDB{
       "16oz",
       49.0,
       )
+      """
+    );
+  }
+  Future<void> insertHotCoffee() async {
+    final database = await DatabaseService().database;
+    await database.rawQuery(
+      """
+      INSERT OR IGNORE INTO $hotTable(name, price)
+      VALUES
+      (
+      "Black Americano",
+      49.0
+      ),
+      (
+      "Caramel Macchiato",
+      59.0
+      ),
+      (
+      "French Vanilla",
+      59.0
+      ),
+      (
+      "Hazelnut",
+      59.0
+      ),
+      (
+      "Salted Caramel",
+      59.0
+      ),
+      """
+    );
+  }
+  Future<void> insertLatte() async {
+    final database = await DatabaseService().database;
+    await database.rawQuery(
+        """
+      INSERT OR IGNORE INTO $latteTable(name, size, price)
+      VALUES
+      (
+      "Blueberry",
+      "16oz",
+      49.0
+      ),
+      (
+      "Blueberry",
+      "22oz",
+      59.0
+      ),
+      (
+      "Strawberry",
+      "16oz",
+      49.0
+      ),
+      (
+      "Strawberry",
+      "22oz",
+      59.0
+      ),
+      (
+      "Mango",
+      "16oz",
+      49.0
+      ),
+      (
+      "Mango",
+      "22oz",
+      59.0
+      ),
+      (
+      "Avocado",
+      "16oz",
+      49.0
+      ),
+      (
+      "Avocado",
+      "22oz",
+      59.0
+      ),
+      (
+      "Melon",
+      "16oz",
+      49.0
+      ),
+      (
+      "Melon",
+      "22oz",
+      59.0
+      ),
+      (
+      "Matcha Latte",
+      "22oz",
+      59.0
+      ),
+      (
+      "Ube",
+      "16oz",
+      49.0
+      ),
+      (
+      "Ube",
+      "22oz",
+      59.0
+      ),
+      (
+      "Mixed Berries",
+      "16oz",
+      49.0
+      ),
+      (
+      "Mixed Berries",
+      "22oz",
+      59.0
+      ),
+      """
+    );
+  }
+  Future<void> insertCroffles() async {
+    final database = await DatabaseService().database;
+    await database.rawInsert(
+      """
+      INSERT OR IGNORE INTO $crofflesTable(name, price)
+      VALUES(
+      "Biscoff Plain",
+      90.0
+      ),
+      (
+      "Biscoff Supreme",
+      145.0
+      ),
+      (
+      "Classic Plain",
+      80.0
+      ),
+      (
+      "Nutella Plain",
+      90.0
+      ),
+      (
+      "Nutella Almond",
+      95.0
+      ),
+      (
+      "Nutella Almond & Cream",
+      145.0
+      ),
+      (
+      "Oreo Crumble",
+      95.0
+      ),
+      (
+      "Oreo Cookies & Cream",
+      145.0
+      ),
+      (
+      "Ham & Cheese",
+      130.0
+      ),
+      (
+      "Creamy Spinach",
+      130.0
+      )
+      """
+    );
+  }
+  Future<void> fetchIcedCoffee() async {
+    final database = await DatabaseService().database;
+    await database.rawQuery(
+      """
+      SELECT * FROM $icedTable
+      ORDER BY name ASC
+      """
+    );
+  }
+  Future<void> fetchHotCoffee() async {
+    final database = await DatabaseService().database;
+    await database.rawQuery(
+      """
+      SELECT * FROM $hotTable
+      ORDER BY name ASC
+      """
+    );
+  }
+  Future<void> fetchLatte() async {
+    final database = await DatabaseService().database;
+    await database.rawQuery(
+      """
+      SELECT * FROM $latteTable
+      ORDER BY name ASC
+      """
+    );
+  }
+  Future<void> fetchCroffles() async {
+    final database = await DatabaseService().database;
+    await database.rawQuery(
+      """
+      SELECT * FROM $crofflesTable
+      ORDER BY name ASC
       """
     );
   }

@@ -1,8 +1,11 @@
-import 'package:coffee_break_pos/menus/coffee_menu.dart';
+import 'package:coffee_break_pos/current_order.dart';
+import 'package:coffee_break_pos/menus/coffee_menu_iced.dart';
 import 'package:coffee_break_pos/sidebar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'database/coffee_db.dart';
+import 'database/database_service.dart';
 
 class Menu extends StatefulWidget{
   const Menu({super.key});
@@ -10,22 +13,31 @@ class Menu extends StatefulWidget{
   @override
   _MenuState createState() => _MenuState();
 
+
 }
 class _MenuState extends State<Menu>{
+
   @override
   void initState(){
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-      SystemUiOverlay.bottom
-    ]);  // to only hide the status bar
+    super.initState();
+    () async {
+      final database = await DatabaseService().database;
+      var coffeeDb = CoffeeDB();
+      await coffeeDb.createTable(database);
+      await coffeeDb.insertIcedProducts();
+    };
   }
+
   @override
   void dispose() {
     super.dispose();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);  // to re-show bars
   }
 
+
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return Scaffold(
       body: Row(
         children: [
@@ -54,7 +66,8 @@ class _MenuState extends State<Menu>{
                         'Coffee',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 24
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold
                         ),
                       ),
                     ),
@@ -76,7 +89,8 @@ class _MenuState extends State<Menu>{
                         'Signature Latte',
                         style: TextStyle(
                             color: Colors.black87,
-                            fontSize: 24
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold
                         ),
                       ),
                     ),
@@ -98,7 +112,8 @@ class _MenuState extends State<Menu>{
                         'Croffles',
                         style: TextStyle(
                             color: Colors.black87,
-                            fontSize: 24
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold
                         ),
                       ),
                     ),
@@ -106,11 +121,13 @@ class _MenuState extends State<Menu>{
                 ],
               ),
               const CoffeeMenu(),
+
             ],
           ),
+          const CurrentOrderScreen(),
         ],
+
       )
     );
   }
-
 }

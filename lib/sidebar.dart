@@ -15,7 +15,7 @@ class _SidebarState extends State<Sidebar>{
         child: SizedBox(
             width: 150,
             child: Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Column(
                   children: [
                     Image.asset(
@@ -54,7 +54,25 @@ class _SidebarState extends State<Sidebar>{
 
                         },
                         icon: Image.asset(
-                          'assets/images/data-analysis.png',
+                          'assets/images/to-do-list.png',
+                          width: 40,
+                        ),
+                      ),
+                    ),
+                    const Padding(padding: EdgeInsets.only(top:280)),
+                    Container(
+                      width: 60,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+
+                      child: IconButton(
+                        onPressed: (){
+
+                        },
+                        icon: Image.asset(
+                          'assets/images/back-in-time.png',
                           width: 40,
                         ),
                       ),
@@ -72,11 +90,29 @@ class _SidebarState extends State<Sidebar>{
 
                         },
                         icon: Image.asset(
-                          'assets/images/editing.png',
+                          'assets/images/data-analysis.png',
                           width: 40,
                         ),
                       ),
                     ),
+                    const Padding(padding: EdgeInsets.only(top: 30)),
+                    Container(
+                        width: 60,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+
+                        child: IconButton(
+                          onPressed: (){
+
+                          },
+                          icon: Image.asset(
+                            'assets/images/editing.png',
+                            width: 40,
+                          ),
+                        ),
+                      ),
                   ]
               ),
             )
