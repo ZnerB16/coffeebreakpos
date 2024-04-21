@@ -1,3 +1,4 @@
+import 'package:coffee_break_pos/database/classes/hot_coffee.dart';
 import 'package:coffee_break_pos/database/classes/iced_coffee.dart';
 import 'package:coffee_break_pos/database/coffee_db.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,9 @@ class CoffeeMenu extends StatefulWidget{
 class _CoffeeMenuState extends State<CoffeeMenu>{
 
   List<Map<String, dynamic>> gridMap= [];
+  String defaultMenu = "iced";
+  bool isHotActive = false;
+  bool isIcedActive = true;
 
   @override
   void initState(){
@@ -24,17 +28,28 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
 
   Future<void> getMapVal() async {
     var coffeeDB = CoffeeDB();
+    List<HotCoffee> hotList = await coffeeDB.fetchHotCoffee();
     List<IcedCoffee> icedList = await coffeeDB.fetchIcedCoffee();
-    print("This function was called");
     setState(() {
-      for(int i = 0; i < icedList.length; i++){
-        gridMap.add(
-            {
-              "imgPath": "assets/images/coffee-cup.png",
-              "title": icedList[i].name
-            }
-        );
-
+      if(defaultMenu == "hot"){
+        for(int i = 0; i < hotList.length; i++){
+          gridMap.add(
+              {
+                "imgPath": "assets/images/coffee-cup.png",
+                "title": hotList[i].name
+              }
+          );
+        }
+      }
+      else {
+        for(int i = 0; i < icedList.length; i++){
+          gridMap.add(
+              {
+                "imgPath": "assets/images/coffee-cup.png",
+                "title": icedList[i].name
+              }
+          );
+        }
       }
     });
   }
@@ -80,7 +95,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                           height: 40,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
-                            color: const Color(0xf0634832),
+                            color: isIcedActive? Color(0xf0634832): Color(0xf0ECE7DF),
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.2),
@@ -91,13 +106,19 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                               ],
                           ),
                           child: TextButton(
-                            onPressed: (){
-
+                            onPressed: () {
+                              setState(() {
+                                defaultMenu = "cold";
+                                isHotActive = false;
+                                isIcedActive = true;
+                                gridMap = [];
+                                getMapVal();
+                              });
                             },
-                            child: const Text(
+                            child: Text(
                               'Iced',
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: isIcedActive? Colors.white: Colors.black87,
                                   fontSize: 18
                               ),
                             ),
@@ -109,7 +130,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                           height: 40,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
-                              color: const Color(0xf0ECE7DF),
+                              color: isHotActive? Color(0xf0634832): Color(0xf0ECE7DF),
                               boxShadow: [
                                 BoxShadow(
                                   color: Colors.black.withOpacity(0.2),
@@ -121,12 +142,18 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                           ),
                           child: TextButton(
                             onPressed: (){
-
+                              setState(() {
+                                defaultMenu = "hot";
+                                isHotActive = true;
+                                isIcedActive = false;
+                                gridMap = [];
+                                getMapVal();
+                              });
                             },
-                            child: const Text(
+                            child: Text(
                               'Hot',
                               style: TextStyle(
-                                  color: Colors.black87,
+                                  color: isHotActive? Colors.white: Colors.black87,
                                   fontSize: 18
                               ),
                             ),
