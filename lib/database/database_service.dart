@@ -1,6 +1,5 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-
 import 'coffee_db.dart';
 
 class DatabaseService {

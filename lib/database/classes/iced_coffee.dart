@@ -3,7 +3,7 @@ class IcedCoffee{
   final String name;
   final String size;
   final double price;
-  final bool status;
+  final int status;
 
   IcedCoffee({
     required this.icedId,
@@ -18,6 +18,6 @@ class IcedCoffee{
     name: map['name'] ?? '',
     size: map['size'] ?? '',
     price: map['price']?.toDouble() ?? 0.0,
-    status: map['status'] ?? true
+    status: map['status'] ?? 1
   );
 }

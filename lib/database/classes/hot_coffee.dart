@@ -2,7 +2,7 @@ class HotCoffee{
   final int hotId;
   final String name;
   final double price;
-  final bool status;
+  final int status;
 
   HotCoffee({
     required this.hotId,
@@ -15,6 +15,6 @@ class HotCoffee{
       hotId: map['hot_id']?.toInt() ?? 0,
       name: map['name'] ?? '',
       price: map['price']?.toDouble() ?? 0.0,
-      status: map['status'] ?? true,
+      status: map['status'] ?? 1,
   );
 }

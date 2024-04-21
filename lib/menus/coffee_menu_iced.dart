@@ -1,6 +1,6 @@
+import 'package:coffee_break_pos/database/classes/iced_coffee.dart';
+import 'package:coffee_break_pos/database/coffee_db.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
 class CoffeeMenu extends StatefulWidget{
   const CoffeeMenu ({super.key});
@@ -10,43 +10,37 @@ class CoffeeMenu extends StatefulWidget{
 }
 class _CoffeeMenuState extends State<CoffeeMenu>{
 
+  List<Map<String, dynamic>> gridMap= [];
+
+  @override
+  void initState(){
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      gridMap = [];
+      await getMapVal();
+    });
+  }
+
+  Future<void> getMapVal() async {
+    var coffeeDB = CoffeeDB();
+    List<IcedCoffee> icedList = await coffeeDB.fetchIcedCoffee();
+    print("This function was called");
+    setState(() {
+      for(int i = 0; i < icedList.length; i++){
+        gridMap.add(
+            {
+              "imgPath": "assets/images/coffee-cup.png",
+              "title": icedList[i].name
+            }
+        );
+
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> gridMap= [
-      {
-        "imgPath": "assets/images/coffee-cup.png",
-        "title": "Caramel Macchiato"
-      },
-      {
-        "imgPath": "assets/images/coffee-cup.png",
-        "title": "Coffee Caramel"
-      },
-      {
-        "imgPath": "assets/images/coffee-cup.png",
-        "title": "Dark Mocha"
-      },
-      {
-        "imgPath": "assets/images/coffee-cup.png",
-        "title": "Espresso Latte"
-      },
-      {
-        "imgPath": "assets/images/coffee-cup.png",
-        "title": "French Vanilla"
-      },
-      {
-        "imgPath": "assets/images/coffee-cup.png",
-        "title": "Hazelnut"
-      },
-      {
-        "imgPath": "assets/images/coffee-cup.png",
-        "title": "Salted Caramel"
-      },
-      {
-        "imgPath": "assets/images/coffee-cup.png",
-        "title": "Spanish Latte"
-      },
-
-    ];
     return Material(
       color: const Color(0xf0ECE0D1).withAlpha(150),
       child: SizedBox(
@@ -143,7 +137,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                   ),
                 ],
               ),
-              const Padding(padding: EdgeInsets.only(top: 30)),
+              const Padding(padding: EdgeInsets.only(top: 20)),
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: GridView.builder(

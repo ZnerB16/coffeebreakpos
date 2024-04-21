@@ -42,7 +42,7 @@ class _MenuState extends State<Menu>{
       body: Row(
         children: [
           // Sidebar container
-          const Sidebar(),
+          Sidebar(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -120,11 +120,11 @@ class _MenuState extends State<Menu>{
                   ),
                 ],
               ),
-              const CoffeeMenu(),
+              CoffeeMenu(),
 
             ],
           ),
-          const CurrentOrderScreen(),
+          CurrentOrderScreen(),
         ],
 
       )
