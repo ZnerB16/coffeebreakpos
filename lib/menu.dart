@@ -1,4 +1,3 @@
-import 'package:coffee_break_pos/current_order.dart';
 import 'package:coffee_break_pos/menus/coffee_menu.dart';
 import 'package:coffee_break_pos/sidebar.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +43,6 @@ class _MenuState extends State<Menu>{
           // Sidebar container
           Sidebar(),
           CoffeeMenu(),
-          CurrentOrderScreen(),
         ],
 
       )

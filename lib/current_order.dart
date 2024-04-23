@@ -1,3 +1,4 @@
+import 'package:coffee_break_pos/menus/globals.dart' as globals;
 import 'package:flutter/material.dart';
 
 class CurrentOrderScreen extends StatefulWidget{
@@ -7,8 +8,10 @@ class CurrentOrderScreen extends StatefulWidget{
   _CurrentOrderScreenState createState() => _CurrentOrderScreenState();
 }
 class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
+
   @override
   Widget build(BuildContext context) {
+
     return Padding(
         padding: const EdgeInsets.only(top: 50, left: 20, right: 20, bottom: 10),
         child: Column(
@@ -58,49 +61,60 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
           Container(
             width: 470,
             color: Colors.white,
-            padding: const EdgeInsets.only(top: 20, right: 20),
-            child: Table(
-              children: const [
-                TableRow(children: [
-                  Center(
-                    child: Text(
-                        'Item',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold
-                        )
-                    ),
+            padding: const EdgeInsets.only(top: 10, right: 20),
+            child: DataTable(
+              columns: const [
+                DataColumn(label: Center(
+                  child: Text(
+                      'Item',
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold
+                      )
                   ),
-                  Center(
-                    child: Text(
-                        'Size',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold
-                        )
-                    ),
+                ),
+                ),
+                DataColumn(label: Center(
+                  child: Text(
+                      'Size',
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold
+                      )
                   ),
-                  Center(
-                    child: Text(
-                        'Qty',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold
-                        )
-                    ),
+                ),
+                ),
+                DataColumn(label: Center(
+                  child: Text(
+                      'Qty',
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold
+                      )
                   ),
-                  Center(
-                    child: Text(
-                        'Price',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold
-                        )
-                    ),
+                ),
+                ),
+                DataColumn(label: Center(
+                  child: Text(
+                      'Price',
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold
+                      )
                   ),
-                ]),
-              ],
-            ),
+                ),
+                ),
+              ], rows: globals.orderList.map((e) =>
+                    DataRow(
+                        cells: [
+                          DataCell(Text(e["name"])),
+                          DataCell(Text(e["size"])),
+                          DataCell(Text(e["qty"].toString())),
+                          DataCell(Text(e["price"].toString())),
+                        ]
+                    )
+            ).toList(),
+            )
           )
       ],
     ),
