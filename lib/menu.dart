@@ -23,7 +23,6 @@ class _MenuState extends State<Menu>{
       final database = await DatabaseService().database;
       var coffeeDb = CoffeeDB();
       await coffeeDb.createTable(database);
-      await coffeeDb.insertIcedProducts();
     };
   }
 

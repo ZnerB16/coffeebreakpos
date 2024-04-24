@@ -1,4 +1,11 @@
+import 'dart:async';
+
 import 'package:coffee_break_pos/custom_rect_tween.dart';
+import 'package:coffee_break_pos/database/classes/croffles.dart';
+import 'package:coffee_break_pos/database/classes/hot_coffee.dart';
+import 'package:coffee_break_pos/database/classes/iced_coffee.dart';
+import 'package:coffee_break_pos/database/classes/latte.dart';
+import 'package:coffee_break_pos/database/coffee_db.dart';
 import 'package:flutter/material.dart';
 import 'globals.dart' as globals;
 
@@ -19,6 +26,7 @@ class CartState extends State<Cart>{
 
   int value = 1;
   int qty = 1;
+  double price = 0.0;
   String currSize = "12oz";
   String size1 = "12oz";
   String size2 = "16oz";
@@ -86,7 +94,7 @@ class CartState extends State<Cart>{
                             ),
                           ),
                         ),
-                        const Padding(padding: EdgeInsets.only(top: 50)),
+                        const Padding(padding: EdgeInsets.only(top: 30)),
                         Image.asset('assets/images/coffee-cup.png'),
                         const Padding(padding: EdgeInsets.only(top: 10)),
                         Text(
@@ -101,16 +109,18 @@ class CartState extends State<Cart>{
                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Visibility(
-                              visible: widget.type != "croffles",
-                                child: customRadioButton(widget.type == "latte" ? "16oz" : size1, 1)
+                              visible: widget.type != "croffles" && widget.title != "Espresso Latte" && widget.title != "Coffee Caramel",
+                                child: customRadioButton(widget.type != "latte" ? size1 : "16oz", 1)
                             ),
-                            const Padding(padding: EdgeInsets.only(right: 15)),
+                            Padding(padding: EdgeInsets.only(right: widget.title != "Espresso Latte" && widget.title != "Coffee Caramel" ? 15 : 0)),
                             Visibility(
                               visible: widget.type != "croffles",
-                                child: customRadioButton(widget.type == "latte" ? "22oz" : size2, 2)
+                                child: customRadioButton(widget.type != "latte" ? size2 : "22oz", widget.title != "Espresso Latte" && widget.title != "Coffee Caramel" ? 2 : 1)
                             )
                           ],
                         ),
+                        const Padding(padding: EdgeInsets.only(top: 20)),
+                        qtyButton(),
                         const Padding(padding: EdgeInsets.only(top: 20)),
                         Container(
                           width: 100,
@@ -123,22 +133,24 @@ class CartState extends State<Cart>{
                                 color: Colors.grey.withOpacity(0.5),
                                 spreadRadius: 2,
                                 blurRadius: 2,
-                                offset: Offset(0, 5), // changes position of shadow
+                                offset: const Offset(0, 5), // changes position of shadow
                               ),
                             ],
                           ),
                           child: TextButton(
-                            onPressed: () {
+                            onPressed: () async {
+                              await getProductDetails(widget.title, widget.title != "Espresso Latte" && widget.title != "Coffee Caramel" ? currSize : "16oz");
                               setState(() {
                                 globals.orderList.add({
                                   "name": widget.title,
-                                  "size": currSize,
+                                  "size": currSize ,
                                   "qty": qty,
-                                  "price": 49.0,
+                                  "price": price,
                                 });
                               });
                               Navigator.pop(context);
-                            },
+                            }
+                            ,
                             child: const Text(
                               "DONE",
                               style: TextStyle(
@@ -147,7 +159,7 @@ class CartState extends State<Cart>{
                               ),
                             ),
                           ),
-                        )
+                        ),
 
                       ],
                     ),
@@ -155,9 +167,7 @@ class CartState extends State<Cart>{
                 ],
               ),
             )
-
-            )
-            ,
+            ),
           ),
         ),
     );
@@ -183,6 +193,101 @@ class CartState extends State<Cart>{
           fontWeight: FontWeight.bold
         ),
       ),
+    );
+  }
+  Future<void> getProductDetails(String name, String size) async{
+    var coffeeDB = CoffeeDB();
+
+    if(widget.type == "iced"){
+      List<IcedCoffee> icedList = await coffeeDB.fetchIcedCoffeeSpec(name, size);
+      setState(() {
+        price = icedList[0].price * qty;
+      });
+    }
+    else if(widget.type == "hot"){
+      List<HotCoffee> hotList = await coffeeDB.fetchHotCoffeeSpec(name);
+      setState(() {
+        price = hotList[0].price * qty;
+      });
+    }
+    else if(widget.type == "latte"){
+      List<Latte> latteList = await coffeeDB.fetchLatteSpec(name, size);
+      setState(() {
+        price = latteList[0].price * qty;
+      });
+    }
+    else if(widget.type == "croffles"){
+      List<Croffles> croffleList = await coffeeDB.fetchCrofflesSpec(name);
+      setState(() {
+        price = croffleList[0].price * qty;
+      });
+    }
+  }
+  Widget qtyButton(){
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            width: 30,
+            height: 30,
+            decoration: BoxDecoration(
+              color: const Color(0xf0967259),
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 2,
+                  offset: const Offset(0, 5), // changes position of shadow
+                ),
+              ],
+            ),
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                  if(qty > 1){
+                    qty--;
+                  }
+                });
+              },
+              icon: Image.asset("assets/images/minus-sign.png"),
+            ),
+        ),
+          const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+          Text(
+              "$qty",
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold
+            ),
+          ),
+          const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+          Container(
+            width: 30,
+            height: 30,
+            decoration: BoxDecoration(
+              color: const Color(0xf0967259),
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 2,
+                  offset: const Offset(0, 5), // changes position of shadow
+                ),
+              ],
+            ),
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                  qty++;
+                });
+              },
+              icon: Image.asset("assets/images/plus.png"),
+            ),
+          )
+        ]
     );
   }
 }

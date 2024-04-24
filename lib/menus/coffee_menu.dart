@@ -3,6 +3,7 @@ import 'package:coffee_break_pos/database/classes/iced_coffee.dart';
 import 'package:coffee_break_pos/database/classes/latte.dart';
 import 'package:coffee_break_pos/database/coffee_db.dart';
 import 'package:coffee_break_pos/menus/cart.dart';
+import 'package:coffee_break_pos/menus/order_slip.dart';
 import 'package:flutter/material.dart';
 
 import '../database/classes/croffles.dart';
@@ -16,11 +17,6 @@ class CoffeeMenu extends StatefulWidget{
   _CoffeeMenuState createState() => _CoffeeMenuState();
 }
 class _CoffeeMenuState extends State<CoffeeMenu>{
-  List<Map<String, dynamic>> orders = [];
-
-  void getOrders(){
-    orders = globals.orderList;
-  }
 
   List<Map<String, dynamic>> gridMap= [];
   String defaultMenu = "iced";
@@ -327,8 +323,9 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                                   );
                                 },
                               )).then((_) => setState(() {
-                                  orders = [];
-                                  getOrders();
+                                if(globals.orderList.isNotEmpty){
+                                  computeTotal();
+                                }
                               }));
                             },
                           );
@@ -340,10 +337,14 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
             ),
         )
       ),
-        CurrentOrderScreen(orders: orders)
+        CurrentOrderScreen(orders: globals.orderList)
       ]
     );
   }
+  void computeTotal() {
+    globals.total = globals.total + globals.orderList[globals.orderList.length - 1]["price"];
+  }
+
   Widget _item(
       {
         required String imgPath,
@@ -378,8 +379,8 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
 }
 
 class CurrentOrderScreen extends StatefulWidget{
-  final List<Map<String, dynamic>> orders;
-  const CurrentOrderScreen({
+  List<Map<String, dynamic>> orders = [];
+  CurrentOrderScreen({
     super.key,
     required this.orders
   });
@@ -388,12 +389,12 @@ class CurrentOrderScreen extends StatefulWidget{
   _CurrentOrderScreenState createState() => _CurrentOrderScreenState();
 }
 class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
-
+  final _controllerName = TextEditingController();
   @override
   Widget build(BuildContext context) {
 
     return Padding(
-      padding: const EdgeInsets.only(top: 50, left: 20, right: 20, bottom: 10),
+      padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
       child: Column(
         children: [
           Container(
@@ -423,81 +424,189 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
                   border: Border.all(),
                   color: const Color(0xf0EBEBEB)
               ),
-              child: const Padding(
-                padding: EdgeInsets.only(left: 15),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 15),
                 child: TextField(
                   autocorrect: false,
-                  decoration: InputDecoration(
+                  controller: _controllerName,
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Name',
                     hintStyle: TextStyle(fontSize: 20),
                   ),
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 16
                   ),
                 ),
               )
           ),
+         Container(
+                width: 470,
+                height: 450,
+                color: Colors.white,
+                padding: const EdgeInsets.only(top: 10, right: 20),
+                child: Scrollbar(
+                  child: SingleChildScrollView(
+                    child: DataTable(
+                      dataRowMaxHeight: 85,
+                      columnSpacing: 45,
+                      dataRowMinHeight: 50,
+                      horizontalMargin: 15,
+                      columns: const [
+                        DataColumn(label: Center(
+                          child: Text(
+                              'Item',
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold
+                              )
+                          ),
+                        ),
+                        ),
+                        DataColumn(label: Center(
+                          child: Text(
+                              'Size',
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold
+                              )
+                          ),
+                        ),
+                        ),
+                        DataColumn(label: Center(
+                          child: Text(
+                              'Qty',
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold
+                              )
+                          ),
+                        ),
+                        ),
+                        DataColumn(label: Center(
+                          child: Text(
+                              'Price',
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold
+                              )
+                          ),
+                        ),
+                        ),
+                        DataColumn(label: Center(
+                          child: Text(
+                              ''
+                          ),
+                        ),
+                        ),
+                      ], rows: widget.orders.map((e) =>
+                        DataRow(
+                            cells: [
+                              DataCell(Text(e["name"],
+                              style: const TextStyle(fontSize: 16),)),
+                              DataCell(Text(e["size"],
+                                style: const TextStyle(fontSize: 16),)),
+                              DataCell(Text(e["qty"].toString(),
+                                style: const TextStyle(fontSize: 16),)),
+                              DataCell(Text(e["price"].toString(),
+                                style: const TextStyle(fontSize: 16),)),
+                              DataCell(
+                                  IconButton(
+                                      onPressed: () { 
+                                        setState(() {
+                                          globals.total -= e["price"];
+                                          widget.orders.remove(e);
+                                        });
+                                      },
+                                      icon: Image.asset(
+                                        "assets/images/delete.png",
+                                        width: 32,
+                                      )
+                                  )
+                              )
+                            ]
+                        )
+                    ).toList(),
+                    ),
+                  ),
+                )
+          ),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              const Align(
+                alignment: Alignment.center,
+                child: Text(
+                  "Total:",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+              ),
+              const Padding(padding: EdgeInsets.only(right: 20)),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  "${globals.total}",
+                  style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const Padding(padding: EdgeInsets.only(top: 10)),
           Container(
-              width: 470,
-              color: Colors.white,
-              padding: const EdgeInsets.only(top: 10, right: 20),
-              child: DataTable(
-                columns: const [
-                  DataColumn(label: Center(
-                    child: Text(
-                        'Item',
-                        style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold
-                        )
-                    ),
-                  ),
-                  ),
-                  DataColumn(label: Center(
-                    child: Text(
-                        'Size',
-                        style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold
-                        )
-                    ),
-                  ),
-                  ),
-                  DataColumn(label: Center(
-                    child: Text(
-                        'Qty',
-                        style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold
-                        )
-                    ),
-                  ),
-                  ),
-                  DataColumn(label: Center(
-                    child: Text(
-                        'Price',
-                        style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold
-                        )
-                    ),
-                  ),
-                  ),
-                ], rows: widget.orders.map((e) =>
-                  DataRow(
-                      cells: [
-                        DataCell(Text(e["name"])),
-                        DataCell(Text(e["size"])),
-                        DataCell(Text(e["qty"].toString())),
-                        DataCell(Text(e["price"].toString())),
-                      ]
-                  )
-              ).toList(),
-              )
+            width: 160,
+            height: 40,
+            decoration: BoxDecoration(
+              color: const Color(0xf0967259),
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 2,
+                  offset: Offset(0, 5), // changes position of shadow
+                ),
+              ],
+            ),
+            child: TextButton(
+              onPressed: isListEmpty() ? null : () {
+                globals.customerName = _controllerName.text;
+                  Navigator.push(context, HeroDialogRoute(
+                      builder: (context){
+                        return const OrderPaymentScreen();
+                      })
+                  ).then((value) => setState(() {
+                    if(!value){
+                      globals.orderList = [];
+                      widget.orders = [];
+                      _controllerName.text = "";
+                    }
+                  })
+                  );
+              },
+              child: const Text(
+                "COMPLETE ORDER",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+            ),
           )
         ],
       ),
     );
+  }
+  bool isListEmpty(){
+    if(widget.orders.isEmpty){
+      return true;
+    }
+    return false;
   }
 }
