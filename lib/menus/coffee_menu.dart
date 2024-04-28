@@ -22,7 +22,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
   String defaultMenu = "iced";
   bool isHotActive = false;
   bool isIcedActive = true;
-
+  int count = 0;
   bool isCoffeeActive = true;
   bool isLatteActive = false;
   bool isCrofflesActive = false;
@@ -93,7 +93,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
       children: [Material(
         color: const Color(0xf0ECE0D1).withAlpha(150),
         child: SizedBox(
-          width: 680,
+          width: 480,
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -103,7 +103,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                   child: Row(
                     children: [
                       Container(
-                        width: 170,
+                        width: 120,
                         height: 50,
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.only(
@@ -132,7 +132,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                         ),
                       ),
                       Container(
-                        width: 220,
+                        width: 120,
                         height: 50,
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.only(
@@ -151,7 +151,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                             getMapVal();
                           },
                           child: Text(
-                            'Signature Latte',
+                            'Latte',
                             style: TextStyle(
                                 color: isLatteActive? Colors.white: Colors.black87,
                                 fontSize: 24,
@@ -198,7 +198,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                     Padding(
                         padding: const EdgeInsets.all(30),
                         child: Container(
-                          width: 300,
+                          width: 220,
                           height: 40,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
@@ -215,9 +215,8 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                           ),
                         )
                     ),
-                    const Padding(padding: EdgeInsets.only(right: 80)),
                     Padding(
-                      padding: const EdgeInsets.all(30),
+                      padding: const EdgeInsets.only(top: 30),
                       child: Row(
                         children: [
                           Visibility(
@@ -303,34 +302,37 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
 
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: GridView.builder(
-                        shrinkWrap: true,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-                        itemCount: gridMap.length,
-                        itemBuilder: (_, index){
-                          return GestureDetector(
-                            child: _item(
-                                imgPath: gridMap[index]["imgPath"],
-                                title: gridMap[index]["title"]
-                            ),
-                            onTap: (){
-                              Navigator.of(context).push(HeroDialogRoute(
-                                builder: (context){
-                                  return Cart(
-                                      title: gridMap[index]["title"],
-                                      type: defaultMenu
-                                  );
-                                },
-                              )).then((_) => setState(() {
-                                if(globals.orderList.isNotEmpty){
-                                  computeTotal();
-                                }
-                              }));
-                            },
-                          );
-                        },
-                      ),
+                    padding: const EdgeInsets.all(30),
+                    child: Scrollbar(
+                      child: GridView.builder(
+                          shrinkWrap: true,
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                          itemCount: gridMap.length,
+                          itemBuilder: (_, index){
+                            return GestureDetector(
+                              child: _item(
+                                  imgPath: gridMap[index]["imgPath"],
+                                  title: gridMap[index]["title"]
+                              ),
+                              onTap: (){
+                                Navigator.of(context).push(HeroDialogRoute(
+                                  builder: (context){
+                                    return Cart(
+                                        title: gridMap[index]["title"],
+                                        type: defaultMenu
+                                    );
+                                  },
+                                )).then((_) => setState(() {
+                                  if(globals.orderList.isNotEmpty && count != globals.orderList.length){
+                                    computeTotal();
+                                    count = globals.orderList.length;
+                                  }
+                                }));
+                              },
+                            );
+                          },
+                        ),
+                    ),
                     ),
                 ),
               ],
@@ -394,11 +396,11 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
   Widget build(BuildContext context) {
 
     return Padding(
-      padding: const EdgeInsets.only(top: 50, left: 20, right: 20),
+      padding: const EdgeInsets.only(top: 50, left: 10, right: 10),
       child: Column(
         children: [
           Container(
-              width: 470,
+              width: 350,
               height: 50,
               decoration: BoxDecoration(
                   color: const Color(0xf0967259),
@@ -417,7 +419,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
           ),
           const Padding(padding: EdgeInsets.only(top:20)),
           Container(
-              width: 470,
+              width: 350,
               height: 60,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -441,23 +443,23 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
               )
           ),
          Container(
-                width: 470,
-                height: 450,
+                width: 350,
+                height: 280,
                 color: Colors.white,
                 padding: const EdgeInsets.only(top: 10, right: 20),
                 child: Scrollbar(
                   child: SingleChildScrollView(
                     child: DataTable(
-                      dataRowMaxHeight: 85,
-                      columnSpacing: 45,
+                      dataRowMaxHeight: 80,
+                      columnSpacing: 20,
                       dataRowMinHeight: 50,
-                      horizontalMargin: 15,
+                      horizontalMargin: 5,
                       columns: const [
                         DataColumn(label: Center(
                           child: Text(
                               'Item',
                               style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold
                               )
                           ),
@@ -467,7 +469,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
                           child: Text(
                               'Size',
                               style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold
                               )
                           ),
@@ -477,7 +479,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
                           child: Text(
                               'Qty',
                               style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold
                               )
                           ),
@@ -487,7 +489,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
                           child: Text(
                               'Price',
                               style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold
                               )
                           ),
@@ -503,16 +505,23 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
                         DataRow(
                             cells: [
                               DataCell(Text(e["name"],
-                              style: const TextStyle(fontSize: 16),)),
-                              DataCell(Text(e["size"],
-                                style: const TextStyle(fontSize: 16),)),
-                              DataCell(Text(e["qty"].toString(),
-                                style: const TextStyle(fontSize: 16),)),
-                              DataCell(Text(e["price"].toString(),
-                                style: const TextStyle(fontSize: 16),)),
+                                style: const TextStyle(fontSize: 16),),
+                              ),
+                              DataCell(Center(
+                                child: Text(e["size"],
+                                  style: const TextStyle(fontSize: 16),),
+                              )),
+                              DataCell(Center(
+                                child: Text(e["qty"].toString(),
+                                  style: const TextStyle(fontSize: 16),),
+                              )),
+                              DataCell(Center(
+                                child: Text(e["price"].toString(),
+                                  style: const TextStyle(fontSize: 16),),
+                              )),
                               DataCell(
                                   IconButton(
-                                      onPressed: () { 
+                                      onPressed: () {
                                         setState(() {
                                           globals.total -= e["price"];
                                           widget.orders.remove(e);
@@ -575,7 +584,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
               ],
             ),
             child: TextButton(
-              onPressed: isListEmpty() ? null : () {
+              onPressed: widget.orders.isEmpty ? null : () {
                 globals.customerName = _controllerName.text;
                   Navigator.push(context, HeroDialogRoute(
                       builder: (context){
@@ -591,10 +600,11 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
                   );
               },
               child: const Text(
-                "COMPLETE ORDER",
+                "Complete Order",
                 style: TextStyle(
                     color: Colors.white,
-                    fontWeight: FontWeight.bold
+                    fontWeight: FontWeight.bold,
+                  fontSize: 16
                 ),
               ),
             ),
@@ -602,11 +612,5 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
         ],
       ),
     );
-  }
-  bool isListEmpty(){
-    if(widget.orders.isEmpty){
-      return true;
-    }
-    return false;
   }
 }

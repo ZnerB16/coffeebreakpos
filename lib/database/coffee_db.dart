@@ -4,6 +4,7 @@ import 'package:coffee_break_pos/database/classes/iced_coffee.dart';
 import 'package:coffee_break_pos/database/classes/latte.dart';
 import 'package:sqflite/sqflite.dart';
 import 'classes/order.dart';
+import 'classes/order_items.dart';
 import 'database_service.dart';
 
 class CoffeeDB{
@@ -80,8 +81,9 @@ class CoffeeDB{
       "order_id" INTEGER NOT NULL,
       "product_name" TEXT NOT NULL,
       "size" TEXT,
+      "qty" INTEGER NOT NULL,
       "price" REAL NOT NULL,
-      FOREIGN KEY("order_id") REFERENCES orders("order_id")
+      FOREIGN KEY("order_id") REFERENCES $ordersTable("order_id")
       );
       '''
     );
@@ -108,9 +110,15 @@ class CoffeeDB{
     );
     await database.execute(
         '''
-      INSERT INTO $icedTable(name, size, price) VALUES("Caramel Macchiato",
+      INSERT INTO $icedTable(name, size, price) VALUES(
+      "Caramel Macchiato",
       "16oz",
       49.0
+      ),
+      (
+      "Caramel Macchiato",
+      "12oz",
+      39.0
       ),
       ("Coffee Caramel",
       "16oz", 
@@ -168,16 +176,16 @@ class CoffeeDB{
       ("Black Americano",
       49.0
       ),
-      ("Caramel Macchiato",
+      ("Caramel Macchiato (Hot)",
       59.0
       ),
-      ("French Vanilla",
+      ("French Vanilla (Hot)",
       59.0
       ),
-      ("Hazelnut",
+      ("Hazelnut (Hot)",
       59.0
       ),
-      ("Salted Caramel",
+      ("Salted Caramel (Hot)",
       59.0
       );
       '''
@@ -385,13 +393,120 @@ class CoffeeDB{
     );
     return tableInfo.map((info) => Order.fromSQfliteDatabase(info)).toList();
   }
-  Future<void> insertOrderItem(int orderID, String name, String size, double price) async{
+  Future<void> insertOrderItem(int orderID, String name, String size, int qty, double price) async{
     final database = await DatabaseService().database;
     await database.rawInsert(
         """
-      INSERT INTO $orderItemsTable(order_id, product_name, size, price)
-      VALUES(?, ?, ?, ?)
-      """, [orderID, name, size, price,]
+      INSERT INTO $orderItemsTable(order_id, product_name, size, qty, price)
+      VALUES(?, ?, ?, ?, ?)
+      """, [orderID, name, size, qty, price]
     );
+  }
+  Future<List<Order>> getOrdersByDate(String date) async {
+    final database = await DatabaseService().database;
+    final tableInfo = await database.rawQuery(
+      """
+      SELECT * FROM $ordersTable
+      WHERE date = ?
+      ORDER BY time DESC
+      """, [date]
+    );
+    return tableInfo.map((info) => Order.fromSQfliteDatabase(info)).toList();
+  }
+  Future<List<OrderItems>> getOrdersItemsByID(int orderID) async {
+    final database = await DatabaseService().database;
+    final tableInfo = await database.rawQuery(
+      """
+      SELECT * FROM $orderItemsTable
+      WHERE order_id = ?
+      """, [orderID]
+    );
+    return tableInfo.map((info) => OrderItems.fromSQfliteDatabase(info)).toList();
+  }
+  Future<int?> countCups() async {
+    final database = await DatabaseService().database;
+    final countCups = await database.rawQuery(
+      """
+      SELECT SUM(qty)
+      FROM $orderItemsTable
+      WHERE product_name IN
+      (SELECT name FROM $icedTable)
+      OR product_name IN
+      (SELECT name FROM $hotTable)
+      OR product_name IN
+      (SELECT name FROM $latteTable)
+      """
+    );
+    int? result = Sqflite.firstIntValue(countCups);
+    return result;
+  }
+  Future<int?> countCroffles() async {
+    final database = await DatabaseService().database;
+    final countCups = await database.rawQuery(
+        """
+      SELECT SUM(qty)
+      FROM $orderItemsTable
+      WHERE product_name IN
+      (SELECT name FROM $crofflesTable)
+      """
+    );
+    int? result = Sqflite.firstIntValue(countCups);
+    return result;
+  }
+  Future<List<OrderItems>> getIcedCoffeeCups() async {
+    final database = await DatabaseService().database;
+    final countIced = await database.rawQuery(
+      """
+      SELECT DISTINCT product_name, SUM(qty) AS qty
+      FROM $orderItemsTable
+      WHERE product_name IN
+      (SELECT name FROM $icedTable)
+      GROUP BY product_name
+      ORDER BY qty DESC
+      """
+    );
+    return countIced.map((info) => OrderItems.fromSQfliteDatabase(info)).toList();
+  }
+  Future<List<OrderItems>> getHotCoffeeCups() async {
+    final database = await DatabaseService().database;
+    final countIced = await database.rawQuery(
+        """
+      SELECT DISTINCT product_name, SUM(qty) AS qty
+      FROM $orderItemsTable
+      WHERE product_name IN
+      (SELECT name FROM $hotTable)
+      GROUP BY product_name
+      ORDER BY qty DESC
+      """
+    );
+    return countIced.map((info) => OrderItems.fromSQfliteDatabase(info)).toList();
+  }
+  Future<List<OrderItems>> getLatteCups() async {
+    final database = await DatabaseService().database;
+    final countIced = await database.rawQuery(
+        """
+      SELECT DISTINCT product_name, SUM(qty) AS qty
+      FROM $orderItemsTable
+      WHERE product_name IN
+      (SELECT name FROM $latteTable)
+      GROUP BY product_name
+      ORDER BY qty DESC
+      """
+    );
+    return countIced.map((info) => OrderItems.fromSQfliteDatabase(info)).toList();
+  }
+  Future<List<OrderItems>> getCrofflesSales() async {
+    final database = await DatabaseService().database;
+    final countIced = await database.rawQuery(
+        """
+      SELECT DISTINCT product_name, SUM(qty) AS qty
+      FROM $orderItemsTable
+      WHERE product_name IN
+      (SELECT name FROM $crofflesTable)
+      GROUP BY product_name
+      ORDER BY qty DESC
+      """
+    );
+    return countIced.map((info) => OrderItems.fromSQfliteDatabase(info)).toList();
   }
 }

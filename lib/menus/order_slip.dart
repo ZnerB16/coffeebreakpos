@@ -91,6 +91,7 @@ class _OrderPaymentState extends State<OrderPaymentScreen>{
                                         orderID,
                                         globals.orderList[i]["name"],
                                         globals.orderList[i]["size"],
+                                        globals.orderList[i]["qty"],
                                         globals.orderList[i]["price"]
                                     );
                                   }

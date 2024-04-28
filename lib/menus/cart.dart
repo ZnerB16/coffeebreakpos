@@ -114,7 +114,7 @@ class CartState extends State<Cart>{
                             ),
                             Padding(padding: EdgeInsets.only(right: widget.title != "Espresso Latte" && widget.title != "Coffee Caramel" ? 15 : 0)),
                             Visibility(
-                              visible: widget.type != "croffles",
+                              visible: widget.type != "croffles" && widget.title != "Matcha Latte",
                                 child: customRadioButton(widget.type != "latte" ? size2 : "22oz", widget.title != "Espresso Latte" && widget.title != "Coffee Caramel" ? 2 : 1)
                             )
                           ],
@@ -140,10 +140,17 @@ class CartState extends State<Cart>{
                           child: TextButton(
                             onPressed: () async {
                               await getProductDetails(widget.title, widget.title != "Espresso Latte" && widget.title != "Coffee Caramel" ? currSize : "16oz");
+                              String size = "";
                               setState(() {
+                                if(widget.type == "croffles"){
+                                  size = "";
+                                }
+                                else{
+                                  size = widget.title != "Espresso Latte" && widget.title != "Coffee Caramel" ? currSize : "16oz";
+                                }
                                 globals.orderList.add({
                                   "name": widget.title,
-                                  "size": currSize ,
+                                  "size": size,
                                   "qty": qty,
                                   "price": price,
                                 });
@@ -173,6 +180,7 @@ class CartState extends State<Cart>{
     );
   }
   Widget customRadioButton(String text, int index) {
+
     return OutlinedButton(
       onPressed: () {
         setState(() {

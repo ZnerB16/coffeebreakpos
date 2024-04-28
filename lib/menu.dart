@@ -36,12 +36,12 @@ class _MenuState extends State<Menu>{
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-    return const Scaffold(
+    return Scaffold(
       body: Row(
         children: [
           // Sidebar container
-          Sidebar(),
-          CoffeeMenu(),
+          Sidebar(currentScreen: "Home",),
+          const CoffeeMenu(),
         ],
 
       )
