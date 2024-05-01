@@ -78,7 +78,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
         for(int i = 0; i < icedList.length; i++){
           gridMap.add(
               {
-                "imgPath": "assets/images/coffee-cup.png",
+                "imgPath": icedList[i].imagePath,
                 "title": icedList[i].name
               }
           );
@@ -579,7 +579,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 2,
                   blurRadius: 2,
-                  offset: Offset(0, 5), // changes position of shadow
+                  offset: const Offset(0, 5), // changes position of shadow
                 ),
               ],
             ),

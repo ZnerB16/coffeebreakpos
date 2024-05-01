@@ -25,6 +25,7 @@ class CoffeeDB{
       "size" TEXT NOT NULL,
       "price" REAL NOT NULL,
       "status" BOOL DEFAULT 1 NOT NULL,
+      "asset_path" TEXT,
       PRIMARY KEY("iced_id" AUTOINCREMENT)
       );
       '''
@@ -36,6 +37,7 @@ class CoffeeDB{
       "name" TEXT NOT NULL,
       "price" REAL NOT NULL,
       "status" BOOL DEFAULT 1 NOT NULL,
+      "asset_path" TEXT,
       PRIMARY KEY("hot_id" AUTOINCREMENT)
       );
       '''
@@ -48,6 +50,7 @@ class CoffeeDB{
       "size" TEXT NOT NULL,
       "price" REAL NOT NULL,
       "status" BOOL DEFAULT 1 NOT NULL,
+      "asset_path" TEXT,
       PRIMARY KEY("latte_id" AUTOINCREMENT)
       );
       '''
@@ -59,6 +62,7 @@ class CoffeeDB{
       "name" TEXT NOT NULL,
       "price" REAL NOT NULL,
       "status" BOOL DEFAULT 1 NOT NULL,
+      "asset_path" TEXT,
       PRIMARY KEY("croffle_id" AUTOINCREMENT)
       );
       '''
@@ -110,63 +114,77 @@ class CoffeeDB{
     );
     await database.execute(
         '''
-      INSERT INTO $icedTable(name, size, price) VALUES(
+      INSERT INTO $icedTable(name, size, price, asset_path) VALUES(
       "Caramel Macchiato",
       "16oz",
-      49.0
+      49.0,
+      "assets/images/iced/CC.png"
       ),
       (
       "Caramel Macchiato",
       "12oz",
-      39.0
+      39.0,
+      "assets/images/iced/CC.png"
       ),
       ("Coffee Caramel",
       "16oz", 
-      49.0
+      49.0,
+      "assets/images/iced/CC.png"
       ),
       ("Dark Mocha",
       "12oz",
-      39.0
+      39.0,
+      "assets/images/iced/DM.png"
       ),
       ("Dark Mocha",
       "16oz",
-      49.0
+      49.0,
+      "assets/images/iced/DM.png"
       ),
       ("Espresso Latte",
       "16oz",
-      49.0
+      49.0,
+      "assets/images/iced/EL.png"
       ),
       ("French Vanilla",
       "12oz",
-      39.0
+      39.0,
+      "assets/images/iced/FV.png"
       ),
       ("French Vanilla",
       "16oz",
-      49.0
+      49.0,
+      "assets/images/iced/French Vanill.png"
       ),
       ("Hazelnut",
       "12oz",
-      39.0
+      39.0,
+      "assets/images/coffee-cup.png"
       ),
       ("Hazelnut",
       "16oz",
-      49.0
+      49.0,
+      "assets/images/coffee-cup.png"
       ),
       ("Salted Caramel",
       "12oz",
-      39.0
+      39.0,
+      "assets/images/iced/SC.png"
       ),
       ("Salted Caramel",
       "16oz",
-      49.0
+      49.0,
+      "assets/images/iced/SC.png"
       ),
       ("Spanish Latte",
       "12oz",
-      39.0
+      39.0,
+      "assets/images/iced/SL.png"
       ),
       ("Spanish Latte",
       "16oz",
-      49.0
+      49.0,
+      "assets/images/iced/SL.png"
       );
       '''
     );
@@ -296,7 +314,7 @@ class CoffeeDB{
     final database = await DatabaseService().database;
     final tableInfo = await database.rawQuery(
       '''
-      SELECT DISTINCT name, status FROM $icedTable
+      SELECT DISTINCT name, status, asset_path FROM $icedTable
       ORDER BY name ASC
       '''
     );

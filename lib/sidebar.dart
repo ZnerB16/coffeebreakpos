@@ -1,5 +1,7 @@
+import 'package:coffee_break_pos/hero_dialog_route.dart';
 import 'package:coffee_break_pos/menu.dart';
 import 'package:coffee_break_pos/orders_today.dart';
+import 'package:coffee_break_pos/password_hero.dart';
 import 'package:flutter/material.dart';
 
 class Sidebar extends StatefulWidget{
@@ -105,6 +107,14 @@ class _SidebarState extends State<Sidebar>{
                       child: IconButton(
                         onPressed: (){
                           checkCurrentScreen();
+                          Navigator.push(
+                              context,
+                              HeroDialogRoute(
+                              builder: (context){
+                                return const PasswordHeroScreen();
+                              }
+                              )
+                          );
                         },
                         icon: Image.asset(
                           'assets/images/back-in-time.png',
