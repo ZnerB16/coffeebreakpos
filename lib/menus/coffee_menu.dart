@@ -58,7 +58,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
         for(int i = 0; i < latteList.length; i++){
           gridMap.add(
               {
-                "imgPath": "assets/images/coffee-cup.png",
+                "imgPath": latteList[i].imagePath,
                 "title": latteList[i].name
               }
           );
@@ -68,7 +68,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
         for(int i = 0; i < croffleList.length; i++){
           gridMap.add(
               {
-                "imgPath": "assets/images/coffee-cup.png",
+                "imgPath": "assets/images/waffle.png",
                 "title": croffleList[i].name
               }
           );
@@ -118,6 +118,8 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                             isCoffeeActive = true;
                             isLatteActive = false;
                             isCrofflesActive = false;
+                            isHotActive = false;
+                            isIcedActive = true;
                             gridMap = [];
                             getMapVal();
                           },
@@ -319,7 +321,8 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                                   builder: (context){
                                     return Cart(
                                         title: gridMap[index]["title"],
-                                        type: defaultMenu
+                                        type: defaultMenu,
+                                        assetPath: gridMap[index]["imgPath"],
                                     );
                                   },
                                 )).then((_) => setState(() {

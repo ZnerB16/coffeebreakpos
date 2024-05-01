@@ -1,7 +1,8 @@
+import 'package:coffee_break_pos/breakdown/main_breakdown.dart';
 import 'package:coffee_break_pos/hero_dialog_route.dart';
 import 'package:coffee_break_pos/menu.dart';
-import 'package:coffee_break_pos/orders_today.dart';
-import 'package:coffee_break_pos/password_hero.dart';
+import 'package:coffee_break_pos/order_list/orders_today.dart';
+import 'package:coffee_break_pos/employee/password_hero.dart';
 import 'package:flutter/material.dart';
 
 class Sidebar extends StatefulWidget{
@@ -55,13 +56,14 @@ class _SidebarState extends State<Sidebar>{
                         onPressed: (){
                           checkCurrentScreen();
 
-                          Navigator.push(context,
-                              MaterialPageRoute(
-                                  builder: (context){
-                                    return const Menu();
-                                  })
-                          );
-
+                          if (widget.currentScreen != "Home") {
+                            Navigator.push(context,
+                                MaterialPageRoute(
+                                    builder: (context){
+                                      return const Menu();
+                                    })
+                            );
+                          }
                         },
                         icon: Image.asset(
                           'assets/images/home.png',
@@ -81,13 +83,15 @@ class _SidebarState extends State<Sidebar>{
                       child: IconButton(
                         onPressed: (){
                           checkCurrentScreen();
-                          Navigator.push(context,
-                              MaterialPageRoute(
-                                  builder: (context){
-                                    return const OrdersTodayScreen();
-                                  }
-                              )
-                          );
+                          if (widget.currentScreen != "OL") {
+                            Navigator.push(context,
+                                MaterialPageRoute(
+                                    builder: (context){
+                                      return const OrdersTodayScreen();
+                                    }
+                                )
+                            );
+                          }
                         },
                         icon: Image.asset(
                           'assets/images/to-do-list.png',
@@ -107,14 +111,16 @@ class _SidebarState extends State<Sidebar>{
                       child: IconButton(
                         onPressed: (){
                           checkCurrentScreen();
-                          Navigator.push(
-                              context,
-                              HeroDialogRoute(
-                              builder: (context){
-                                return const PasswordHeroScreen();
-                              }
-                              )
-                          );
+                          if (widget.currentScreen != "TM") {
+                            Navigator.push(
+                                context,
+                                HeroDialogRoute(
+                                builder: (context){
+                                  return PasswordHeroScreen();
+                                }
+                                )
+                            );
+                          }
                         },
                         icon: Image.asset(
                           'assets/images/back-in-time.png',
@@ -134,6 +140,16 @@ class _SidebarState extends State<Sidebar>{
                       child: IconButton(
                         onPressed: (){
                           checkCurrentScreen();
+                          if (widget.currentScreen != "BD") {
+                            Navigator.push(
+                                context,
+                                HeroDialogRoute(
+                                    builder: (context){
+                                      return BreakdownScreen();
+                                    }
+                                )
+                            );
+                          }
                         },
                         icon: Image.asset(
                           'assets/images/data-analysis.png',

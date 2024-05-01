@@ -1,5 +1,6 @@
 import 'package:coffee_break_pos/database/classes/order.dart';
 import 'package:coffee_break_pos/database/coffee_db.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -17,6 +18,11 @@ class OrderPaymentScreen extends StatefulWidget{
 class _OrderPaymentState extends State<OrderPaymentScreen>{
   int value = 1;
   String mode = "Cash";
+  int value2 = 1;
+  String mode2 = "No";
+  double df = 0.0;
+  var _controllerDF = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -35,7 +41,7 @@ class _OrderPaymentState extends State<OrderPaymentScreen>{
               ),
               child: SizedBox(
                 width: 500,
-                height: 250,
+                height: 400,
                 child: Row(
                   children: [
                     Expanded(
@@ -44,11 +50,28 @@ class _OrderPaymentState extends State<OrderPaymentScreen>{
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              "Total: ${globals.total}",
+                              "Order Total: ${globals.total}",
                               style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold
                               ),
+                            ),
+                            const Padding(padding: EdgeInsets.only(top: 20)),
+                            const Text(
+                                "Online Order?",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                customRadioButton2("No", 1),
+                                const Padding(padding: EdgeInsets.symmetric(horizontal: 5)),
+                                customRadioButton2("Yes", 2)
+                              ],
                             ),
                             const Padding(padding: EdgeInsets.only(top: 20)),
                             Row(
@@ -60,7 +83,48 @@ class _OrderPaymentState extends State<OrderPaymentScreen>{
                                 customRadioButton("GCash", 2)
                               ],
                             ),
-                            const Padding(padding: EdgeInsets.only(top: 30)),
+                            const Padding(padding: EdgeInsets.only(top: 20)),
+                            Visibility(
+                              visible: mode == "GCash" && mode2 == "Yes",
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                      "DF: ",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 80,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(),
+                                        color: const Color(0xf0EBEBEB)
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 15),
+                                      child: TextField(
+                                        autocorrect: false,
+                                        controller: _controllerDF,
+                                        decoration: const InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: 'DF',
+                                          hintStyle: TextStyle(fontSize: 16),
+                                        ),
+                                        keyboardType: TextInputType.number,
+                                        style: const TextStyle(
+                                            fontSize: 16
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Padding(padding: EdgeInsets.only(top: 20)),
                             Container(
                               width: 100,
                               height: 40,
@@ -83,7 +147,7 @@ class _OrderPaymentState extends State<OrderPaymentScreen>{
                                   String formattedDate = DateFormat('MM/dd/yyyy').format(now);
                                   String formattedTime = DateFormat.jm().format(now);
                                   var coffeeDB = CoffeeDB();
-                                  await coffeeDB.insertOrder(globals.customerName, formattedDate, formattedTime, globals.total, mode);
+                                  await coffeeDB.insertOrder(globals.customerName, formattedDate, formattedTime, globals.total, mode, mode2, df);
                                   List<Order> order = await coffeeDB.getLatestOrderID();
                                   int orderID = order[0].orderID;
                                   for(int i = 0; i < globals.orderList.length; i++){
@@ -133,11 +197,35 @@ class _OrderPaymentState extends State<OrderPaymentScreen>{
         });
       },
       style: OutlinedButton.styleFrom(
-          fixedSize: Size(150, 50),
+          fixedSize: const Size(150, 50),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
           backgroundColor: value == index ? const Color(0xf0ece0d1) : Colors.white
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(
+            color: Colors.black87,
+            fontWeight: FontWeight.bold
+        ),
+      ),
+    );
+  }
+  Widget customRadioButton2(String text, int index) {
+    return OutlinedButton(
+      onPressed: () {
+        setState(() {
+          value2 = index;
+          mode2 = text;
+        });
+      },
+      style: OutlinedButton.styleFrom(
+          fixedSize: const Size(75, 40),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          backgroundColor: value2 == index ? const Color(0xf0ece0d1) : Colors.white
       ),
       child: Text(
         text,

@@ -63,6 +63,8 @@ flutter:
 
   assets:
      - assets/images/
+     - assets/images/iced/
+     - assets/images/latte/
   fonts:
     - family: Inter
       fonts:

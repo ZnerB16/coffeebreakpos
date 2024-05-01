@@ -12,11 +12,13 @@ import 'globals.dart' as globals;
 class Cart extends StatefulWidget{
   final String title;
   final String type;
+  final String assetPath;
 
   const Cart ({
     super.key,
     required this.title,
-    required this.type
+    required this.type,
+    required this.assetPath
   });
 
   @override
@@ -35,12 +37,6 @@ class CartState extends State<Cart>{
   void initState(){
     super.initState();
     currSize = widget.type == "latte" ? "16oz" : "12oz";
-  }
-
-  void checkType(){
-    if(widget.type == "latte"){
-
-    }
   }
 
   @override
@@ -95,7 +91,7 @@ class CartState extends State<Cart>{
                           ),
                         ),
                         const Padding(padding: EdgeInsets.only(top: 30)),
-                        Image.asset('assets/images/coffee-cup.png'),
+                        Image.asset(widget.assetPath),
                         const Padding(padding: EdgeInsets.only(top: 10)),
                         Text(
                           widget.title,
@@ -114,7 +110,7 @@ class CartState extends State<Cart>{
                             ),
                             Padding(padding: EdgeInsets.only(right: widget.title != "Espresso Latte" && widget.title != "Coffee Caramel" ? 15 : 0)),
                             Visibility(
-                              visible: widget.type != "croffles" && widget.title != "Matcha Latte",
+                              visible: widget.type != "croffles" && widget.title != "Matcha Latte" && widget.type != "hot",
                                 child: customRadioButton(widget.type != "latte" ? size2 : "22oz", widget.title != "Espresso Latte" && widget.title != "Coffee Caramel" ? 2 : 1)
                             )
                           ],
