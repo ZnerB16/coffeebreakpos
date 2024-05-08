@@ -571,45 +571,81 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
             ],
           ),
           const Padding(padding: EdgeInsets.only(top: 10)),
-          Container(
-            width: 160,
-            height: 40,
-            decoration: BoxDecoration(
-              color: const Color(0xf0967259),
-              borderRadius: BorderRadius.circular(15),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 2,
-                  blurRadius: 2,
-                  offset: const Offset(0, 5), // changes position of shadow
+          SizedBox(
+            width: 300,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: 100,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: const Color(0xf0967259),
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 2,
+                        offset: const Offset(0, 5), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: TextButton(
+                    onPressed: (){
+                    },
+                    child: const Text(
+                      "Add Shot",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 160,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: const Color(0xf0967259),
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 2,
+                        offset: const Offset(0, 5), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: TextButton(
+                    onPressed: widget.orders.isEmpty ? null : () {
+                      globals.customerName = _controllerName.text;
+                        Navigator.push(context, HeroDialogRoute(
+                            builder: (context){
+                              return const OrderPaymentScreen();
+                            })
+                        ).then((value) => setState(() {
+                          if(!value){
+                            globals.orderList = [];
+                            widget.orders = [];
+                            _controllerName.text = "";
+                          }
+                        })
+                        );
+                    },
+                    child: const Text(
+                      "Complete Order",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        fontSize: 16
+                      ),
+                    ),
+                  ),
                 ),
               ],
-            ),
-            child: TextButton(
-              onPressed: widget.orders.isEmpty ? null : () {
-                globals.customerName = _controllerName.text;
-                  Navigator.push(context, HeroDialogRoute(
-                      builder: (context){
-                        return const OrderPaymentScreen();
-                      })
-                  ).then((value) => setState(() {
-                    if(!value){
-                      globals.orderList = [];
-                      widget.orders = [];
-                      _controllerName.text = "";
-                    }
-                  })
-                  );
-              },
-              child: const Text(
-                "Complete Order",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  fontSize: 16
-                ),
-              ),
             ),
           )
         ],

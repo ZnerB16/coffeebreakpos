@@ -22,7 +22,7 @@ class CoffeeDB {
 
   Future<void> createTable(Database database) async {
     await database.execute(
-        ''' CREATE TABLE IF NOT EXISTS $espressoTable(
+      ''' CREATE TABLE IF NOT EXISTS $espressoTable(
       "espresso_id" INTEGER NOT NULL,
       "name" TEXT DEFAULT "Espresso" NOT NULL,
       "size" TEXT NOT NULL,
@@ -127,6 +127,12 @@ class CoffeeDB {
       "date" TEXT NOT NULL,
       FOREIGN KEY("employee_id") REFERENCES employee("employee_id")
       );
+      '''
+    );
+    await database.execute(
+      '''
+      INSERT INTO $espressoTable(size, price)
+      VALUES("30ml", 10.0)
       '''
     );
     await database.execute(
@@ -673,5 +679,29 @@ class CoffeeDB {
       WHERE employee_id = ? AND date = ?
       """, [timeOut, employeeID, date]
     );
+  }
+  Future<List<Order>> getSalesDay() async{
+    final database = await DatabaseService().database;
+    final result = await database.rawQuery(
+      """
+      SELECT date, SUM(total_price) AS total_price
+      FROM $ordersTable
+      GROUP BY date
+      ORDER BY date DESC
+      LIMIT 10
+      """
+    );
+    return result.map((info) => Order.fromSQfliteDatabase(info)).toList();
+  }
+  Future<List<DTR>> getDTR() async {
+    final database = await DatabaseService().database;
+    final result = await database.rawQuery(
+      """
+      SELECT * 
+      FROM $dtrTable
+      GROUP BY employee_id
+      """
+    );
+    return result.map((info) => DTR.fromSQfliteDatabase(info)).toList();
   }
 }
