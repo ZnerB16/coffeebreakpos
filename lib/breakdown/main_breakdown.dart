@@ -123,8 +123,8 @@ class _BreakdownState extends State<BreakdownScreen>{
                 ),
                 const Padding(padding: EdgeInsets.only(top: 20)),
                 Expanded(
-                  child: Visibility(
-                      visible: isSalesActive,
+                  child: Offstage(
+                      offstage: !isSalesActive,
                       child: const SalesBreakdownScreen()
                   ),
                 )

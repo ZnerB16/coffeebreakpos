@@ -145,7 +145,7 @@ class _SidebarState extends State<Sidebar>{
                                 context,
                                 HeroDialogRoute(
                                     builder: (context){
-                                      return BreakdownScreen();
+                                      return PasswordHeroScreen();
                                     }
                                 )
                             );

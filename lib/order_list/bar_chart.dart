@@ -49,7 +49,7 @@ class _BarChartState extends State<BarChartWidget>{
 
         for(int i = 0; i < salesList.length; i++){
           titles.add(
-            getInitials(salesList[i].productName)
+            getInitials(salesList[i].productName, widget.type)
           );
           barGroups.add(
               BarChartGroupData(
@@ -67,8 +67,8 @@ class _BarChartState extends State<BarChartWidget>{
       }
     });
   }
-  String getInitials(String name) => name.isNotEmpty
-      ? name.trim().split(RegExp(' +')).map((s) => s[0]).take(5).join()
+  String getInitials(String name, String type) => name.isNotEmpty
+      ? name.trim().split(RegExp(' +')).map((s) => type != "latte" ? s[0] : s[0] + s[1]).take(type == "hot" ? 2 : 5).join()
       : '';
 
   @override
@@ -118,47 +118,48 @@ class _BarChartState extends State<BarChartWidget>{
     const style = TextStyle(
       color: Color(0xf0967259),
       fontWeight: FontWeight.bold,
-      fontSize: 12,
+      fontSize: 10,
     );
     String text;
-    switch (value.toInt()) {
-      case 0:
-        text = titles[0];
-        break;
-      case 1:
-        text = titles[1];
-        break;
-      case 2:
-        text = titles[2];
-        break;
-      case 3:
-        text = titles[3];
-        break;
-      case 4:
-        text = titles[4];
-        break;
-      case 5:
-        text = titles[5];
-        break;
-      case 6:
-        text = titles[6];
-        break;
-      case 7:
-        text = titles[7];
-        break;
-      case 8:
-        text = titles[8];
-        break;
-      case 9:
-        text = titles[9];
-        break;
-      case 10:
-        text = titles[10];
-        break;
-      default:
-        text = '';
-        break;
-    }
+    text = titles[value.toInt()];
+    // switch (value.toInt()) {
+    //   case 0:
+    //     text = titles[0];
+    //     break;
+    //   case 1:
+    //     text = titles[1];
+    //     break;
+    //   case 2:
+    //     text = titles[2];
+    //     break;
+    //   case 3:
+    //     text = titles[3];
+    //     break;
+    //   case 4:
+    //     text = titles[4];
+    //     break;
+    //   case 5:
+    //     text = titles[5];
+    //     break;
+    //   case 6:
+    //     text = titles[6];
+    //     break;
+    //   case 7:
+    //     text = titles[7];
+    //     break;
+    //   case 8:
+    //     text = titles[8];
+    //     break;
+    //   case 9:
+    //     text = titles[9];
+    //     break;
+    //   case 10:
+    //     text = titles[10];
+    //     break;
+    //   default:
+    //     text = '';
+    //     break;
+    // }
     return SideTitleWidget(
       axisSide: meta.axisSide,
       space: 4,

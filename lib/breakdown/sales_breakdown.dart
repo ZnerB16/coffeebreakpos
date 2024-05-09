@@ -1,4 +1,6 @@
+import 'package:coffee_break_pos/breakdown/orders_bydate.dart';
 import 'package:coffee_break_pos/database/coffee_db.dart';
+import 'package:coffee_break_pos/order_list/orders_today.dart';
 import 'package:flutter/material.dart';
 
 import '../database/classes/order.dart';
@@ -46,121 +48,121 @@ class _SalesBreakdownState extends State<SalesBreakdownScreen>{
   Widget build(BuildContext context){
     return Column(
       children: [
-              SizedBox(
-                width: 600,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      width: 80,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: isDayActive ? const Color(0xf0634832): const Color(0xf0ECE7DF),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            spreadRadius: 5,
-                            blurRadius: 5,
-                            offset: const Offset(0, 4),
-                          )
-                        ],
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            defaultMenu = "day";
-                            isDayActive = true;
-                            isWeekActive = false;
-                            isMonthActive = false;
-
-                          });
-                        },
-                        child: Text(
-                          'Day',
-                          style: TextStyle(
-                              color: isDayActive? Colors.white: Colors.black87,
-                              fontSize: 18
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 80,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: isWeekActive ? const Color(0xf0634832): const Color(0xf0ECE7DF),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            spreadRadius: 5,
-                            blurRadius: 5,
-                            offset: const Offset(0, 4),
-                          )
-                        ],
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            defaultMenu = "week";
-                            isDayActive = false;
-                            isWeekActive = true;
-                            isMonthActive = false;
-
-                          });
-                        },
-                        child: Text(
-                          'Week',
-                          style: TextStyle(
-                              color: isWeekActive? Colors.white: Colors.black87,
-                              fontSize: 18
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 80,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: isMonthActive ? const Color(0xf0634832): const Color(0xf0ECE7DF),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            spreadRadius: 5,
-                            blurRadius: 5,
-                            offset: const Offset(0, 4),
-                          )
-                        ],
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            defaultMenu = "month";
-                            isDayActive = false;
-                            isWeekActive = false;
-                            isMonthActive = true;
-
-                          });
-                        },
-                        child: Text(
-                          'Month',
-                          style: TextStyle(
-                              color: isMonthActive? Colors.white: Colors.black87,
-                              fontSize: 18
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const Padding(padding: EdgeInsets.only(top: 20)),
-              Padding(
+              // SizedBox(
+              //   width: 600,
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //     children: [
+              //       Container(
+              //         width: 80,
+              //         height: 40,
+              //         decoration: BoxDecoration(
+              //           borderRadius: BorderRadius.circular(30),
+              //           color: isDayActive ? const Color(0xf0634832): const Color(0xf0ECE7DF),
+              //           boxShadow: [
+              //             BoxShadow(
+              //               color: Colors.black.withOpacity(0.2),
+              //               spreadRadius: 5,
+              //               blurRadius: 5,
+              //               offset: const Offset(0, 4),
+              //             )
+              //           ],
+              //         ),
+              //         child: TextButton(
+              //           onPressed: () {
+              //             setState(() {
+              //               defaultMenu = "day";
+              //               isDayActive = true;
+              //               isWeekActive = false;
+              //               isMonthActive = false;
+              //
+              //             });
+              //           },
+              //           child: Text(
+              //             'Day',
+              //             style: TextStyle(
+              //                 color: isDayActive? Colors.white: Colors.black87,
+              //                 fontSize: 18
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //       Container(
+              //         width: 80,
+              //         height: 40,
+              //         decoration: BoxDecoration(
+              //           borderRadius: BorderRadius.circular(30),
+              //           color: isWeekActive ? const Color(0xf0634832): const Color(0xf0ECE7DF),
+              //           boxShadow: [
+              //             BoxShadow(
+              //               color: Colors.black.withOpacity(0.2),
+              //               spreadRadius: 5,
+              //               blurRadius: 5,
+              //               offset: const Offset(0, 4),
+              //             )
+              //           ],
+              //         ),
+              //         child: TextButton(
+              //           onPressed: () {
+              //             setState(() {
+              //               defaultMenu = "week";
+              //               isDayActive = false;
+              //               isWeekActive = true;
+              //               isMonthActive = false;
+              //
+              //             });
+              //           },
+              //           child: Text(
+              //             'Week',
+              //             style: TextStyle(
+              //                 color: isWeekActive? Colors.white: Colors.black87,
+              //                 fontSize: 18
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //       Container(
+              //         width: 80,
+              //         height: 40,
+              //         decoration: BoxDecoration(
+              //           borderRadius: BorderRadius.circular(30),
+              //           color: isMonthActive ? const Color(0xf0634832): const Color(0xf0ECE7DF),
+              //           boxShadow: [
+              //             BoxShadow(
+              //               color: Colors.black.withOpacity(0.2),
+              //               spreadRadius: 5,
+              //               blurRadius: 5,
+              //               offset: const Offset(0, 4),
+              //             )
+              //           ],
+              //         ),
+              //         child: TextButton(
+              //           onPressed: () {
+              //             setState(() {
+              //               defaultMenu = "month";
+              //               isDayActive = false;
+              //               isWeekActive = false;
+              //               isMonthActive = true;
+              //
+              //             });
+              //           },
+              //           child: Text(
+              //             'Month',
+              //             style: TextStyle(
+              //                 color: isMonthActive? Colors.white: Colors.black87,
+              //                 fontSize: 18
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+            const Padding(padding: EdgeInsets.only(top: 20)),
+            Expanded(
+              child: Padding(
                 padding: const EdgeInsets.only(left: 20.0, bottom: 15.0),
-                child: Expanded(
-                  child: Scrollbar(
+                child: Scrollbar(
                       thumbVisibility: true,
                       child: ListView.builder(
                         shrinkWrap: true,
@@ -191,8 +193,19 @@ class _SalesBreakdownState extends State<SalesBreakdownScreen>{
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Date: ${orders[index]["date"]}"),
-                Text("Total Sales: ${orders[index]["sales"]}"),
+                Text(
+                    "Date: ${orders[index]["date"]}",
+                  style: const TextStyle(
+                      fontSize: 16
+                  ),
+                ),
+                Text(
+                    "Total Sales: ${orders[index]["sales"]}",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16
+                  ),
+                ),
               ],
             ),
             Container(
@@ -211,12 +224,12 @@ class _SalesBreakdownState extends State<SalesBreakdownScreen>{
               ),
               child: TextButton(
                   onPressed: (){
-                    // Navigator.push(context, HeroDialogRoute(
-                    //     builder: (context){
-                    //       return 0;
-                    //     }
-                    // )
-                    // );
+                    Navigator.push(context, HeroDialogRoute(
+                        builder: (context){
+                          return OrdersByDateScreen(date: orders[index]["date"]);
+                        }
+                    )
+                    );
                   },
                   child: const Text(
                     "More Info ->",

@@ -10,7 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class OrdersTodayScreen extends StatefulWidget{
-  const OrdersTodayScreen({super.key});
+  const OrdersTodayScreen({
+    super.key,
+  });
 
   @override
   _OrdersTodayState createState() => _OrdersTodayState();
@@ -28,11 +30,13 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
   @override
   void initState(){
     super.initState();
+    formattedDate = DateFormat('MM/dd/yyyy').format(now);
+
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getOrdersToday();
       await getCounts();
     });
-    formattedDate = DateFormat('MM/dd/yyyy').format(now);
+
   }
 
   Future<void> getCounts() async {

@@ -327,7 +327,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                                   },
                                 )).then((_) => setState(() {
                                   if(globals.orderList.isNotEmpty && count != globals.orderList.length){
-                                    computeTotal();
+                                    globals.computeTotal();
                                     count = globals.orderList.length;
                                   }
                                 }));
@@ -345,9 +345,6 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
         CurrentOrderScreen(orders: globals.orderList)
       ]
     );
-  }
-  void computeTotal() {
-    globals.total = globals.total + globals.orderList[globals.orderList.length - 1]["price"];
   }
 
   Widget _item(
@@ -395,9 +392,22 @@ class CurrentOrderScreen extends StatefulWidget{
 }
 class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
   final _controllerName = TextEditingController();
+
+  void addEspresso(){
+    setState(() {
+      globals.orderList.add(
+        {
+          "name": "Espresso",
+          "size": "30ml",
+          "qty": 1,
+          "price": 10.0
+        }
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.only(top: 50, left: 10, right: 10),
       child: Column(
@@ -593,6 +603,10 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
                   ),
                   child: TextButton(
                     onPressed: (){
+                      addEspresso();
+                      setState(() {
+                        globals.computeTotal();
+                      });
                     },
                     child: const Text(
                       "Add Shot",

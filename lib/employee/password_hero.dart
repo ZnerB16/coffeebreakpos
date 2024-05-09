@@ -1,3 +1,4 @@
+import 'package:coffee_break_pos/breakdown/main_breakdown.dart';
 import 'package:coffee_break_pos/database/classes/employee.dart';
 import 'package:coffee_break_pos/employee/employee_info.dart';
 
@@ -47,6 +48,17 @@ class _PasswordHeroScreenState extends State<PasswordHeroScreen> {
                 return const CreateEmployeeScreen();
               }
           )
+        );
+      }
+      else if(pass == "coffeebd@0408"){
+        _validate = false;
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context){
+                  return const BreakdownScreen();
+                }
+            )
         );
       }
       else{
