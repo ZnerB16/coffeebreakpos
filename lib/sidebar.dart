@@ -130,7 +130,7 @@ class _SidebarState extends State<Sidebar>{
                         ),
                       ),
                     ),
-                    const Padding(padding: EdgeInsets.only(top:120)),
+                    const Padding(padding: EdgeInsets.only(top:30)),
                     Container(
                       width: 60,
                       height: 50,

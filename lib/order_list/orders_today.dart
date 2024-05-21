@@ -60,7 +60,8 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
           {
             "name": order[i].name,
             "order_id": order[i].orderID,
-            "time": order[i].time
+            "time": order[i].time,
+            "mode": order[i].mode
           }
         );
       }
@@ -190,6 +191,7 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
                   children: [
                     Text("Name: ${orders[index]["name"]!.isEmpty ? "N/A" : orders[index]["name"]}"),
                     Text("Time of Order: ${orders[index]["time"]}"),
+                    Text("Mode of Payment: ${orders[index]["mode"]}"),
                   ],
                 ),
                   Container(
