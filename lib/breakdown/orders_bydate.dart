@@ -11,9 +11,11 @@ import 'package:intl/intl.dart';
 
 class OrdersByDateScreen extends StatefulWidget{
   String date = "";
+  double total = 0.0;
   OrdersByDateScreen({
     super.key,
-    required this.date
+    required this.date,
+    required this.total
   });
 
   @override
@@ -43,8 +45,8 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
   }
 
   Future<void> getCounts() async {
-    int? count1 = await coffeeDB.countCups();
-    int? count2 = await coffeeDB.countCroffles();
+    int? count1 = await coffeeDB.countCups(widget.date);
+    int? count2 = await coffeeDB.countCroffles(widget.date);
     setState(() {
       if(count1 != null){
         cups = count1;
@@ -87,6 +89,16 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
                   padding: const EdgeInsets.all(15),
                   child: Text(
                     "Date: $formattedDate",
+                    style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Text(
+                    "Total: ${widget.total}",
                     style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold
@@ -136,7 +148,7 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
                   ),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 10)),
-                const BarChartWidget(type: "iced"),
+                BarChartWidget(type: "iced", date: widget.date),
                 const Padding(padding: EdgeInsets.only(top: 30)),
                 const Text(
                   "Hot Coffee Sales",
@@ -146,7 +158,7 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
                   ),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 10)),
-                const BarChartWidget(type: "hot"),
+                BarChartWidget(type: "hot", date: widget.date),
                 const Padding(padding: EdgeInsets.only(top: 30)),
                 const Text(
                   "Latte Sales",
@@ -156,7 +168,7 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
                   ),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 10)),
-                const BarChartWidget(type: "latte"),
+                BarChartWidget(type: "latte", date: widget.date),
                 const Padding(padding: EdgeInsets.only(top: 30)),
                 const Text(
                   "Croffles Sales",
@@ -166,7 +178,7 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
                   ),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 10)),
-                const BarChartWidget(type: "croffles"),
+                BarChartWidget(type: "croffles", date: widget.date),
                 const Padding(padding: EdgeInsets.only(top: 50)),
               ],
             ),

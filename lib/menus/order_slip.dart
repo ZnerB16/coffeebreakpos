@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../custom_rect_tween.dart';
+import '../popups/success_popup.dart';
 import 'globals.dart' as globals;
 
 class OrderPaymentScreen extends StatefulWidget{
@@ -159,7 +160,7 @@ class _OrderPaymentState extends State<OrderPaymentScreen>{
                                         globals.orderList[i]["price"]
                                     );
                                   }
-                                  
+                                  await alertDialog(context, "Successfully completed order!");
                                   Navigator.pop(context, false);
                                   setState(() {
                                     globals.total = 0;

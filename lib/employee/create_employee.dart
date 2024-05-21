@@ -315,8 +315,6 @@ class _PasswordState extends State<PasswordScreen> {
   }
 
   void checkPassword(String pass) async {
-
-
     setState(() async {
       if(widget.newEmployee! && pass == "coffeebreak@0408"){
         _validate = false;
@@ -432,8 +430,6 @@ class _PasswordState extends State<PasswordScreen> {
                       child: TextButton(
                         onPressed: (){
                           checkPassword(_controllerPass.text);
-
-
                         },
                         child: const Text(
                           "Done",

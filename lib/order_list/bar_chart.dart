@@ -6,10 +6,12 @@ import '../database/coffee_db.dart';
 
 class BarChartWidget extends StatefulWidget{
   final String type;
+  final String date;
 
   const BarChartWidget ({
     super.key,
-    required this.type
+    required this.type,
+    required this.date
   });
 
   @override
@@ -23,15 +25,17 @@ class _BarChartState extends State<BarChartWidget>{
   @override
   void initState(){
     super.initState();
+    salesList = [];
+    titles = [];
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getCupsForChart();
     });
   }
   Future<void> getCupsForChart() async{
-    List<OrderItems> icedCups = await coffeeDB.getIcedCoffeeCups();
-    List<OrderItems> hotCups = await coffeeDB.getHotCoffeeCups();
-    List<OrderItems> latteCups = await coffeeDB.getLatteCups();
-    List<OrderItems> croffles = await coffeeDB.getCrofflesSales();
+    List<OrderItems> icedCups = await coffeeDB.getIcedCoffeeCups(widget.date);
+    List<OrderItems> hotCups = await coffeeDB.getHotCoffeeCups(widget.date);
+    List<OrderItems> latteCups = await coffeeDB.getLatteCups(widget.date);
+    List<OrderItems> croffles = await coffeeDB.getCrofflesSales(widget.date);
     setState(() {
       if(icedCups.isNotEmpty){
         if(widget.type == "iced"){

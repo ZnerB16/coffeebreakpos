@@ -1,4 +1,5 @@
 import 'package:coffee_break_pos/breakdown/main_breakdown.dart';
+import 'package:coffee_break_pos/editing/main_editing.dart';
 import 'package:coffee_break_pos/hero_dialog_route.dart';
 import 'package:coffee_break_pos/menu.dart';
 import 'package:coffee_break_pos/order_list/orders_today.dart';
@@ -22,6 +23,7 @@ class _SidebarState extends State<Sidebar>{
   bool isTM = false;
   bool isBD = false;
   bool isED = false;
+  bool isAD = false;
 
   @override
   void initState(){
@@ -49,7 +51,7 @@ class _SidebarState extends State<Sidebar>{
                       height: 50,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: isHome ? const Color(0xf0ECE0D1): Colors.white,
+                        color: isHome ? const Color(0xf0ECE0D1): Colors.transparent,
                       ),
 
                       child: IconButton(
@@ -77,7 +79,7 @@ class _SidebarState extends State<Sidebar>{
                       height: 50,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                          color: isOL ? const Color(0xf0ECE0D1): Colors.white
+                          color: isOL ? const Color(0xf0ECE0D1): Colors.transparent
                       ),
 
                       child: IconButton(
@@ -99,13 +101,42 @@ class _SidebarState extends State<Sidebar>{
                         ),
                       ),
                     ),
+                    const Padding(padding: EdgeInsets.only(top: 30)),
+                    Container(
+                      width: 60,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: isED ? const Color(0xf0ECE0D1): Colors.transparent
+                      ),
+
+                      child: IconButton(
+                        onPressed: (){
+                          checkCurrentScreen();
+                          if(widget.currentScreen != "ED"){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context){
+                                  return const MainEditingScreen();
+                                }
+                              )
+                            );
+                          }
+                        },
+                        icon: Image.asset(
+                          'assets/images/editing.png',
+                          width: 40,
+                        ),
+                      ),
+                    ),
                     const Padding(padding: EdgeInsets.only(top:120)),
                     Container(
                       width: 60,
                       height: 50,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                          color: isTM ? const Color(0xf0ECE0D1): Colors.white
+                          color: isTM ? const Color(0xf0ECE0D1): Colors.transparent
                       ),
 
                       child: IconButton(
@@ -134,7 +165,7 @@ class _SidebarState extends State<Sidebar>{
                       height: 50,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                          color: isBD ? const Color(0xf0ECE0D1): Colors.white
+                          color: isBD ? const Color(0xf0ECE0D1): Colors.transparent
                       ),
 
                       child: IconButton(
@@ -145,7 +176,7 @@ class _SidebarState extends State<Sidebar>{
                                 context,
                                 HeroDialogRoute(
                                     builder: (context){
-                                      return PasswordHeroScreen();
+                                      return PasswordHeroScreen(screen: "BD",);
                                     }
                                 )
                             );
@@ -157,25 +188,35 @@ class _SidebarState extends State<Sidebar>{
                         ),
                       ),
                     ),
-                    const Padding(padding: EdgeInsets.only(top: 30)),
+                    const Padding(padding: EdgeInsets.only(top:30)),
                     Container(
-                        width: 60,
-                        height: 50,
-                        decoration: BoxDecoration(
+                      width: 60,
+                      height: 50,
+                      decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                            color: isED ? const Color(0xf0ECE0D1): Colors.white
-                        ),
+                          color: isAD ? const Color(0xf0ECE0D1): Colors.transparent
+                      ),
 
-                        child: IconButton(
-                          onPressed: (){
-                            checkCurrentScreen();
-                          },
-                          icon: Image.asset(
-                            'assets/images/editing.png',
-                            width: 40,
-                          ),
+                      child: IconButton(
+                        onPressed: (){
+                          checkCurrentScreen();
+                          if (widget.currentScreen != "AD") {
+                            Navigator.push(
+                                context,
+                                HeroDialogRoute(
+                                    builder: (context){
+                                      return PasswordHeroScreen(screen: "AD",);
+                                    }
+                                )
+                            );
+                          }
+                        },
+                        icon: Image.asset(
+                          'assets/images/add.png',
+                          width: 40,
                         ),
                       ),
+                    ),
                   ]
               ),
             )
@@ -218,6 +259,14 @@ class _SidebarState extends State<Sidebar>{
           isTM = false;
           isBD = false;
           isED = true;
+      }
+      else if(widget.currentScreen == "AD"){
+        isHome = false;
+        isOL = false;
+        isTM = false;
+        isBD = false;
+        isED = false;
+        isAD = true;
       }
     });
   }

@@ -1,3 +1,4 @@
+import 'package:coffee_break_pos/breakdown/line_chart.dart';
 import 'package:coffee_break_pos/breakdown/orders_bydate.dart';
 import 'package:coffee_break_pos/database/coffee_db.dart';
 import 'package:coffee_break_pos/order_list/orders_today.dart';
@@ -48,6 +49,7 @@ class _SalesBreakdownState extends State<SalesBreakdownScreen>{
   Widget build(BuildContext context){
     return Column(
       children: [
+        salesList.isEmpty ? const SizedBox() : const LineChartWidget(),
               // SizedBox(
               //   width: 600,
               //   child: Row(
@@ -226,7 +228,7 @@ class _SalesBreakdownState extends State<SalesBreakdownScreen>{
                   onPressed: (){
                     Navigator.push(context, HeroDialogRoute(
                         builder: (context){
-                          return OrdersByDateScreen(date: orders[index]["date"]);
+                          return OrdersByDateScreen(date: orders[index]["date"], total: orders[index]["sales"]);
                         }
                     )
                     );

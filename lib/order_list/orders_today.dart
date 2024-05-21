@@ -40,8 +40,8 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
   }
 
   Future<void> getCounts() async {
-    int? count1 = await coffeeDB.countCups();
-    int? count2 = await coffeeDB.countCroffles();
+    int? count1 = await coffeeDB.countCups(formattedDate);
+    int? count2 = await coffeeDB.countCroffles(formattedDate);
     setState(() {
       if(count1 != null){
         cups = count1;
@@ -133,7 +133,7 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
                     ),
                   ),
                   const Padding(padding: EdgeInsets.only(top: 10)),
-                  const BarChartWidget(type: "iced"),
+                  BarChartWidget(type: "iced", date: formattedDate),
                   const Padding(padding: EdgeInsets.only(top: 30)),
                   const Text(
                     "Hot Coffee Sales",
@@ -143,7 +143,7 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
                     ),
                   ),
                   const Padding(padding: EdgeInsets.only(top: 10)),
-                  const BarChartWidget(type: "hot"),
+                  BarChartWidget(type: "hot", date: formattedDate),
                   const Padding(padding: EdgeInsets.only(top: 30)),
                   const Text(
                     "Latte Sales",
@@ -153,7 +153,7 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
                     ),
                   ),
                   const Padding(padding: EdgeInsets.only(top: 10)),
-                  const BarChartWidget(type: "latte"),
+                  BarChartWidget(type: "latte", date: formattedDate),
                   const Padding(padding: EdgeInsets.only(top: 30)),
                   const Text(
                     "Croffles Sales",
@@ -163,7 +163,7 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
                     ),
                   ),
                   const Padding(padding: EdgeInsets.only(top: 10)),
-                  const BarChartWidget(type: "croffles"),
+                  BarChartWidget(type: "croffles", date: formattedDate),
                   const Padding(padding: EdgeInsets.only(top: 50)),
                 ],
               ),

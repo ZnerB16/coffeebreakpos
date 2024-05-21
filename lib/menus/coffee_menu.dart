@@ -2,16 +2,25 @@ import 'package:coffee_break_pos/database/classes/hot_coffee.dart';
 import 'package:coffee_break_pos/database/classes/iced_coffee.dart';
 import 'package:coffee_break_pos/database/classes/latte.dart';
 import 'package:coffee_break_pos/database/coffee_db.dart';
+import 'package:coffee_break_pos/editing/edit_hero.dart';
 import 'package:coffee_break_pos/menus/cart.dart';
 import 'package:coffee_break_pos/menus/order_slip.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import '../database/classes/croffles.dart';
+import '../database/classes/others.dart';
 import '../hero_dialog_route.dart';
 import 'globals.dart' as globals;
 
 class CoffeeMenu extends StatefulWidget{
-  const CoffeeMenu ({super.key});
+  bool isEditing = false;
+
+  CoffeeMenu ({
+    super.key,
+    required this.isEditing
+  });
 
   @override
   _CoffeeMenuState createState() => _CoffeeMenuState();
@@ -26,6 +35,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
   bool isCoffeeActive = true;
   bool isLatteActive = false;
   bool isCrofflesActive = false;
+  bool isOthersActive = false;
 
   @override
   void initState(){
@@ -34,6 +44,12 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       gridMap = [];
       await getMapVal();
+      // defaultMenu = "iced";
+      // isHotActive = false;
+      // isIcedActive = true;
+      // isCoffeeActive = true;
+      // isLatteActive = false;
+      // isCrofflesActive = false;
     });
   }
 
@@ -43,43 +59,67 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
     List<IcedCoffee> icedList = await coffeeDB.fetchIcedCoffee();
     List<Latte> latteList = await coffeeDB.fetchLatte();
     List<Croffles> croffleList = await coffeeDB.fetchCroffles();
+    List<Others> othersList = await coffeeDB.fetchOthers();
+    bool status = true;
     setState(() {
       if(defaultMenu == "hot"){
         for(int i = 0; i < hotList.length; i++){
+          status = hotList[i].status == 0 ? false : true;
           gridMap.add(
               {
                 "imgPath": "assets/images/coffee-cup.png",
-                "title": hotList[i].name
+                "title": hotList[i].name,
+                "status": status
               }
           );
         }
       }
       else if (defaultMenu == "latte"){
         for(int i = 0; i < latteList.length; i++){
+          status = latteList[i].status == 0 ? false : true;
           gridMap.add(
               {
                 "imgPath": latteList[i].imagePath,
-                "title": latteList[i].name
+                "title": latteList[i].name,
+                "status": status
               }
           );
         }
       }
       else if(defaultMenu == "croffles"){
         for(int i = 0; i < croffleList.length; i++){
+          status = croffleList[i].status == 0 ? false : true;
           gridMap.add(
               {
                 "imgPath": "assets/images/waffle.png",
-                "title": croffleList[i].name
+                "title": croffleList[i].name,
+                "status": status
               }
           );
         }
       }
+      else if(defaultMenu == "others"){
+        if (othersList.isNotEmpty) {
+          for(int i = 0; i < othersList.length; i++){
+            status = othersList[i].status == 0 ? false : true;
+            gridMap.add(
+                {
+                  "imgPath": "assets/images/cookies.png",
+                  "title": othersList[i].name,
+                  "status": status
+                }
+            );
+          }
+        }
+      }
       else {
         for(int i = 0; i < icedList.length; i++){
+          status = icedList[i].status == 0 ? false : true;
           gridMap.add(
               {
                 "imgPath": icedList[i].imagePath,
-                "title": icedList[i].name
+                "title": icedList[i].name,
+                "status": status
               }
           );
         }
@@ -93,9 +133,9 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
       children: [Material(
         color: const Color(0xf0ECE0D1).withAlpha(150),
         child: SizedBox(
-          width: 480,
+          width: widget.isEditing ? 820 : 480,
           child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   width: double.infinity,
@@ -118,6 +158,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                             isCoffeeActive = true;
                             isLatteActive = false;
                             isCrofflesActive = false;
+                            isOthersActive = false;
                             isHotActive = false;
                             isIcedActive = true;
                             gridMap = [];
@@ -149,6 +190,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                             isCoffeeActive = false;
                             isLatteActive = true;
                             isCrofflesActive = false;
+                            isOthersActive = false;
                             gridMap = [];
                             getMapVal();
                           },
@@ -178,6 +220,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                             isCoffeeActive = false;
                             isLatteActive = false;
                             isCrofflesActive = true;
+                            isOthersActive = false;
                             gridMap = [];
                             getMapVal();
                           },
@@ -191,115 +234,121 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                           ),
                         ),
                       ),
+                      Container(
+                        width: 120,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(10),
+                                bottomRight: Radius.circular(10)
+                            ),
+                            color: isOthersActive? const Color(0xf0634832): null
+                        ),
+                        child: TextButton(
+                          onPressed: (){
+                            defaultMenu = "others";
+                            isCoffeeActive = false;
+                            isLatteActive = false;
+                            isCrofflesActive = false;
+                            isOthersActive = true;
+                            gridMap = [];
+                            getMapVal();
+                          },
+                          child: Text(
+                            'Others',
+                            style: TextStyle(
+                                color: isOthersActive? Colors.white: Colors.black87,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.all(30),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Visibility(
+                        visible: isCoffeeActive,
                         child: Container(
-                          width: 220,
+                          width: 80,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: isIcedActive? const Color(0xf0634832): const Color(0xf0ECE7DF),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 5,
+                                  blurRadius: 5,
+                                  offset: const Offset(0, 4),
+                                )
+                              ],
+                          ),
+                          child: TextButton(
+                            onPressed: () {
+                              setState(() {
+                                defaultMenu = "iced";
+                                isHotActive = false;
+                                isIcedActive = true;
+                                gridMap = [];
+                                getMapVal();
+                              });
+                            },
+                            child: Text(
+                              'Iced',
+                              style: TextStyle(
+                                  color: isIcedActive? Colors.white: Colors.black87,
+                                  fontSize: 18
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Padding(padding: EdgeInsets.only(left: 15)),
+                      Visibility(
+                        visible: isCoffeeActive,
+                        child: Container(
+                          width: 80,
                           height: 40,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
-                              color: Colors.white
+                              color: isHotActive? const Color(0xf0634832): const Color(0xf0ECE7DF),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 5,
+                                  blurRadius: 5,
+                                  offset: const Offset(0, 4),
+                                )
+                              ]
                           ),
-                          child: const TextField(
-                            autocorrect: false,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Search',
-                              hintStyle: TextStyle(fontSize: 16),
-                              prefixIcon: Icon(Icons.search),
-                            ),
-                          ),
-                        )
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 30),
-                      child: Row(
-                        children: [
-                          Visibility(
-                            visible: isCoffeeActive,
-                            child: Container(
-                              width: 80,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: isIcedActive? const Color(0xf0634832): const Color(0xf0ECE7DF),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 5,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 4),
-                                    )
-                                  ],
-                              ),
-                              child: TextButton(
-                                onPressed: () {
-                                  setState(() {
-                                    defaultMenu = "iced";
-                                    isHotActive = false;
-                                    isIcedActive = true;
-                                    gridMap = [];
-                                    getMapVal();
-                                  });
-                                },
-                                child: Text(
-                                  'Iced',
-                                  style: TextStyle(
-                                      color: isIcedActive? Colors.white: Colors.black87,
-                                      fontSize: 18
-                                  ),
-                                ),
+                          child: TextButton(
+                            onPressed: (){
+                              setState(() {
+                                defaultMenu = "hot";
+                                isHotActive = true;
+                                isIcedActive = false;
+                                gridMap = [];
+                                getMapVal();
+                              });
+                            },
+                            child: Text(
+                              'Hot',
+                              style: TextStyle(
+                                  color: isHotActive? Colors.white: Colors.black87,
+                                  fontSize: 18
                               ),
                             ),
                           ),
-                          const Padding(padding: EdgeInsets.only(left: 15)),
-                          Visibility(
-                            visible: isCoffeeActive,
-                            child: Container(
-                              width: 80,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: isHotActive? const Color(0xf0634832): const Color(0xf0ECE7DF),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      spreadRadius: 5,
-                                      blurRadius: 5,
-                                      offset: const Offset(0, 4),
-                                    )
-                                  ]
-                              ),
-                              child: TextButton(
-                                onPressed: (){
-                                  setState(() {
-                                    defaultMenu = "hot";
-                                    isHotActive = true;
-                                    isIcedActive = false;
-                                    gridMap = [];
-                                    getMapVal();
-                                  });
-                                },
-                                child: Text(
-                                  'Hot',
-                                  style: TextStyle(
-                                      color: isHotActive? Colors.white: Colors.black87,
-                                      fontSize: 18
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    ),
-                  ],
+                        ),
+                      ),
+                    ],
+                  )
                 ),
 
                 Expanded(
@@ -308,30 +357,42 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                     child: Scrollbar(
                       child: GridView.builder(
                           shrinkWrap: true,
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: widget.isEditing ? 3 : 2),
                           itemCount: gridMap.length,
                           itemBuilder: (_, index){
                             return GestureDetector(
-                              child: _item(
-                                  imgPath: gridMap[index]["imgPath"],
-                                  title: gridMap[index]["title"]
-                              ),
-                              onTap: (){
+                              onTap: !gridMap[index]["status"] && !widget.isEditing ? null : () {
                                 Navigator.of(context).push(HeroDialogRoute(
                                   builder: (context){
-                                    return Cart(
+                                    return !widget.isEditing ?
+                                    Cart(
                                         title: gridMap[index]["title"],
                                         type: defaultMenu,
                                         assetPath: gridMap[index]["imgPath"],
+                                    ) :
+                                    EditHero(
+                                        title: gridMap[index]["title"],
+                                        type: defaultMenu,
+                                        assetPath: gridMap[index]["imgPath"]
                                     );
                                   },
-                                )).then((_) => setState(() {
-                                  if(globals.orderList.isNotEmpty && count != globals.orderList.length){
-                                    globals.computeTotal();
-                                    count = globals.orderList.length;
+                                )).then((_) async {
+                                  setState(() {
+                                    globals.orderList = globals.orderList;
+                                  });
+                                  if (widget.isEditing) {
+                                    setState(()  {
+                                      gridMap = [];
+                                    });
+                                    await getMapVal();
                                   }
-                                }));
+                                });
                               },
+                              child: _item(
+                                  imgPath: gridMap[index]["imgPath"],
+                                  title: gridMap[index]["title"],
+                                  status: gridMap[index]["status"]
+                              ),
                             );
                           },
                         ),
@@ -342,7 +403,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
             ),
         )
       ),
-        CurrentOrderScreen(orders: globals.orderList)
+        widget.isEditing ? Container(): CurrentOrderScreen(orders: globals.orderList),
       ]
     );
   }
@@ -350,7 +411,8 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
   Widget _item(
       {
         required String imgPath,
-        required String title
+        required String title,
+        required bool status
       }
       ) {
     return Container(
@@ -363,14 +425,41 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(
-              imgPath,
-              width: 100,
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              Image.asset(
+                imgPath,
+                width: widget.isEditing ? 130 : 100,
+              ),
+              Visibility(
+                visible: !status,
+                child: Image.asset(
+                      'assets/images/block.png',
+                    width: 100,
+                  fit: BoxFit.fill,
+                  ),
+              ),
+              Visibility(
+                visible: !status,
+                child: const Text(
+                  "Unavailable",
+                    style:TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold
+                    )
+                ),
+              ),
+            ]
           ),
           const Padding(padding: EdgeInsets.only(top: 15)),
           Text(
             title,
-            style: const TextStyle(fontSize: 22),
+            style: const TextStyle(
+                fontSize: 22,
+                color: Colors.black
+            ),
             maxLines: 2,
             textAlign: TextAlign.center,
           )
@@ -538,6 +627,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
                                         setState(() {
                                           globals.total -= e["price"];
                                           widget.orders.remove(e);
+
                                         });
                                       },
                                       icon: Image.asset(

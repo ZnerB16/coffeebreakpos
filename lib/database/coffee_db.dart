@@ -7,6 +7,7 @@ import 'package:coffee_break_pos/database/classes/latte.dart';
 import 'package:sqflite/sqflite.dart';
 import 'classes/order.dart';
 import 'classes/order_items.dart';
+import 'classes/others.dart';
 import 'database_service.dart';
 
 class CoffeeDB {
@@ -19,6 +20,7 @@ class CoffeeDB {
   final orderItemsTable = 'order_items';
   final employeeTable = 'employee';
   final dtrTable = 'dtr';
+  final othersTable = 'other_items';
 
   Future<void> createTable(Database database) async {
     await database.execute(
@@ -67,7 +69,6 @@ class CoffeeDB {
       PRIMARY KEY("latte_id" AUTOINCREMENT)
       );
       '''
-
     );
     await database.execute(
         ''' CREATE TABLE IF NOT EXISTS $crofflesTable(
@@ -77,6 +78,18 @@ class CoffeeDB {
       "status" BOOL DEFAULT 1 NOT NULL,
       "asset_path" TEXT,
       PRIMARY KEY("croffle_id" AUTOINCREMENT)
+      );
+      '''
+    );
+    await database.execute(
+      ''' CREATE TABLE IF NOT EXISTS $othersTable(
+      "product_id" INTEGER NOT NULL,  
+      "name" TEXT NOT NULL,
+      "size" TEXT DEFAULT "",
+      "price" REAL NOT NULL,
+      "status" BOOL DEFAULT 1 NOT NULL,
+      "asset_path" TEXT,
+      PRIMARY KEY("product_id" AUTOINCREMENT)
       );
       '''
     );
@@ -138,6 +151,12 @@ class CoffeeDB {
     await database.execute(
         '''
       INSERT INTO $icedTable(name, size, price, asset_path) VALUES(
+      "Black Americano",
+      "12oz",
+      49.0,
+      "assets/images/coffee-cup.png"
+      ),
+      (
       "Caramel Macchiato",
       "16oz",
       49.0,
@@ -147,11 +166,6 @@ class CoffeeDB {
       "Caramel Macchiato",
       "12oz",
       39.0,
-      "assets/images/iced/CC.png"
-      ),
-      ("Coffee Caramel",
-      "16oz", 
-      49.0,
       "assets/images/iced/CC.png"
       ),
       ("Dark Mocha",
@@ -214,7 +228,7 @@ class CoffeeDB {
     await database.execute(
         '''
       INSERT INTO $hotTable(name, price) VALUES
-      ("Black Americano",
+      ("Black Americano (Hot)",
       49.0
       ),
       ("Caramel Macchiato (Hot)",
@@ -243,6 +257,16 @@ class CoffeeDB {
       "22oz",
       59.0,
       "assets/images/latte/Blueberry.png"
+      ),
+      ("Buko Pandan",
+      "16oz",
+      49.0,
+      "assets/images/latte/Buko Pandan.png"
+      ),
+      ("Buko Pandan",
+      "22oz",
+      59.0,
+      "assets/images/latte/Buko Pandan.png"
       ),
       ("Strawberry",
       "16oz",
@@ -289,6 +313,11 @@ class CoffeeDB {
       59.0,
       "assets/images/coffee-cup.png"
       ),
+      ("Matcha Latte",
+      "22oz",
+      69.0,
+      "assets/images/coffee-cup.png"
+      ),
       ("Ube",
       "16oz",
       49.0,
@@ -315,25 +344,25 @@ class CoffeeDB {
         '''
       INSERT INTO $crofflesTable(name, price)
       VALUES("Biscoff Plain",
-      90.0
+      110.0
       ),
       ("Biscoff Supreme",
       145.0
       ),
       ("Classic Plain",
-      80.0
-      ),
-      ("Nutella Plain",
       90.0
       ),
+      ("Nutella Plain",
+      110.0
+      ),
       ("Nutella Almond",
-      95.0
+      115.0
       ),
       ("Nutella Almond & Cream",
       145.0
       ),
       ("Oreo Crumble",
-      95.0
+      115.0
       ),
       ("Oreo Cookies & Cream",
       145.0
@@ -343,6 +372,9 @@ class CoffeeDB {
       ),
       ("Creamy Spinach",
       130.0
+      ),
+      ("White Chocolate Almond",
+      115.0
       );
       '''
     );
@@ -359,7 +391,6 @@ class CoffeeDB {
     return tableInfo.map((info) => IcedCoffee.fromSQfliteDatabase(info))
         .toList();
   }
-
   Future<List<IcedCoffee>> fetchIcedCoffeeSpec(String name, String size) async {
     final database = await DatabaseService().database;
     final tableInfo = await database.rawQuery(
@@ -367,6 +398,18 @@ class CoffeeDB {
       SELECT * FROM $icedTable
       WHERE name = ? AND size = ?
       ''', [name, size]
+    );
+    return tableInfo.map((info) => IcedCoffee.fromSQfliteDatabase(info))
+        .toList();
+  }
+
+  Future<List<IcedCoffee>> fetchIcedCoffeeSpecEdit(String name) async {
+    final database = await DatabaseService().database;
+    final tableInfo = await database.rawQuery(
+        '''
+      SELECT * FROM $icedTable
+      WHERE name = ?
+      ''', [name]
     );
     return tableInfo.map((info) => IcedCoffee.fromSQfliteDatabase(info))
         .toList();
@@ -401,7 +444,7 @@ class CoffeeDB {
     final tableInfo = await database.rawQuery(
         '''
       SELECT DISTINCT name, status, asset_path FROM $latteTable
-      ORDER BY name ASC
+      ORDER BY name ASC 
       '''
     );
     return tableInfo.map((info) => Latte.fromSQfliteDatabase(info)).toList();
@@ -414,6 +457,17 @@ class CoffeeDB {
       SELECT * FROM $latteTable
       WHERE name = ? AND size = ?
       ''', [name, size]
+    );
+    return tableInfo.map((info) => Latte.fromSQfliteDatabase(info)).toList();
+  }
+
+  Future<List<Latte>> fetchLatteSpecEdit(String name) async {
+    final database = await DatabaseService().database;
+    final tableInfo = await database.rawQuery(
+        '''
+      SELECT * FROM $latteTable
+      WHERE name = ?
+      ''', [name]
     );
     return tableInfo.map((info) => Latte.fromSQfliteDatabase(info)).toList();
   }
@@ -498,25 +552,28 @@ class CoffeeDB {
         .toList();
   }
 
-  Future<int?> countCups() async {
+  Future<int?> countCups(String date) async {
     final database = await DatabaseService().database;
     final countCups = await database.rawQuery(
         """
       SELECT SUM(qty)
       FROM $orderItemsTable
-      WHERE product_name IN
+      WHERE order_id IN
+      (SELECT order_id FROM $ordersTable WHERE date = ?)
+      AND (product_name IN
       (SELECT name FROM $icedTable)
       OR product_name IN
       (SELECT name FROM $hotTable)
       OR product_name IN
-      (SELECT name FROM $latteTable)
-      """
+      (SELECT name FROM $latteTable))
+      
+      """, [date]
     );
     int? result = Sqflite.firstIntValue(countCups);
     return result;
   }
 
-  Future<int?> countCroffles() async {
+  Future<int?> countCroffles(String date) async {
     final database = await DatabaseService().database;
     final countCups = await database.rawQuery(
         """
@@ -524,13 +581,15 @@ class CoffeeDB {
       FROM $orderItemsTable
       WHERE product_name IN
       (SELECT name FROM $crofflesTable)
-      """
+      AND order_id IN
+      (SELECT order_id FROM $ordersTable WHERE date = ?)
+      """, [date]
     );
     int? result = Sqflite.firstIntValue(countCups);
     return result;
   }
 
-  Future<List<OrderItems>> getIcedCoffeeCups() async {
+  Future<List<OrderItems>> getIcedCoffeeCups(String date) async {
     final database = await DatabaseService().database;
     final countIced = await database.rawQuery(
         """
@@ -538,15 +597,17 @@ class CoffeeDB {
       FROM $orderItemsTable
       WHERE product_name IN
       (SELECT name FROM $icedTable)
+      AND order_id IN
+      (SELECT order_id FROM $ordersTable WHERE date = ?)
       GROUP BY product_name
       ORDER BY qty DESC
-      """
+      """, [date]
     );
     return countIced.map((info) => OrderItems.fromSQfliteDatabase(info))
         .toList();
   }
 
-  Future<List<OrderItems>> getHotCoffeeCups() async {
+  Future<List<OrderItems>> getHotCoffeeCups(String date) async {
     final database = await DatabaseService().database;
     final countIced = await database.rawQuery(
         """
@@ -554,15 +615,16 @@ class CoffeeDB {
       FROM $orderItemsTable
       WHERE product_name IN
       (SELECT name FROM $hotTable)
+      AND order_id IN
+      (SELECT order_id FROM $ordersTable WHERE date = ?)
       GROUP BY product_name
       ORDER BY qty DESC
-      """
+      """, [date]
     );
     return countIced.map((info) => OrderItems.fromSQfliteDatabase(info))
         .toList();
   }
-
-  Future<List<OrderItems>> getLatteCups() async {
+  Future<List<OrderItems>> getLatteCups(String date) async {
     final database = await DatabaseService().database;
     final countIced = await database.rawQuery(
         """
@@ -570,15 +632,17 @@ class CoffeeDB {
       FROM $orderItemsTable
       WHERE product_name IN
       (SELECT name FROM $latteTable)
+      AND order_id IN
+      (SELECT order_id FROM $ordersTable WHERE date = ?)
       GROUP BY product_name
       ORDER BY qty DESC
-      """
+      """, [date]
     );
     return countIced.map((info) => OrderItems.fromSQfliteDatabase(info))
         .toList();
   }
 
-  Future<List<OrderItems>> getCrofflesSales() async {
+  Future<List<OrderItems>> getCrofflesSales(String date) async {
     final database = await DatabaseService().database;
     final countIced = await database.rawQuery(
         """
@@ -586,9 +650,11 @@ class CoffeeDB {
       FROM $orderItemsTable
       WHERE product_name IN
       (SELECT name FROM $crofflesTable)
+      AND order_id IN
+      (SELECT order_id FROM $ordersTable WHERE date = ?)
       GROUP BY product_name
       ORDER BY qty DESC
-      """
+      """, [date]
     );
     return countIced.map((info) => OrderItems.fromSQfliteDatabase(info))
         .toList();
@@ -661,6 +727,7 @@ class CoffeeDB {
     );
     return result.map((info) => DTR.fromSQfliteDatabase(info)).toList();
   }
+
   Future<void> insertEmployeeDetailsTimeIn(int employeeID, String date, String timeIn) async{
     final database = await DatabaseService().database;
     await database.rawInsert(
@@ -670,6 +737,7 @@ class CoffeeDB {
       """, [employeeID, date, timeIn]
     );
   }
+
   Future<void> updateEmployeeDetailsTimeOut(int employeeID, String date, String timeOut) async{
     final database = await DatabaseService().database;
     await database.rawInsert(
@@ -680,6 +748,7 @@ class CoffeeDB {
       """, [timeOut, employeeID, date]
     );
   }
+
   Future<List<Order>> getSalesDay() async{
     final database = await DatabaseService().database;
     final result = await database.rawQuery(
@@ -693,15 +762,84 @@ class CoffeeDB {
     );
     return result.map((info) => Order.fromSQfliteDatabase(info)).toList();
   }
+
+  Future<List<Order>> getSalesForChart() async{
+    final database = await DatabaseService().database;
+    final result = await database.rawQuery(
+        """
+      SELECT date, SUM(total_price) AS total_price
+      FROM $ordersTable
+      GROUP BY date
+      ORDER BY date ASC
+      LIMIT 7
+      """
+    );
+    return result.map((info) => Order.fromSQfliteDatabase(info)).toList();
+  }
+
   Future<List<DTR>> getDTR() async {
     final database = await DatabaseService().database;
     final result = await database.rawQuery(
       """
-      SELECT * 
+      SELECT *
       FROM $dtrTable
-      GROUP BY employee_id
+      JOIN $employeeTable
+      ON $employeeTable.employee_id = $dtrTable.employee_id
+      ORDER BY $dtrTable.date DESC
       """
     );
-    return result.map((info) => DTR.fromSQfliteDatabase(info)).toList();
+    return result.map((info) => DTR.joinedData(info)).toList();
+  }
+
+  Future<void> updateItemStatus(String name, String type, int status) async {
+    final database = await DatabaseService().database;
+    if(type == "iced"){
+      await database.rawQuery(
+        """
+        UPDATE $icedTable
+        SET status = ?
+        WHERE name = ?
+        """, [status, name]
+      );
+    }
+    else if(type == "hot"){
+      await database.rawQuery(
+        """
+        UPDATE $hotTable
+        SET status = ?
+        WHERE name = ?
+        """, [status, name]
+      );
+    }
+    else if(type == "latte"){
+      await database.rawQuery(
+        """
+        UPDATE $latteTable
+        SET status = ?
+        WHERE name = ?
+        """, [status, name]
+      );
+    }
+    else{
+      await database.rawQuery(
+        """
+        UPDATE $crofflesTable
+        SET status = ?
+        WHERE name = ?
+        """, [status, name]
+      );
+    }
+  }
+
+  Future<List<Others>> fetchOthers() async {
+    final database = await DatabaseService().database;
+    final tableInfo = await database.rawQuery(
+        '''
+      SELECT DISTINCT name, status, asset_path FROM $othersTable
+      ORDER BY name ASC
+      '''
+    );
+    return tableInfo.map((info) => Others.fromSQfliteDatabase(info))
+        .toList();
   }
 }

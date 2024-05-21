@@ -105,12 +105,12 @@ class CartState extends State<Cart>{
                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Visibility(
-                              visible: widget.type != "croffles" && widget.title != "Espresso Latte" && widget.title != "Coffee Caramel",
+                              visible: widget.type != "croffles" && widget.title != "Espresso Latte",
                                 child: customRadioButton(widget.type != "latte" ? size1 : "16oz", 1)
                             ),
-                            Padding(padding: EdgeInsets.only(right: widget.title != "Espresso Latte" && widget.title != "Coffee Caramel" ? 15 : 0)),
+                            Padding(padding: EdgeInsets.only(right: widget.title != "Espresso Latte" ? 15 : 0)),
                             Visibility(
-                              visible: widget.type != "croffles" && widget.title != "Matcha Latte" && widget.type != "hot",
+                              visible: widget.type != "croffles" && widget.type != "hot" && widget.title != "Black Americano",
                                 child: customRadioButton(widget.type != "latte" ? size2 : "22oz", widget.title != "Espresso Latte" && widget.title != "Coffee Caramel" ? 2 : 1)
                             )
                           ],
@@ -151,6 +151,7 @@ class CartState extends State<Cart>{
                                   "price": price,
                                 });
                               });
+                              globals.computeTotal();
                               Navigator.pop(context);
                             }
                             ,
@@ -176,7 +177,6 @@ class CartState extends State<Cart>{
     );
   }
   Widget customRadioButton(String text, int index) {
-
     return OutlinedButton(
       onPressed: () {
         setState(() {

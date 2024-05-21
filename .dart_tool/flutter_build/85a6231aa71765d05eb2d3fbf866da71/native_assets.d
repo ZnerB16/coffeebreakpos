@@ -1,1 +1,0 @@
- C:\\Users\\Brenz\ Gwynne\ Hababag\\Desktop\\Android\ Dev\\Flutter\ Dev\ Journey\\coffee_break_pos\\.dart_tool\\flutter_build\\85a6231aa71765d05eb2d3fbf866da71\\native_assets.yaml: 

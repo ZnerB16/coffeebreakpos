@@ -1,3 +1,4 @@
+import 'package:coffee_break_pos/add_product/main_add.dart';
 import 'package:coffee_break_pos/breakdown/main_breakdown.dart';
 import 'package:coffee_break_pos/database/classes/employee.dart';
 import 'package:coffee_break_pos/employee/employee_info.dart';
@@ -10,11 +11,13 @@ import '../database/coffee_db.dart';
 
 class PasswordHeroScreen extends StatefulWidget{
   bool? newEmployee = false;
+  String? screen = "";
 
   PasswordHeroScreen(
       {
         super.key,
-        this.newEmployee
+        this.newEmployee,
+        this.screen
       });
 
   @override
@@ -27,6 +30,7 @@ class _PasswordHeroScreenState extends State<PasswordHeroScreen> {
   List<Map<String, dynamic>> passwords = [];
   bool _passwordVisible = false;
   bool _validate = false;
+  String text = "";
 
   @override
   void initState(){
@@ -34,23 +38,22 @@ class _PasswordHeroScreenState extends State<PasswordHeroScreen> {
     _validate = false;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getPasswords();
+      await checkScreen();
     });
+  }
+
+  Future<void> checkScreen() async {
+    if(widget.screen == "BD" || widget.screen == "AD"){
+      text = "Please type admin password:";
+    }
+    else{
+      text = "Please type your password:";
+    }
   }
 
   void checkPassword(String pass){
     setState(() {
-      if(pass == "create_new@"){
-        _validate = false;
-        Navigator.push(
-          context,
-          HeroDialogRoute(
-              builder: (context){
-                return const CreateEmployeeScreen();
-              }
-          )
-        );
-      }
-      else if(pass == "coffeebd@0408"){
+      if(pass == "coffeebreak@0408" && widget.screen == "BD"){
         _validate = false;
         Navigator.push(
             context,
@@ -61,7 +64,30 @@ class _PasswordHeroScreenState extends State<PasswordHeroScreen> {
             )
         );
       }
+      else if(pass == "coffeebreak@0408" && widget.screen == "AD"){
+        _validate = false;
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context){
+                  return const MainAddScreen();
+                }
+            )
+        );
+      }
       else{
+        if(pass == "create_new@"){
+          _validate = false;
+          Navigator.push(
+              context,
+              HeroDialogRoute(
+                  builder: (context){
+                    return const CreateEmployeeScreen();
+                  }
+              )
+          );
+        }
+        else{
           for(int i = 0; i < passwords.length; i++){
             if(passwords[i]["password"] == pass){
               Navigator.push(
@@ -74,9 +100,11 @@ class _PasswordHeroScreenState extends State<PasswordHeroScreen> {
               );
               break;
             }
+          }
+          _validate = true;
         }
-        _validate = true;
       }
+
     });
   }
   Future<void> getPasswords() async {
@@ -115,9 +143,9 @@ class _PasswordHeroScreenState extends State<PasswordHeroScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text(
-                        "Please enter your password: ",
-                        style: TextStyle(
+                    Text(
+                        text,
+                        style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w800
                         ),
