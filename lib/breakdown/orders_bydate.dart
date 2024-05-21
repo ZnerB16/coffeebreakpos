@@ -65,7 +65,8 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
             {
               "name": order[i].name,
               "order_id": order[i].orderID,
-              "time": order[i].time
+              "time": order[i].time,
+              "mode": order[i].mode
             }
         );
       }
@@ -205,6 +206,7 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
               children: [
                 Text("Name: ${orders[index]["name"]!.isEmpty ? "N/A" : orders[index]["name"]}"),
                 Text("Time of Order: ${orders[index]["time"]}"),
+                Text("Mode of Payment: ${orders[index]["mode"]}"),
               ],
             ),
             Container(
@@ -227,7 +229,8 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
                         builder: (context){
                           return MoreInfoScreen(
                               name: orders[index]["name"].toString().isEmpty ? "N/A" : orders[index]["name"],
-                              orderID: orders[index]["order_id"]
+                              orderID: orders[index]["order_id"],
+                              modeOfPayment: orders[index]["mode"],
                           );
                         }
                     )

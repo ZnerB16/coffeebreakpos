@@ -1,16 +1,20 @@
 import 'package:coffee_break_pos/database/classes/order_items.dart';
 import 'package:coffee_break_pos/database/coffee_db.dart';
+import 'package:coffee_break_pos/popups/success_popup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class MoreInfoScreen extends StatefulWidget{
   final String name;
   final int orderID;
+  final String modeOfPayment;
 
   const MoreInfoScreen({
     super.key,
     required this.name,
-    required this.orderID
+    required this.orderID,
+    required this.modeOfPayment
   });
   @override
   _MoreInfoState createState() => _MoreInfoState();
@@ -18,6 +22,7 @@ class MoreInfoScreen extends StatefulWidget{
 class _MoreInfoState extends State<MoreInfoScreen>{
   List<Map<String, dynamic>> itemList = [];
   double total = 0.0;
+  var coffeeDB = CoffeeDB();
 
   @override
   void initState(){
@@ -25,7 +30,6 @@ class _MoreInfoState extends State<MoreInfoScreen>{
     getOrderItems();
   }
   void getOrderItems() async {
-    var coffeeDB = CoffeeDB();
     List<OrderItems> orderItems = await coffeeDB.getOrdersItemsByID(widget.orderID);
     setState(() {
       for(int i = 0; i < orderItems.length; i++){
@@ -46,10 +50,10 @@ class _MoreInfoState extends State<MoreInfoScreen>{
   Widget build(BuildContext context) {
     return Center(
       child: Material(
-        elevation: 2,
+        elevation: 4,
         child: Container(
           width: 600,
-          height: 400,
+          height: 450,
           decoration: const BoxDecoration(
             color: Colors.white
           ),
@@ -70,6 +74,15 @@ class _MoreInfoState extends State<MoreInfoScreen>{
                     const CloseButton(),
                   ],
                 ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Mode of Payment: ${widget.modeOfPayment}",
+                    style: const TextStyle(
+                        fontSize: 24
+                    ),
+                  ),
+                ),
                 const Padding(padding: EdgeInsets.only(top: 15)),
                 const Text(
                   "List of Orders:",
@@ -81,7 +94,7 @@ class _MoreInfoState extends State<MoreInfoScreen>{
                 const Padding(padding: EdgeInsets.only(top: 15)),
                 SizedBox(
                   width: 500,
-                  height: 200,
+                  height: 150,
                   child: Scrollbar(
                     thumbVisibility: true,
                     scrollbarOrientation: ScrollbarOrientation.right,
@@ -161,12 +174,43 @@ class _MoreInfoState extends State<MoreInfoScreen>{
                     ),
                   ),
                 ),
-                const Padding(padding: EdgeInsets.only(top: 30)),
+                const Padding(padding: EdgeInsets.only(top: 20)),
                 Text(
                     "Total: $total",
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold
+                  ),
+                ),
+                const Padding(padding: EdgeInsets.only(top: 20)),
+                Container(
+                  width: 150,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(25),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 2,
+                          offset: const Offset(0, 5), // changes position of shadow
+                        )]
+                  ),
+                  child: TextButton(
+                      onPressed: () async {
+                        await coffeeDB.deleteOrder(widget.orderID);
+                        await alertDialog(context, "Order has been deleted");
+                        Navigator.pop(context);
+                      },
+                      child: const Text(
+                        "Delete Order",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold
+                        ),
+                      )
                   ),
                 )
               ],

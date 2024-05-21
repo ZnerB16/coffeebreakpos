@@ -33,6 +33,7 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
     formattedDate = DateFormat('MM/dd/yyyy').format(now);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      ordersList = [];
       await getOrdersToday();
       await getCounts();
     });
@@ -61,7 +62,8 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
             "name": order[i].name,
             "order_id": order[i].orderID,
             "time": order[i].time,
-            "mode": order[i].mode
+            "mode": order[i].mode,
+            "total": order[i].total
           }
         );
       }
@@ -182,7 +184,7 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
           color: Colors.white
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -192,6 +194,7 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
                     Text("Name: ${orders[index]["name"]!.isEmpty ? "N/A" : orders[index]["name"]}"),
                     Text("Time of Order: ${orders[index]["time"]}"),
                     Text("Mode of Payment: ${orders[index]["mode"]}"),
+                    Text("Total: P${orders[index]["total"]}", style: const TextStyle(fontWeight: FontWeight.bold),),
                   ],
                 ),
                   Container(
@@ -214,11 +217,15 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
                               builder: (context){
                                 return MoreInfoScreen(
                                     name: orders[index]["name"].toString().isEmpty ? "N/A" : orders[index]["name"],
-                                    orderID: orders[index]["order_id"]
+                                    orderID: orders[index]["order_id"],
+                                    modeOfPayment: orders[index]["mode"],
                                 );
                               }
-                          )
-                          );
+                          )).then((_) async {
+                            ordersList = [];
+                            await getOrdersToday();
+                            await getCounts();
+                          });
                         },
                         child: const Text(
                       "More Info ->",

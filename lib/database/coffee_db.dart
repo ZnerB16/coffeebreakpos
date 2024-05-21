@@ -842,4 +842,19 @@ class CoffeeDB {
     return tableInfo.map((info) => Others.fromSQfliteDatabase(info))
         .toList();
   }
+  Future<void> deleteOrder(int orderID) async {
+    final database = await DatabaseService().database;
+    await database.rawQuery(
+        '''
+      DELETE FROM $orderItemsTable
+      WHERE order_id = ?
+      ''', [orderID]
+    );
+    await database.rawQuery(
+        '''
+      DELETE FROM $ordersTable
+      WHERE order_id = ?
+      ''', [orderID]
+    );
+  }
 }
