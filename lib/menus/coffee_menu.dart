@@ -5,9 +5,7 @@ import 'package:coffee_break_pos/database/coffee_db.dart';
 import 'package:coffee_break_pos/editing/edit_hero.dart';
 import 'package:coffee_break_pos/menus/cart.dart';
 import 'package:coffee_break_pos/menus/order_slip.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../database/classes/croffles.dart';
 import '../database/classes/others.dart';
@@ -484,15 +482,9 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
 
   void addEspresso(){
     setState(() {
-      globals.orderList.add(
-        {
-          "name": "Espresso",
-          "size": "30ml",
-          "qty": 1,
-          "price": 10.0
-        }
-      );
-    });
+
+    }
+    );
   }
 
   @override
@@ -699,7 +691,7 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
                       });
                     },
                     child: const Text(
-                      "Add Shot",
+                      "Add-ons",
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

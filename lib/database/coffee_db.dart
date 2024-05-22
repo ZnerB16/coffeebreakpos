@@ -13,7 +13,7 @@ import 'database_service.dart';
 class CoffeeDB {
   final icedTable = 'iced_coffee';
   final hotTable = 'hot_coffee';
-  final espressoTable = 'espresso';
+  final addonsTable = 'add_ons';
   final latteTable = 'latte';
   final crofflesTable = 'croffles';
   final ordersTable = 'orders';
@@ -21,12 +21,13 @@ class CoffeeDB {
   final employeeTable = 'employee';
   final dtrTable = 'dtr';
   final othersTable = 'other_items';
+  final inventoryTable = 'inventory';
 
   Future<void> createTable(Database database) async {
     await database.execute(
-      ''' CREATE TABLE IF NOT EXISTS $espressoTable(
-      "espresso_id" INTEGER NOT NULL,
-      "name" TEXT DEFAULT "Espresso" NOT NULL,
+      ''' CREATE TABLE IF NOT EXISTS $addonsTable(
+      "add_on_id" INTEGER NOT NULL,
+      "name" TEXT NOT NULL,
       "size" TEXT NOT NULL,
       "price" REAL NOT NULL,
       PRIMARY KEY("espresso_id" AUTOINCREMENT)
@@ -143,9 +144,35 @@ class CoffeeDB {
       '''
     );
     await database.execute(
+        '''
+      CREATE TABLE IF NOT EXISTS $inventoryTable(
+      "inventory_date" TEXT NOT NULL,
+      "milk" INTEGER,
+      "blueberry" INTEGER,
+      "strawberry" INTEGER,
+      "mango" INTEGER,
+      "nata" INTEGER,
+      "condense" INTEGER,
+      "caramel_syrup" INTEGER,
+      "chocolate_syrup" INTEGER,
+      "straw_coffee_takeout" INTEGER,
+      "straw_latte" INTEGER,
+      "straw_coffee_dinein" INTEGER,
+      "spork" INTEGER,
+      "croffle_takeout" INTEGER,
+      PRIMARY KEY("inventory_date") 
+      );
       '''
-      INSERT INTO $espressoTable(size, price)
-      VALUES("30ml", 10.0)
+    );
+
+    await database.execute(
+      '''
+      INSERT INTO $addonsTable(name, size, price)
+      VALUES
+      ("Espresso", "40ml", 10.0),
+      ("Nata", "1scoop", 5.0),
+      ("Syrup", "10ml", 10.0),
+      ("Jam", "1scoop", 10.0),
       '''
     );
     await database.execute(
@@ -378,6 +405,27 @@ class CoffeeDB {
       );
       '''
     );
+    await database.execute(
+      '''
+      INSERT INTO $othersTable(name, price)
+      VALUES(
+      "Cookies Choco",
+      25.0
+      ),
+      (
+      "Cookies Matcha",
+      25.0
+      ),
+      (
+      "Cookies Oats",
+      25.0
+      ),
+      (
+      "Cookies Red Velvet",
+      25.0
+      )
+      '''
+    );
   }
 
   Future<List<IcedCoffee>> fetchIcedCoffee() async {
@@ -488,6 +536,16 @@ class CoffeeDB {
     final tableInfo = await database.rawQuery(
         '''
       SELECT * FROM $crofflesTable
+      WHERE name = ?
+      ''', [name]
+    );
+    return tableInfo.map((info) => Croffles.fromSQfliteDatabase(info)).toList();
+  }
+  Future<List<Croffles>> fetchOthersSpec(String name) async {
+    final database = await DatabaseService().database;
+    final tableInfo = await database.rawQuery(
+        '''
+      SELECT * FROM $othersTable
       WHERE name = ?
       ''', [name]
     );

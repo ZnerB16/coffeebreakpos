@@ -68,8 +68,8 @@ class _LineChartState extends State<LineChartWidget>{
         ),
         const Padding(padding: EdgeInsets.only(top: 20)),
         SizedBox(
-          width: 500,
-          height: 400,
+          width: 300,
+          height: 250,
           child: LineChart(
             LineChartData(
               minY: 0,

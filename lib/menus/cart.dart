@@ -105,12 +105,12 @@ class CartState extends State<Cart>{
                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Visibility(
-                              visible: widget.type != "croffles" && widget.title != "Espresso Latte",
+                              visible: widget.type != "croffles" && widget.type != "others" && widget.title != "Espresso Latte",
                                 child: customRadioButton(widget.type != "latte" ? size1 : "16oz", 1)
                             ),
                             Padding(padding: EdgeInsets.only(right: widget.title != "Espresso Latte" ? 15 : 0)),
                             Visibility(
-                              visible: widget.type != "croffles" && widget.type != "hot" && widget.title != "Black Americano",
+                              visible: widget.type != "croffles" && widget.type != "others" && widget.type != "hot" && widget.title != "Black Americano",
                                 child: customRadioButton(widget.type != "latte" ? size2 : "22oz", widget.title != "Espresso Latte" && widget.title != "Coffee Caramel" ? 2 : 1)
                             )
                           ],
@@ -138,7 +138,7 @@ class CartState extends State<Cart>{
                               await getProductDetails(widget.title, widget.title != "Espresso Latte" && widget.title != "Coffee Caramel" ? currSize : "16oz");
                               String size = "";
                               setState(() {
-                                if(widget.type == "croffles"){
+                                if(widget.type == "croffles" || widget.type == "others"){
                                   size = "";
                                 }
                                 else{
@@ -224,6 +224,12 @@ class CartState extends State<Cart>{
       List<Croffles> croffleList = await coffeeDB.fetchCrofflesSpec(name);
       setState(() {
         price = croffleList[0].price * qty;
+      });
+    }
+    else if(widget.type == "others"){
+      List<Croffles> otherList = await coffeeDB.fetchOthersSpec(name);
+      setState(() {
+        price = otherList[0].price * qty;
       });
     }
   }
