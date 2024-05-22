@@ -41,6 +41,7 @@ class _EditState extends State<EditHero>{
     List<HotCoffee> hotList = await coffeeDB.fetchHotCoffeeSpec(widget.title);
     List<Latte> latteList = await coffeeDB.fetchLatteSpecEdit(widget.title);
     List<Croffles> croffleList = await coffeeDB.fetchCrofflesSpec(widget.title);
+    List<Croffles> othersList = await coffeeDB.fetchOthersSpec(widget.title);
     setState(() {
       if(widget.type == "iced"){
         status = icedList[0].status;
@@ -50,6 +51,9 @@ class _EditState extends State<EditHero>{
       }
       else if(widget.type == "latte"){
         status = latteList[0].status;
+      }
+      else if(widget.type == "others"){
+        status = othersList[0].status;
       }
       else{
         status = croffleList[0].status;

@@ -68,8 +68,8 @@ class _LineChartState extends State<LineChartWidget>{
         ),
         const Padding(padding: EdgeInsets.only(top: 20)),
         SizedBox(
-          width: 300,
-          height: 250,
+          width: 400,
+          height: 280,
           child: LineChart(
             LineChartData(
               minY: 0,
@@ -115,7 +115,7 @@ class _LineChartState extends State<LineChartWidget>{
   Widget leftTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
       fontWeight: FontWeight.bold,
-      fontSize: 14,
+      fontSize: 12,
     );
     String text;
     switch (value.toInt()) {

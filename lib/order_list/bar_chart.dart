@@ -36,8 +36,9 @@ class _BarChartState extends State<BarChartWidget>{
     List<OrderItems> hotCups = await coffeeDB.getHotCoffeeCups(widget.date);
     List<OrderItems> latteCups = await coffeeDB.getLatteCups(widget.date);
     List<OrderItems> croffles = await coffeeDB.getCrofflesSales(widget.date);
+    List<OrderItems> addOns = await coffeeDB.getAddOnSales(widget.date);
     setState(() {
-      if(icedCups.isNotEmpty){
+      if(icedCups.isNotEmpty || hotCups.isNotEmpty || latteCups.isNotEmpty || croffles.isNotEmpty || addOns.isNotEmpty){
         if(widget.type == "iced"){
           salesList = icedCups;
         }
@@ -46,6 +47,9 @@ class _BarChartState extends State<BarChartWidget>{
         }
         else if(widget.type == "latte"){
           salesList = latteCups;
+        }
+        else if(widget.type == "add_ons"){
+          salesList = addOns;
         }
         else {
           salesList = croffles;
@@ -126,44 +130,7 @@ class _BarChartState extends State<BarChartWidget>{
     );
     String text;
     text = titles[value.toInt()];
-    // switch (value.toInt()) {
-    //   case 0:
-    //     text = titles[0];
-    //     break;
-    //   case 1:
-    //     text = titles[1];
-    //     break;
-    //   case 2:
-    //     text = titles[2];
-    //     break;
-    //   case 3:
-    //     text = titles[3];
-    //     break;
-    //   case 4:
-    //     text = titles[4];
-    //     break;
-    //   case 5:
-    //     text = titles[5];
-    //     break;
-    //   case 6:
-    //     text = titles[6];
-    //     break;
-    //   case 7:
-    //     text = titles[7];
-    //     break;
-    //   case 8:
-    //     text = titles[8];
-    //     break;
-    //   case 9:
-    //     text = titles[9];
-    //     break;
-    //   case 10:
-    //     text = titles[10];
-    //     break;
-    //   default:
-    //     text = '';
-    //     break;
-    // }
+
     return SideTitleWidget(
       axisSide: meta.axisSide,
       space: 4,

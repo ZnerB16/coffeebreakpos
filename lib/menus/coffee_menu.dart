@@ -3,6 +3,7 @@ import 'package:coffee_break_pos/database/classes/iced_coffee.dart';
 import 'package:coffee_break_pos/database/classes/latte.dart';
 import 'package:coffee_break_pos/database/coffee_db.dart';
 import 'package:coffee_break_pos/editing/edit_hero.dart';
+import 'package:coffee_break_pos/menus/add_ons_hero.dart';
 import 'package:coffee_break_pos/menus/cart.dart';
 import 'package:coffee_break_pos/menus/order_slip.dart';
 import 'package:flutter/material.dart';
@@ -131,7 +132,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
       children: [Material(
         color: const Color(0xf0ECE0D1).withAlpha(150),
         child: SizedBox(
-          width: widget.isEditing ? 820 : 480,
+          width: widget.isEditing ? 850 : 480,
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -480,13 +481,6 @@ class CurrentOrderScreen extends StatefulWidget{
 class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
   final _controllerName = TextEditingController();
 
-  void addEspresso(){
-    setState(() {
-
-    }
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -685,10 +679,14 @@ class _CurrentOrderScreenState extends State<CurrentOrderScreen>{
                   ),
                   child: TextButton(
                     onPressed: (){
-                      addEspresso();
-                      setState(() {
-                        globals.computeTotal();
-                      });
+                      Navigator.push(context,
+                          HeroDialogRoute(builder: (context){
+                            return const AddOnsHero();
+                          })).then((value) =>
+                          setState(() {
+                            globals.computeTotal();
+                          })
+                      );
                     },
                     child: const Text(
                       "Add-ons",

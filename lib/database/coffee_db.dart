@@ -5,6 +5,7 @@ import 'package:coffee_break_pos/database/classes/hot_coffee.dart';
 import 'package:coffee_break_pos/database/classes/iced_coffee.dart';
 import 'package:coffee_break_pos/database/classes/latte.dart';
 import 'package:sqflite/sqflite.dart';
+import 'classes/add_ons.dart';
 import 'classes/order.dart';
 import 'classes/order_items.dart';
 import 'classes/others.dart';
@@ -30,7 +31,7 @@ class CoffeeDB {
       "name" TEXT NOT NULL,
       "size" TEXT NOT NULL,
       "price" REAL NOT NULL,
-      PRIMARY KEY("espresso_id" AUTOINCREMENT)
+      PRIMARY KEY("add_on_id" AUTOINCREMENT)
       );
       '''
     );
@@ -160,6 +161,9 @@ class CoffeeDB {
       "straw_coffee_dinein" INTEGER,
       "spork" INTEGER,
       "croffle_takeout" INTEGER,
+      "cellophane_1cup" INTEGER,
+      "cellophane_2cups" INTEGER,
+      "cellophane_croffles" INTEGER
       PRIMARY KEY("inventory_date") 
       );
       '''
@@ -172,7 +176,7 @@ class CoffeeDB {
       ("Espresso", "40ml", 10.0),
       ("Nata", "1scoop", 5.0),
       ("Syrup", "10ml", 10.0),
-      ("Jam", "1scoop", 10.0),
+      ("Jam", "1scoop", 10.0)
       '''
     );
     await database.execute(
@@ -486,6 +490,17 @@ class CoffeeDB {
     return tableInfo.map((info) => HotCoffee.fromSQfliteDatabase(info))
         .toList();
   }
+  Future<List<AddOns>> fetchAddOnSpec(String name) async {
+    final database = await DatabaseService().database;
+    final tableInfo = await database.rawQuery(
+        '''
+      SELECT * FROM $addonsTable
+      WHERE name = ?
+      ''', [name]
+    );
+    return tableInfo.map((info) => AddOns.fromSQfliteDatabase(info))
+        .toList();
+  }
 
   Future<List<Latte>> fetchLatte() async {
     final database = await DatabaseService().database;
@@ -592,7 +607,7 @@ class CoffeeDB {
         """
       SELECT * FROM $ordersTable
       WHERE date = ?
-      ORDER BY time DESC
+      ORDER BY order_id DESC
       """, [date]
     );
     return tableInfo.map((info) => Order.fromSQfliteDatabase(info)).toList();
@@ -708,6 +723,23 @@ class CoffeeDB {
       FROM $orderItemsTable
       WHERE product_name IN
       (SELECT name FROM $crofflesTable)
+      AND order_id IN
+      (SELECT order_id FROM $ordersTable WHERE date = ?)
+      GROUP BY product_name
+      ORDER BY qty DESC
+      """, [date]
+    );
+    return countIced.map((info) => OrderItems.fromSQfliteDatabase(info))
+        .toList();
+  }
+  Future<List<OrderItems>> getAddOnSales(String date) async {
+    final database = await DatabaseService().database;
+    final countIced = await database.rawQuery(
+        """
+      SELECT DISTINCT product_name, SUM(qty) AS qty
+      FROM $orderItemsTable
+      WHERE product_name IN
+      (SELECT name FROM $addonsTable)
       AND order_id IN
       (SELECT order_id FROM $ordersTable WHERE date = ?)
       GROUP BY product_name
@@ -873,6 +905,15 @@ class CoffeeDB {
       await database.rawQuery(
         """
         UPDATE $latteTable
+        SET status = ?
+        WHERE name = ?
+        """, [status, name]
+      );
+    }
+    else if(type == "others"){
+      await database.rawQuery(
+        """
+        UPDATE $othersTable
         SET status = ?
         WHERE name = ?
         """, [status, name]
