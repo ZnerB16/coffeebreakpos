@@ -145,8 +145,9 @@ class CoffeeDB {
       '''
     );
     await database.execute(
-        '''
+      '''
       CREATE TABLE IF NOT EXISTS $inventoryTable(
+      "inventory_id" INTEGER NOT NULL,
       "inventory_date" TEXT NOT NULL,
       "milk" INTEGER,
       "blueberry" INTEGER,
@@ -163,8 +164,8 @@ class CoffeeDB {
       "croffle_takeout" INTEGER,
       "cellophane_1cup" INTEGER,
       "cellophane_2cups" INTEGER,
-      "cellophane_croffles" INTEGER
-      PRIMARY KEY("inventory_date") 
+      "cellophane_croffles" INTEGER,
+      PRIMARY KEY("inventory_id" AUTOINCREMENT) 
       );
       '''
     );
@@ -732,6 +733,23 @@ class CoffeeDB {
     return countIced.map((info) => OrderItems.fromSQfliteDatabase(info))
         .toList();
   }
+  Future<List<OrderItems>> getOthersSales(String date) async {
+    final database = await DatabaseService().database;
+    final countOthers = await database.rawQuery(
+        """
+      SELECT DISTINCT product_name, SUM(qty) AS qty
+      FROM $orderItemsTable
+      WHERE product_name IN
+      (SELECT name FROM $othersTable)
+      AND order_id IN
+      (SELECT order_id FROM $ordersTable WHERE date = ?)
+      GROUP BY product_name
+      ORDER BY qty DESC
+      """, [date]
+    );
+    return countOthers.map((info) => OrderItems.fromSQfliteDatabase(info))
+        .toList();
+  }
   Future<List<OrderItems>> getAddOnSales(String date) async {
     final database = await DatabaseService().database;
     final countIced = await database.rawQuery(
@@ -955,5 +973,92 @@ class CoffeeDB {
       WHERE order_id = ?
       ''', [orderID]
     );
+  }
+  Future<List<OrderItems>> getTotal12oz(String date) async {
+    final database = await DatabaseService().database;
+    final result = await database.rawQuery(
+      '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE size = '12oz' 
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ?)
+      ''', [date]
+    );
+    return result.map((info) => OrderItems.fromSQfliteDatabase(info))
+        .toList();
+  }
+  Future<List<OrderItems>> getTotal16oz(String date) async {
+    final database = await DatabaseService().database;
+    final result = await database.rawQuery(
+        '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE size = '16oz'
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ?)
+      ''', [date]
+    );
+    return result.map((info) => OrderItems.fromSQfliteDatabase(info))
+        .toList();
+  }
+  Future<List<OrderItems>> getTotal22oz(String date) async {
+    final database = await DatabaseService().database;
+    final result = await database.rawQuery(
+        '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE size = '22oz'
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ?)
+      ''', [date]
+    );
+    return result.map((info) => OrderItems.fromSQfliteDatabase(info))
+        .toList();
+  }
+  Future<List<OrderItems>> getTotalCroffles(String date) async {
+    final database = await DatabaseService().database;
+    final result = await database.rawQuery(
+        '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE product_name
+      IN (SELECT name FROM $crofflesTable)
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ?)
+      ''', [date]
+    );
+    return result.map((info) => OrderItems.fromSQfliteDatabase(info))
+        .toList();
+  }
+  Future<List<OrderItems>> getTotalCookies(String date) async {
+    final database = await DatabaseService().database;
+    final result = await database.rawQuery(
+        '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE product_name
+      IN (SELECT name FROM $othersTable)
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ?)
+      ''', [date]
+    );
+    return result.map((info) => OrderItems.fromSQfliteDatabase(info))
+        .toList();
+  }
+  Future<List<OrderItems>> getTotalAddons(String date) async {
+    final database = await DatabaseService().database;
+    final result = await database.rawQuery(
+        '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE product_name
+      IN (SELECT name FROM $addonsTable)
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ?)
+      ''', [date]
+    );
+    return result.map((info) => OrderItems.fromSQfliteDatabase(info))
+        .toList();
   }
 }

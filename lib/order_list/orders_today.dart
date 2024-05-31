@@ -178,6 +178,16 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
                   const Padding(padding: EdgeInsets.only(top: 10)),
                   BarChartWidget(type: "add_ons", date: formattedDate),
                   const Padding(padding: EdgeInsets.only(top: 50)),
+                  const Text(
+                    "Others Sales",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  const Padding(padding: EdgeInsets.only(top: 10)),
+                  BarChartWidget(type: "others", date: formattedDate),
+                  const Padding(padding: EdgeInsets.only(top: 50)),
                 ],
               ),
           ),

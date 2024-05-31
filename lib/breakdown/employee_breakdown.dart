@@ -40,10 +40,10 @@ class _EmployeeBreakdownState extends State<EmployeeBreakdownScreen>{
   @override
   void initState(){
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      dtr = [];
-      await getEmployeeDTR();
-    });
+
+    dtr = [];
+    getEmployeeDTR();
+
   }
   String getFirstWord(String name) => name.isNotEmpty
       ? name.trim().split(RegExp(' +')).map((s) => s).take(1).join()

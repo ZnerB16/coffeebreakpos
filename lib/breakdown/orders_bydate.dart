@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
 
+import '../database/classes/order_items.dart';
+
 class OrdersByDateScreen extends StatefulWidget{
   String date = "";
   double total = 0.0;
@@ -27,6 +29,13 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
   String formattedDate = "";
   int? cups = 0;
   int? croffles = 0;
+  double total12oz = 0.0;
+  double total16oz = 0.0;
+  double total22oz = 0.0;
+  double totalCroffles = 0.0;
+  double totalCookies = 0.0;
+  double totalAddOns = 0.0;
+
   List<String> icedTitles = [];
   List<BarChartGroupData> barGroups = [];
   var coffeeDB = CoffeeDB();
@@ -40,6 +49,7 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getOrdersToday();
       await getCounts();
+      await getDivision();
     });
 
   }
@@ -57,6 +67,25 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
     });
   }
 
+  Future<void> getDivision() async {
+    List<OrderItems> total12 = await coffeeDB.getTotal12oz(widget.date);
+    List<OrderItems> total16 = await coffeeDB.getTotal16oz(widget.date);
+    List<OrderItems> total22 = await coffeeDB.getTotal22oz(widget.date);
+    List<OrderItems> totalCrofflesList = await coffeeDB.getTotalCroffles(widget.date);
+    List<OrderItems> totalCookiesList = await coffeeDB.getTotalCookies(widget.date);
+    List<OrderItems> totalAddOnsList = await coffeeDB.getTotalAddons(widget.date);
+
+    setState(() {
+      total12oz = total12[0].price;
+      total16oz = total16[0].price;
+      total22oz = total22[0].price;
+      totalCroffles = totalCrofflesList[0].price;
+      totalCookies = totalCookiesList[0].price;
+      totalAddOns = totalAddOnsList[0].price;
+
+    });
+  }
+
   Future<void> getOrdersToday() async {
     List<Order> order = await coffeeDB.getOrdersByDate(formattedDate);
     setState(() {
@@ -66,7 +95,8 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
               "name": order[i].name,
               "order_id": order[i].orderID,
               "time": order[i].time,
-              "mode": order[i].mode
+              "mode": order[i].mode,
+              "total": order[i].total
             }
         );
       }
@@ -98,14 +128,53 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
                 ),
                 Padding(
                   padding: const EdgeInsets.all(15),
-                  child: Text(
-                    "Total: ${widget.total}",
-                    style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Total: ${widget.total}",
+                        style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                  "Total 12oz: $total12oz"
+                              ),
+                              Text(
+                                  "Total 16oz: $total16oz"
+                              ),
+                              Text(
+                                  "Total 22oz: $total22oz"
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                  "Total Croffles: $totalCroffles"
+                              ),
+                              Text(
+                                  "Total Cookies: $totalCookies"
+                              ),
+                              Text(
+                                  "Total Add-Ons: $totalAddOns"
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+
+                    ],
+                  )
                 ),
+
                 Expanded(
                   child: Container(
                     width: 400,
@@ -181,6 +250,26 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
                 const Padding(padding: EdgeInsets.only(top: 10)),
                 BarChartWidget(type: "croffles", date: widget.date),
                 const Padding(padding: EdgeInsets.only(top: 50)),
+                const Text(
+                  "Add-On Sales",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+                const Padding(padding: EdgeInsets.only(top: 10)),
+                BarChartWidget(type: "add_ons", date: widget.date),
+                const Padding(padding: EdgeInsets.only(top: 50)),
+                const Text(
+                  "Others Sales",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+                const Padding(padding: EdgeInsets.only(top: 10)),
+                BarChartWidget(type: "others", date: widget.date),
+                const Padding(padding: EdgeInsets.only(top: 50)),
               ],
             ),
           ),
@@ -207,6 +296,7 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
                 Text("Name: ${orders[index]["name"]!.isEmpty ? "N/A" : orders[index]["name"]}"),
                 Text("Time of Order: ${orders[index]["time"]}"),
                 Text("Mode of Payment: ${orders[index]["mode"]}"),
+                Text("Total: ${orders[index]["total"]}", style: const TextStyle(fontWeight: FontWeight.bold),),
               ],
             ),
             Container(

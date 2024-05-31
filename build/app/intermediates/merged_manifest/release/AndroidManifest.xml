@@ -24,9 +24,11 @@
 
     <application
         android:name="android.app.Application"
+        android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:fullBackupOnly="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="coffee_break_pos" >
+        android:label="Coffee Break POS" >
         <activity
             android:name="com.example.coffee_break_pos.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

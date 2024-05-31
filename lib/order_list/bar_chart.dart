@@ -1,3 +1,4 @@
+import 'package:coffee_break_pos/database/classes/others.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -36,6 +37,7 @@ class _BarChartState extends State<BarChartWidget>{
     List<OrderItems> hotCups = await coffeeDB.getHotCoffeeCups(widget.date);
     List<OrderItems> latteCups = await coffeeDB.getLatteCups(widget.date);
     List<OrderItems> croffles = await coffeeDB.getCrofflesSales(widget.date);
+    List<OrderItems> others = await coffeeDB.getOthersSales(widget.date);
     List<OrderItems> addOns = await coffeeDB.getAddOnSales(widget.date);
     setState(() {
       if(icedCups.isNotEmpty || hotCups.isNotEmpty || latteCups.isNotEmpty || croffles.isNotEmpty || addOns.isNotEmpty){
@@ -50,6 +52,9 @@ class _BarChartState extends State<BarChartWidget>{
         }
         else if(widget.type == "add_ons"){
           salesList = addOns;
+        }
+        else if(widget.type == "others"){
+          salesList = others;
         }
         else {
           salesList = croffles;
@@ -76,7 +81,7 @@ class _BarChartState extends State<BarChartWidget>{
     });
   }
   String getInitials(String name, String type) => name.isNotEmpty
-      ? name.trim().split(RegExp(' +')).map((s) => type != "latte" ? s[0] : s[0] + s[1]).take(type == "hot" ? 2 : 5).join()
+      ? name.trim().split(RegExp(' +')).map((s) => type != "latte" && type != "others" ? s[0] : s[0] + s[1]).take(type == "hot" ? 2 : 5).join()
       : '';
 
   @override

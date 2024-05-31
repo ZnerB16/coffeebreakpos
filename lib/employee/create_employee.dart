@@ -269,7 +269,7 @@ class _CreateEmployeeState extends State<CreateEmployeeScreen>{
     DateTime? pickedDate = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
-        firstDate: DateTime(2000),
+        firstDate: DateTime(1920),
         lastDate: DateTime(2100)
     );
     if(pickedDate != null){
