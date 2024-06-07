@@ -15,7 +15,7 @@ class _MainEditingState extends State<MainEditingScreen>{
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Sidebar(currentScreen: "ED"),
-          CoffeeMenu(isEditing: true,)
+          CoffeeMenu(isEditing: true, isAdd: false)
         ],
       ),
     );

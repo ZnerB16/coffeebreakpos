@@ -2,6 +2,7 @@ import 'package:coffee_break_pos/database/classes/dtr.dart';
 import 'package:coffee_break_pos/database/classes/employee.dart';
 import 'package:coffee_break_pos/database/coffee_db.dart';
 import 'package:coffee_break_pos/sidebar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -79,6 +80,7 @@ class _EmployeeInfoState extends State<EmployeeInfoScreen>{
   Future<void> updateDTR() async {
     List<DTR> dtr = await coffeeDB.getEmployeeDetailsFromID(widget.employeeID);
     setState(() {
+
       for(int i = 0; i < dtr.length; i++){
         dtrList.add(
             {
@@ -227,66 +229,68 @@ class _EmployeeInfoState extends State<EmployeeInfoScreen>{
                       ),
                     ),
                     const Padding(padding: EdgeInsets.only(top: 20)),
-                    SizedBox(
-                      width: 600,
-                      child: Scrollbar(
-                        thumbVisibility: true,
-                        scrollbarOrientation: ScrollbarOrientation.right,
-                        thickness: 5,
-                        child: SingleChildScrollView(
-                          child: DataTable(
-                              border: TableBorder.all(),
-                              columns:  const [
-                                DataColumn(label: Center(
-                                  child: Text(
-                                      'Date',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold
-                                      )
+                    Expanded(
+                      child: SizedBox(
+                        width: 600,
+                        child: Scrollbar(
+                          thumbVisibility: true,
+                          scrollbarOrientation: ScrollbarOrientation.right,
+                          thickness: 5,
+                          child: SingleChildScrollView(
+                            child: DataTable(
+                                border: TableBorder.all(),
+                                columns:  const [
+                                  DataColumn(label: Center(
+                                    child: Text(
+                                        'Date',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold
+                                        )
+                                    ),
                                   ),
-                                ),
-                                ),
-                                DataColumn(label: Center(
-                                  child: Text(
-                                      'Time-In',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold
-                                      )
                                   ),
-                                ),
-                                ),
-                                DataColumn(label: Center(
-                                  child: Text(
-                                      'Time-Out',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold
-                                      )
+                                  DataColumn(label: Center(
+                                    child: Text(
+                                        'Time-In',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold
+                                        )
+                                    ),
                                   ),
-                                ),
-                                ),
-                              ],
-                              rows: dtrList.map((e) =>
-                                DataRow(cells: [
-                                  DataCell(Text(e["date"],
-                                    style: const TextStyle(fontSize: 16),),
                                   ),
-                                  DataCell(Center(
-                                    child: Text(e["time-in"],
+                                  DataColumn(label: Center(
+                                    child: Text(
+                                        'Time-Out',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold
+                                        )
+                                    ),
+                                  ),
+                                  ),
+                                ],
+                                rows: dtrList.map((e) =>
+                                  DataRow(cells: [
+                                    DataCell(Text(e["date"],
                                       style: const TextStyle(fontSize: 16),),
-                                  )),
-                                  DataCell(Center(
-                                    child: Text(e["time-out"].toString(),
-                                      style: const TextStyle(fontSize: 16),),
-                                  )),
-                                ])
-                              ).toList()
-                                  )
-                              )
+                                    ),
+                                    DataCell(Center(
+                                      child: Text(e["time-in"],
+                                        style: const TextStyle(fontSize: 16),),
+                                    )),
+                                    DataCell(Center(
+                                      child: Text(e["time-out"].toString(),
+                                        style: const TextStyle(fontSize: 16),),
+                                    )),
+                                  ])
+                                ).toList()
+                                    )
+                                )
+                            ),
                           ),
-                        ),
+                    ),
                   ],
                 ),
               ),

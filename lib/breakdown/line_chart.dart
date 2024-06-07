@@ -23,7 +23,7 @@ class _LineChartState extends State<LineChartWidget>{
   Future<void> getSales() async {
     List<Order> salesList = await coffeeDB.getSalesForChart();
     setState(() {
-      for(int i = 0; i < salesList.length; i++){
+      for(int i = salesList.length - 1; i >= 0; i--){
         salesData.add(
             {
               "date": salesList[i].date,

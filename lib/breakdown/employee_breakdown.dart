@@ -17,22 +17,23 @@ class _EmployeeBreakdownState extends State<EmployeeBreakdownScreen>{
   Future<void> getEmployeeDTR() async {
     List<DTR> dtrList = await coffeeDB.getDTR();
     DateTime timeInParse, timeOutParse;
-    Duration dif;
+    Duration dif = Duration(hours: 0);
 
     setState(() {
       for(int i = 0; i < dtrList.length; i++){
-        timeInParse = DateFormat.jm().parse(dtrList[i].timeIn);
-        timeOutParse = DateFormat.jm().parse(dtrList[i].timeOut);
-        dif = timeOutParse.difference(timeInParse);
-
+        if (dtrList[i].timeOut.isNotEmpty) {
+          timeInParse = DateFormat.jm().parse(dtrList[i].timeIn);
+          timeOutParse = DateFormat.jm().parse(dtrList[i].timeOut);
+          dif = timeOutParse.difference(timeInParse);
+        }
         dtr.add(
-          {
-            "name": dtrList[i].employeeName,
-            "date": dtrList[i].date,
-            "time_in": dtrList[i].timeIn,
-            "time_out": dtrList[i].timeOut,
-            "hours_rendered": dif.inHours
-          }
+            {
+              "name": dtrList[i].employeeName,
+              "date": dtrList[i].date,
+              "time_in": dtrList[i].timeIn,
+              "time_out": dtrList[i].timeOut,
+              "hours_rendered": dif.inHours
+            }
         );
       }
     });

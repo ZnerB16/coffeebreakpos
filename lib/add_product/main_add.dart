@@ -1,7 +1,7 @@
 import 'package:coffee_break_pos/sidebar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
+import '../menus/coffee_menu.dart';
 
 class MainAddScreen extends StatefulWidget{
   const MainAddScreen({super.key});
@@ -10,7 +10,9 @@ class MainAddScreen extends StatefulWidget{
   _MainAddState createState() => _MainAddState();
 }
 class _MainAddState extends State<MainAddScreen>{
-
+  final nameController = TextEditingController();
+  final sizeController = TextEditingController();
+  final priceController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,39 +21,32 @@ class _MainAddState extends State<MainAddScreen>{
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Sidebar(currentScreen: "AD"),
+          CoffeeMenu(isAdd: true, isEditing: false,),
           Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(
-                child: Container(
-                  width: 620,
-                  decoration: BoxDecoration(
-                    color: const Color(0xf0ECE0D1).withAlpha(150)
+              const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+              const Text(
+                  "Add Item",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold
                   ),
-                ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    addButton("Add to Coffee"),
-                    const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
-                    addButton("Add to Latte"),
-                  ],
-                ),
+                padding: const EdgeInsets.all(15.0),
+                child: addButton("Cups"),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    addButton("Add to Croffles"),
-                    const Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
-                    addButton("Add to Others"),
-                  ],
-                ),
+                padding: const EdgeInsets.all(15.0),
+                child: addButton("Food"),
               ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: addButton("Others"),
+              )
             ],
-          )
+          ),
         ],
       ),
     );
@@ -79,7 +74,8 @@ class _MainAddState extends State<MainAddScreen>{
           child: Text(
             text,
             style: const TextStyle(
-                color: Colors.white
+                color: Colors.white,
+                fontSize: 24
             ),
           )
       ),

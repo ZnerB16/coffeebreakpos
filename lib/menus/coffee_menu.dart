@@ -1,3 +1,4 @@
+import 'package:coffee_break_pos/add_product/change_hero.dart';
 import 'package:coffee_break_pos/database/classes/hot_coffee.dart';
 import 'package:coffee_break_pos/database/classes/iced_coffee.dart';
 import 'package:coffee_break_pos/database/classes/latte.dart';
@@ -15,10 +16,12 @@ import 'globals.dart' as globals;
 
 class CoffeeMenu extends StatefulWidget{
   bool isEditing = false;
+  bool isAdd = false;
 
   CoffeeMenu ({
     super.key,
-    required this.isEditing
+    required this.isEditing,
+    required this.isAdd
   });
 
   @override
@@ -35,6 +38,9 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
   bool isLatteActive = false;
   bool isCrofflesActive = false;
   bool isOthersActive = false;
+
+  double topButtonWidth = 95;
+  double topButtonHeight = 40;
 
   @override
   void initState(){
@@ -142,8 +148,8 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                   child: Row(
                     children: [
                       Container(
-                        width: 120,
-                        height: 50,
+                        width: topButtonWidth,
+                        height: topButtonHeight,
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(10),
@@ -167,15 +173,15 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                             'Coffee',
                             style: TextStyle(
                                 color: isCoffeeActive? Colors.white: Colors.black87,
-                                fontSize: 24,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold
                             ),
                           ),
                         ),
                       ),
                       Container(
-                        width: 120,
-                        height: 50,
+                        width: topButtonWidth,
+                        height: topButtonHeight,
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(10),
@@ -197,15 +203,15 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                             'Latte',
                             style: TextStyle(
                                 color: isLatteActive? Colors.white: Colors.black87,
-                                fontSize: 24,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold
                             ),
                           ),
                         ),
                       ),
                       Container(
-                        width: 120,
-                        height: 50,
+                        width: topButtonWidth,
+                        height: topButtonHeight,
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(10),
@@ -227,15 +233,15 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                             'Croffles',
                             style: TextStyle(
                                 color: isCrofflesActive? Colors.white: Colors.black87,
-                                fontSize: 24,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold
                             ),
                           ),
                         ),
                       ),
                       Container(
-                        width: 120,
-                        height: 50,
+                        width: topButtonWidth,
+                        height: topButtonHeight,
                         decoration: BoxDecoration(
                             borderRadius: const BorderRadius.only(
                                 topRight: Radius.circular(10),
@@ -257,7 +263,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                             'Others',
                             style: TextStyle(
                                 color: isOthersActive? Colors.white: Colors.black87,
-                                fontSize: 24,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold
                             ),
                           ),
@@ -360,10 +366,17 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                           itemCount: gridMap.length,
                           itemBuilder: (_, index){
                             return GestureDetector(
-                              onTap: !gridMap[index]["status"] && !widget.isEditing ? null : () {
+                              onTap: !gridMap[index]["status"] && !widget.isEditing && !widget.isAdd ? null : () {
                                 Navigator.of(context).push(HeroDialogRoute(
                                   builder: (context){
-                                    return !widget.isEditing ?
+                                    if(widget.isAdd){
+                                      return ChangeHero(
+                                        title: gridMap[index]["title"],
+                                        type: defaultMenu,
+                                        assetPath: gridMap[index]["imgPath"]
+                                      );
+                                    }
+                                    return !widget.isEditing && !widget.isAdd ?
                                     Cart(
                                         title: gridMap[index]["title"],
                                         type: defaultMenu,
@@ -402,7 +415,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
             ),
         )
       ),
-        widget.isEditing ? Container(): CurrentOrderScreen(orders: globals.orderList),
+        widget.isEditing || widget.isAdd ? Container(): CurrentOrderScreen(orders: globals.orderList),
       ]
     );
   }

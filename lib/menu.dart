@@ -41,7 +41,7 @@ class _MenuState extends State<Menu>{
         children: [
           // Sidebar container
           Sidebar(currentScreen: "Home",),
-          CoffeeMenu(isEditing: false),
+          CoffeeMenu(isEditing: false, isAdd: false),
         ],
 
       )

@@ -7,6 +7,7 @@ import 'package:coffee_break_pos/database/classes/iced_coffee.dart';
 import 'package:coffee_break_pos/database/classes/latte.dart';
 import 'package:coffee_break_pos/database/coffee_db.dart';
 import 'package:flutter/material.dart';
+import '../database/classes/others.dart';
 import 'globals.dart' as globals;
 
 class Cart extends StatefulWidget{
@@ -227,7 +228,7 @@ class CartState extends State<Cart>{
       });
     }
     else if(widget.type == "others"){
-      List<Croffles> otherList = await coffeeDB.fetchOthersSpec(name);
+      List<Others> otherList = await coffeeDB.fetchOthersSpec(name);
       setState(() {
         price = otherList[0].price * qty;
       });

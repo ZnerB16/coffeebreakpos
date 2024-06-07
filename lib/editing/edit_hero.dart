@@ -5,6 +5,7 @@ import 'package:coffee_break_pos/database/classes/latte.dart';
 import 'package:flutter/material.dart';
 
 import '../custom_rect_tween.dart';
+import '../database/classes/others.dart';
 import '../database/coffee_db.dart';
 import '../popups/success_popup.dart';
 
@@ -41,7 +42,7 @@ class _EditState extends State<EditHero>{
     List<HotCoffee> hotList = await coffeeDB.fetchHotCoffeeSpec(widget.title);
     List<Latte> latteList = await coffeeDB.fetchLatteSpecEdit(widget.title);
     List<Croffles> croffleList = await coffeeDB.fetchCrofflesSpec(widget.title);
-    List<Croffles> othersList = await coffeeDB.fetchOthersSpec(widget.title);
+    List<Others> othersList = await coffeeDB.fetchOthersSpec(widget.title);
     setState(() {
       if(widget.type == "iced"){
         status = icedList[0].status;

@@ -467,6 +467,17 @@ class CoffeeDB {
     return tableInfo.map((info) => IcedCoffee.fromSQfliteDatabase(info))
         .toList();
   }
+  Future<List<IcedCoffee>> fetchIcedCoffeeSpecSize(String name, String size) async {
+    final database = await DatabaseService().database;
+    final tableInfo = await database.rawQuery(
+        '''
+      SELECT * FROM $icedTable
+      WHERE name = ? AND size = ?
+      ''', [name, size]
+    );
+    return tableInfo.map((info) => IcedCoffee.fromSQfliteDatabase(info))
+        .toList();
+  }
 
   Future<List<HotCoffee>> fetchHotCoffee() async {
     final database = await DatabaseService().database;
@@ -489,6 +500,17 @@ class CoffeeDB {
       ''', [name]
     );
     return tableInfo.map((info) => HotCoffee.fromSQfliteDatabase(info))
+        .toList();
+  }
+  Future<List<Latte>> fetchLatteSpecSize(String name, String size) async {
+    final database = await DatabaseService().database;
+    final tableInfo = await database.rawQuery(
+        '''
+      SELECT * FROM $latteTable
+      WHERE name = ? AND size = ?
+      ''', [name, size]
+    );
+    return tableInfo.map((info) => Latte.fromSQfliteDatabase(info))
         .toList();
   }
   Future<List<AddOns>> fetchAddOnSpec(String name) async {
@@ -557,7 +579,7 @@ class CoffeeDB {
     );
     return tableInfo.map((info) => Croffles.fromSQfliteDatabase(info)).toList();
   }
-  Future<List<Croffles>> fetchOthersSpec(String name) async {
+  Future<List<Others>> fetchOthersSpec(String name) async {
     final database = await DatabaseService().database;
     final tableInfo = await database.rawQuery(
         '''
@@ -565,7 +587,7 @@ class CoffeeDB {
       WHERE name = ?
       ''', [name]
     );
-    return tableInfo.map((info) => Croffles.fromSQfliteDatabase(info)).toList();
+    return tableInfo.map((info) => Others.fromSQfliteDatabase(info)).toList();
   }
 
   Future<void> insertOrder(String name, String date, String time, double total,
@@ -878,7 +900,7 @@ class CoffeeDB {
       SELECT date, SUM(total_price) AS total_price
       FROM $ordersTable
       GROUP BY date
-      ORDER BY date ASC
+      ORDER BY date DESC
       LIMIT 7
       """
     );
