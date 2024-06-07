@@ -1083,4 +1083,63 @@ class CoffeeDB {
     return result.map((info) => OrderItems.fromSQfliteDatabase(info))
         .toList();
   }
+  Future<void> updateIcedCoffee(String name, String size, double price, int status, String oldName) async {
+    final database = await DatabaseService().database;
+    await database.rawQuery(
+        '''
+      UPDATE $icedTable
+      SET name = ?,
+          price = ?,
+          status = ?
+      WHERE name = ? AND size = ?
+      ''', [name, price, status, oldName, size]
+    );
+  }
+  Future<void> updateHotCoffee(String name, double price, int status) async {
+    final database = await DatabaseService().database;
+    await database.rawQuery(
+        '''
+      UPDATE $hotTable
+      SET name = ?,
+          price = ?,
+          status = ?
+      ''', [name, price, status]
+    );
+  }
+  Future<void> updateLatte(String name, String size, double price, int status, String oldName) async {
+    final database = await DatabaseService().database;
+    await database.rawQuery(
+        '''
+      UPDATE $latteTable
+      SET name = ?,
+          price = ?,
+          status = ?
+      WHERE name = ? AND size = ?
+      ''', [name, price, status, oldName, size]
+    );
+  }
+  Future<void> updateCroffles(String name, double price, int status, String oldName) async {
+    final database = await DatabaseService().database;
+    await database.rawQuery(
+        '''
+      UPDATE $crofflesTable
+      SET name = ?,
+          price = ?,
+          status = ?
+      WHERE name = ?
+      ''', [name, price, status, oldName]
+    );
+  }
+  Future<void> updateOthers(String name, double price, int status, String oldName) async {
+    final database = await DatabaseService().database;
+    await database.rawQuery(
+        '''
+      UPDATE $othersTable
+      SET name = ?,
+          price = ?,
+          status = ?
+      WHERE name = ?
+      ''', [name, price, status, oldName]
+    );
+  }
 }
