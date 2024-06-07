@@ -1,3 +1,5 @@
+import 'package:coffee_break_pos/mobile/main_menu.dart';
+import 'package:coffee_break_pos/responsive/responsive_layout.dart';
 import 'package:flutter/material.dart';
 import 'menu.dart';
 import 'package:flutter/services.dart';
@@ -12,19 +14,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations(
-      [
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.landscapeRight
-      ]
-    );
     return MaterialApp(
       title: 'Coffee Break POS',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Inter'
       ),
-      home: const Menu(),
+      home: const ResponsiveLayout(
+        mobileBody: MainMenu(),
+        tabletBody: Menu(),
+      ),
     );
   }
 }
