@@ -1,16 +1,12 @@
-# coffee_break_pos
+# Coffee Break Point of Sales (POS) System
 
-A new Flutter project.
+This project repository contains the release code for a POS of a coffee shop named 
+"Coffee Break" located in Tagum City, Philippines. 
 
-## Getting Started
+Facebook Link of Coffee Break: https://www.facebook.com/coffeebreaktgm
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Packages/Dependencies:
+- sqflite: used for back-end database 
+- intl: used for date formatting
+- path: used for database path location and image location (in development)
+- fl_chart: used for simple line and bar charts for sales breakdown analysis
