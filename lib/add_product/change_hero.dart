@@ -176,14 +176,11 @@ class _ChangeHeroState extends State<ChangeHero>{
                                           fontWeight: FontWeight.bold
                                       ),
                                     ),
-                                    Align(
-                                        alignment: AlignmentDirectional.centerEnd,
-                                        widthFactor: 7.8,
-                                        child: CloseButton(
-                                          style: ButtonStyle(
-                                              iconSize: MaterialStatePropertyAll(40)
-                                          ),
-                                        )
+                                    Spacer(),
+                                    CloseButton(
+                                      style: ButtonStyle(
+                                          iconSize: MaterialStatePropertyAll(40)
+                                      ),
                                     ),
                                   ]
                               ),
@@ -222,7 +219,7 @@ class _ChangeHeroState extends State<ChangeHero>{
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     SizedBox(
-                                      width: 150,
+                                      width: 180,
                                       child: TextField(
                                         autocorrect: false,
                                         controller: nameController,

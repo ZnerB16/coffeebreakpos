@@ -1143,4 +1143,51 @@ class CoffeeDB {
       ''', [name, price, status, oldName]
     );
   }
+  Future<void> addIcedCoffee(String name, String size, double price) async {
+    final database = await DatabaseService().database;
+    await database.rawQuery(
+      '''
+      INSERT INTO $icedTable(name, size, price)
+      VALUES(
+      ?,
+      ?,
+      ?
+      )
+      ''', [name, size, price]
+    );
+  }
+  Future<void> addHotCoffee(String name, double price) async {
+    final database = await DatabaseService().database;
+    await database.rawQuery(
+        '''
+      INSERT INTO $hotTable(name, price)
+      VALUES(
+      ?,
+      ?
+      )
+      ''', [name, price]
+    );
+  }
+  Future<void> addLatte(String name, String size, double price) async {
+    final database = await DatabaseService().database;
+    await database.rawQuery(
+        '''
+      INSERT INTO $latteTable(name, size, price)
+      VALUES(
+      ?,
+      ?,
+      ?
+      )
+      ''', [name, size, price]
+    );
+  }
+  Future<void> deleteIced(String name, String size) async{
+    final database = await DatabaseService().database;
+    await database.rawQuery(
+      '''
+      DELETE FROM $icedTable
+      WHERE name = ? AND size = ?
+      '''
+    );
+  }
 }

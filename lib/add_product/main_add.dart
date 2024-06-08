@@ -1,3 +1,5 @@
+import 'package:coffee_break_pos/add_product/add_cups.dart';
+import 'package:coffee_break_pos/hero_dialog_route.dart';
 import 'package:coffee_break_pos/sidebar.dart';
 import 'package:flutter/material.dart';
 
@@ -35,15 +37,44 @@ class _MainAddState extends State<MainAddScreen>{
               ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: addButton("Cups"),
+                child: addButton(
+                    "Cups",
+                    (){
+                      Navigator.push(context,
+                        HeroDialogRoute(
+                            builder: (context){
+                              return const AddCupsHero();
+                            }
+                        )
+                      );
+                    }
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: addButton("Food"),
+                child: addButton("Food",
+                     (){
+                      Navigator.push(context,
+                          HeroDialogRoute(
+                              builder: (context){
+                                return const AddCupsHero();
+                              }
+                          )
+                      );
+                    }),
               ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: addButton("Others"),
+                child: addButton("Others",
+                      (){
+                      Navigator.push(context,
+                          HeroDialogRoute(
+                              builder: (context){
+                                return const AddCupsHero();
+                              }
+                          )
+                      );
+                    }),
               )
             ],
           ),
@@ -51,7 +82,7 @@ class _MainAddState extends State<MainAddScreen>{
       ),
     );
   }
-  Widget addButton(String text){
+  Widget addButton(String text, Function() onPressed){
     return Container(
       width: 150,
       height: 60,
@@ -68,9 +99,7 @@ class _MainAddState extends State<MainAddScreen>{
         ],
       ),
       child: TextButton(
-          onPressed: () {
-
-          },
+          onPressed: onPressed,
           child: Text(
             text,
             style: const TextStyle(

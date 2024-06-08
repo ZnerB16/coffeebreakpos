@@ -80,8 +80,8 @@ class _EditState extends State<EditHero>{
                 borderRadius: BorderRadius.circular(32),
               ),
               child: SizedBox(
-                width: 800,
-                height: 500,
+                width: 600,
+                height: 450,
                 child: Row(
                   children: [
                     Expanded(
@@ -101,14 +101,11 @@ class _EditState extends State<EditHero>{
                                           fontWeight: FontWeight.bold
                                       ),
                                     ),
-                                    Align(
-                                        alignment: AlignmentDirectional.centerEnd,
-                                        widthFactor: 11.3,
-                                        child: CloseButton(
-                                          style: ButtonStyle(
-                                              iconSize: MaterialStatePropertyAll(40)
-                                          ),
-                                        )
+                                    Spacer(),
+                                    CloseButton(
+                                      style: ButtonStyle(
+                                          iconSize: MaterialStatePropertyAll(40)
+                                      ),
                                     ),
                                   ]
                               ),

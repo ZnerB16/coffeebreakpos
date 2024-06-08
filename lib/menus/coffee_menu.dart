@@ -365,6 +365,10 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: widget.isEditing ? 3 : 2),
                           itemCount: gridMap.length,
                           itemBuilder: (_, index){
+                            String assetPath = gridMap[index]["imgPath"];
+                            if(assetPath.isEmpty){
+                              assetPath = "assets/images/coffee-cup.png";
+                            }
                             return GestureDetector(
                               onTap: !gridMap[index]["status"] && !widget.isEditing && !widget.isAdd ? null : () {
                                 Navigator.of(context).push(HeroDialogRoute(
@@ -373,19 +377,19 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                                       return ChangeHero(
                                         title: gridMap[index]["title"],
                                         type: defaultMenu,
-                                        assetPath: gridMap[index]["imgPath"]
+                                        assetPath: assetPath
                                       );
                                     }
                                     return !widget.isEditing && !widget.isAdd ?
                                     Cart(
                                         title: gridMap[index]["title"],
                                         type: defaultMenu,
-                                        assetPath: gridMap[index]["imgPath"],
+                                        assetPath: assetPath,
                                     ) :
                                     EditHero(
                                         title: gridMap[index]["title"],
                                         type: defaultMenu,
-                                        assetPath: gridMap[index]["imgPath"]
+                                        assetPath: assetPath
                                     );
                                   },
                                 )).then((_) async {
@@ -407,7 +411,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                                 });
                               },
                               child: _item(
-                                  imgPath: gridMap[index]["imgPath"],
+                                  imgPath: assetPath,
                                   title: gridMap[index]["title"],
                                   status: gridMap[index]["status"]
                               ),
