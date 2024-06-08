@@ -1181,13 +1181,47 @@ class CoffeeDB {
       ''', [name, size, price]
     );
   }
-  Future<void> deleteIced(String name, String size) async{
+  Future<void> deleteItem(String name, String size, String type) async {
     final database = await DatabaseService().database;
-    await database.rawQuery(
+    if(type == "iced"){
+      await database.rawQuery(
       '''
       DELETE FROM $icedTable
       WHERE name = ? AND size = ?
+      ''', [name, size]
+      );
+    }
+    else if(type == "hot"){
+      await database.rawQuery(
       '''
-    );
+      DELETE FROM $hotTable
+      WHERE name = ?
+      ''', [name]
+      );
+    }
+    else if(type == "latte"){
+      await database.rawQuery(
+      '''
+      DELETE FROM $latteTable
+      WHERE name = ? AND size = ?
+      ''', [name, size]
+      );
+    }
+    else if(type == "croffles"){
+      await database.rawQuery(
+      '''
+      DELETE FROM $crofflesTable
+      WHERE name = ?
+      ''', [name]
+      );
+    }
+    else if(type == "others"){
+      await database.rawQuery(
+      '''
+      DELETE FROM $othersTable
+      WHERE name = ?
+      ''', [name]
+      );
+    }
   }
 }

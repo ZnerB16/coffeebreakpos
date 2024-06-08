@@ -153,7 +153,7 @@ class _ChangeHeroState extends State<ChangeHero>{
               ),
               child: SizedBox(
                 width: 600,
-                height: 400,
+                height: 430,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -211,7 +211,37 @@ class _ChangeHeroState extends State<ChangeHero>{
                                         customRadioButton("Unavailable", 0)
                                       ],
                                     ),
-                                    const Padding(padding: EdgeInsets.only(top: 20)),
+                                    const Padding(padding: EdgeInsets.only(top: 10)),
+                                    Container(
+                                      width: 120,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                          color: Colors.red,
+                                          borderRadius: BorderRadius.circular(25),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey.withOpacity(0.5),
+                                              spreadRadius: 2,
+                                              blurRadius: 2,
+                                              offset: const Offset(0, 5), // changes position of shadow
+                                            )]
+                                      ),
+                                      child: TextButton(
+                                          onPressed: () async {
+                                            await coffeeDB.deleteItem(widget.title, selectedSize, widget.type);
+                                            await alertDialog(context, "Item has been deleted");
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text(
+                                            "Delete Item",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold
+                                            ),
+                                          )
+                                      ),
+                                    )
                                   ],
                                 ),
                       

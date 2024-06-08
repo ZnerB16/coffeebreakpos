@@ -36,8 +36,8 @@ class _AddOnsState extends State<AddOnsHero>{
                 borderRadius: BorderRadius.circular(32),
               ),
               child: SizedBox(
-                width: 800,
-                height: 500,
+                width: 500,
+                height: 350,
                 child: Row(
                   children: [
                     Expanded(
@@ -57,20 +57,17 @@ class _AddOnsState extends State<AddOnsHero>{
                                           fontWeight: FontWeight.bold
                                       ),
                                     ),
-                                    Align(
-                                        alignment: Alignment.topRight,
-                                        widthFactor: 11,
-                                        child: CloseButton(
-                                          style: ButtonStyle(
-                                              iconSize: MaterialStatePropertyAll(40)
-                                          ),
-                                        )
+                                    Spacer(),
+                                    CloseButton(
+                                      style: ButtonStyle(
+                                          iconSize: MaterialStatePropertyAll(40)
+                                      ),
                                     ),
                                   ]
                               ),
                             ),
                           ),
-                          const Padding(padding: EdgeInsets.symmetric(vertical: 50)),
+                          const Spacer(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -126,7 +123,7 @@ class _AddOnsState extends State<AddOnsHero>{
                               ),
                             ),
                           ),
-
+                          const Spacer()
                         ],
                       ),
                     )

@@ -27,17 +27,53 @@ class Cart extends StatefulWidget{
 }
 class CartState extends State<Cart>{
 
-  int value = 1;
+  int value = 0;
   int qty = 1;
   double price = 0.0;
   String currSize = "12oz";
   String size1 = "12oz";
   String size2 = "16oz";
+  List<String> sizes = [];
+  var coffeeDB = CoffeeDB();
 
   @override
   void initState(){
     super.initState();
-    currSize = widget.type == "latte" ? "16oz" : "12oz";
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await getSizes();
+      if(sizes.isNotEmpty){
+        currSize = sizes[0];
+      }
+    });
+
+  }
+
+  Future<void> getSizes() async {
+    List<IcedCoffee> icedList = await coffeeDB.fetchIcedCoffeeSpecEdit(widget.title);
+    List<Latte> latteList = await coffeeDB.fetchLatteSpecEdit(widget.title);
+    List<Others> othersList = await coffeeDB.fetchOthersSpec(widget.title);
+
+    setState(() {
+      if(widget.type == "iced"){
+        for(int i = 0; i < icedList.length; i++){
+          sizes.add(icedList[i].size);
+        }
+      }
+      else if(widget.type == "hot"){
+        sizes.add("12oz");
+      }
+      else if(widget.type == "latte"){
+        for(int i = 0; i < latteList.length; i++){
+          sizes.add(latteList[i].size);
+        }
+      }
+      else if(widget.type == "others"){
+        for(int i = 0; i < othersList.length; i++){
+          sizes.add(othersList[i].size!);
+        }
+      }
+
+    });
   }
 
   @override
@@ -104,17 +140,9 @@ class CartState extends State<Cart>{
                         const Padding(padding: EdgeInsets.only(top: 20)),
                         Row(
                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Visibility(
-                              visible: widget.type != "croffles" && widget.type != "others" && widget.title != "Espresso Latte",
-                                child: customRadioButton(widget.type != "latte" ? size1 : "16oz", 1)
-                            ),
-                            Padding(padding: EdgeInsets.only(right: widget.title != "Espresso Latte" ? 15 : 0)),
-                            Visibility(
-                              visible: widget.type != "croffles" && widget.type != "others" && widget.type != "hot" && widget.title != "Black Americano",
-                                child: customRadioButton(widget.type != "latte" ? size2 : "22oz", widget.title != "Espresso Latte" && widget.title != "Coffee Caramel" ? 2 : 1)
-                            )
-                          ],
+                          children: sizes.asMap().map((i, element){
+                            return MapEntry(i, customRadioButton(element, i));
+                          }).values.toList()
                         ),
                         const Padding(padding: EdgeInsets.only(top: 20)),
                         qtyButton(),
@@ -178,26 +206,31 @@ class CartState extends State<Cart>{
     );
   }
   Widget customRadioButton(String text, int index) {
-    return OutlinedButton(
-      onPressed: () {
-        setState(() {
-          value = index;
-          currSize = text;
-        });
-      },
-      style: OutlinedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+    return Row(
+      children: [
+        OutlinedButton(
+          onPressed: () {
+            setState(() {
+              value = index;
+              currSize = text;
+            });
+          },
+          style: OutlinedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+            ),
+            backgroundColor: value == index ? const Color(0xf0ece0d1) : Colors.white
+            ),
+          child: Text(
+            text,
+            style: const TextStyle(
+              color: Colors.black87,
+              fontWeight: FontWeight.bold
+            ),
+          ),
         ),
-        backgroundColor: value == index ? const Color(0xf0ece0d1) : Colors.white
-        ),
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: Colors.black87,
-          fontWeight: FontWeight.bold
-        ),
-      ),
+        const Padding(padding: EdgeInsets.symmetric(horizontal: 5))
+      ],
     );
   }
   Future<void> getProductDetails(String name, String size) async{
