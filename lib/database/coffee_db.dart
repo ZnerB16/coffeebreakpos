@@ -1095,7 +1095,7 @@ class CoffeeDB {
       ''', [name, price, status, oldName, size]
     );
   }
-  Future<void> updateHotCoffee(String name, double price, int status) async {
+  Future<void> updateHotCoffee(String name, double price, int status, String oldName) async {
     final database = await DatabaseService().database;
     await database.rawQuery(
         '''
@@ -1103,7 +1103,8 @@ class CoffeeDB {
       SET name = ?,
           price = ?,
           status = ?
-      ''', [name, price, status]
+      WHERE name = ?
+      ''', [name, price, status, oldName]
     );
   }
   Future<void> updateLatte(String name, String size, double price, int status, String oldName) async {

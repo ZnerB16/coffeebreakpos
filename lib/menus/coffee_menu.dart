@@ -398,6 +398,12 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                                     });
                                     await getMapVal();
                                   }
+                                  else if(widget.isAdd){
+                                    setState(() {
+                                      gridMap = [];
+                                    });
+                                    await getMapVal();
+                                  }
                                 });
                               },
                               child: _item(

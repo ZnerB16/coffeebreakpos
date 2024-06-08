@@ -1,4 +1,5 @@
 import 'package:coffee_break_pos/database/coffee_db.dart';
+import 'package:coffee_break_pos/popups/success_popup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -101,6 +102,7 @@ class _ChangeHeroState extends State<ChangeHero>{
       priceController.text = price.toString();
     });
   }
+
   Future<void> changePrice() async {
     List<IcedCoffee> icedList = await coffeeDB.fetchIcedCoffeeSpecSize(widget.title, selectedSize);
     List<Latte> latteList = await coffeeDB.fetchLatteSpecSize(widget.title, selectedSize);
@@ -113,6 +115,24 @@ class _ChangeHeroState extends State<ChangeHero>{
       }
     });
     priceController.text = price.toString();
+  }
+
+  Future<void> updateItem(String name, double price, int status) async {
+    if(widget.type == "iced"){
+      await coffeeDB.updateIcedCoffee(name, selectedSize, price, status, widget.title);
+    }
+    else if(widget.type == "hot"){
+      await coffeeDB.updateHotCoffee(name, price, status, widget.title);
+    }
+    else if(widget.type == "latte"){
+      await coffeeDB.updateLatte(name, selectedSize, price, status, widget.title);
+    }
+    else if(widget.type == "croffles"){
+      await coffeeDB.updateCroffles(name, price, status, widget.title);
+    }
+    else if(widget.type == "others"){
+      await coffeeDB.updateOthers(name, price, status, widget.title);
+    }
   }
 
   @override
@@ -285,6 +305,13 @@ class _ChangeHeroState extends State<ChangeHero>{
                                       ),
                                       child: TextButton(
                                         onPressed: () async {
+                                          try{
+                                            await updateItem(nameController.text, double.parse(priceController.text), value);
+                                            alertDialog(context, "Successfully udpated item!");
+                                          }
+                                          catch(e){
+                                            ErrorWidget(e);
+                                          }
                                         }
                                         ,
                                         child: const Text(
