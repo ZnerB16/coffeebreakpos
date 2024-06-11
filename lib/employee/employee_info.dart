@@ -58,15 +58,13 @@ class _EmployeeInfoState extends State<EmployeeInfoScreen>{
     String dateToday = DateFormat('MM/dd/yyyy').format(now);
 
     if(latestDate.isNotEmpty){
-      if(latestDate[0].date == dateToday){
+      if(latestDate[0].date == dateToday && latestDate[0].timeIn.isNotEmpty){
         timeInExists = true;
       }
     }
   }
   Future<void> checkTimeOut() async{
     List<DTR> latestDate = await coffeeDB.getLatestDateEmployeeFromID(widget.employeeID);
-
-    DateTime now = DateTime.now();
 
     if (latestDate.isNotEmpty) {
       if(latestDate[0].timeOut.isEmpty){
@@ -97,7 +95,7 @@ class _EmployeeInfoState extends State<EmployeeInfoScreen>{
 
     DateTime now = DateTime.now();
     String dateToday = DateFormat('MM/dd/yyyy').format(now);
-    String formattedTime = DateFormat.jm().format(now);
+    String formattedTime = DateFormat('MM/dd/yyyy hh:mm').format(now);
 
     if (latestDate.isEmpty) {
       await coffeeDB.insertEmployeeDetailsTimeIn(widget.employeeID, dateToday, formattedTime);
@@ -110,11 +108,10 @@ class _EmployeeInfoState extends State<EmployeeInfoScreen>{
     List<DTR> latestDate = await coffeeDB.getLatestDateEmployeeFromID(widget.employeeID);
 
     DateTime now = DateTime.now();
-    String dateToday = DateFormat('MM/dd/yyyy').format(now);
-    String formattedTime = DateFormat.jm().format(now);
+    String formattedTime = DateFormat('MM/dd/yyyy hh:mm').format(now);
 
     if(latestDate[0].timeOut.isEmpty){
-      await coffeeDB.updateEmployeeDetailsTimeOut(widget.employeeID, dateToday, formattedTime);
+      await coffeeDB.updateEmployeeDetailsTimeOut(widget.employeeID, latestDate[0].date, formattedTime);
     }
   }
 
@@ -277,11 +274,11 @@ class _EmployeeInfoState extends State<EmployeeInfoScreen>{
                                       style: const TextStyle(fontSize: 16),),
                                     ),
                                     DataCell(Center(
-                                      child: Text(e["time-in"],
+                                      child: Text(e['time-in'].isEmpty ? "" : DateFormat.jm().format(DateFormat('MM/dd/yyyy hh:mm').parse(e["time-in"])),
                                         style: const TextStyle(fontSize: 16),),
                                     )),
                                     DataCell(Center(
-                                      child: Text(e["time-out"].toString(),
+                                      child: Text(e['time-out'].isEmpty ? "" : DateFormat.jm().format(DateFormat('MM/dd/yyyy hh:mm').parse(e["time-out"])),
                                         style: const TextStyle(fontSize: 16),),
                                     )),
                                   ])

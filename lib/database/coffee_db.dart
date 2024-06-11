@@ -1181,6 +1181,31 @@ class CoffeeDB {
       ''', [name, size, price]
     );
   }
+  Future<void> addCroffle(String name, double price) async {
+    final database = await DatabaseService().database;
+    await database.rawQuery(
+      '''
+      INSERT INTO $crofflesTable(name, price)
+      VALUES(
+      ?,
+      ?
+      )
+      ''', [name, price]
+    );
+  }
+  Future<void> addOthers(String name, String size, double price) async {
+    final database = await DatabaseService().database;
+    await database.rawQuery(
+        '''
+      INSERT INTO $othersTable(name, size, price)
+      VALUES(
+      ?,
+      ?,
+      ?
+      )
+      ''', [name, size, price]
+    );
+  }
   Future<void> deleteItem(String name, String size, String type) async {
     final database = await DatabaseService().database;
     if(type == "iced"){

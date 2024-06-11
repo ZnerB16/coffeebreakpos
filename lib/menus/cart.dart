@@ -30,9 +30,7 @@ class CartState extends State<Cart>{
   int value = 0;
   int qty = 1;
   double price = 0.0;
-  String currSize = "12oz";
-  String size1 = "12oz";
-  String size2 = "16oz";
+  String currSize = "";
   List<String> sizes = [];
   var coffeeDB = CoffeeDB();
 
@@ -93,7 +91,7 @@ class CartState extends State<Cart>{
               borderRadius: BorderRadius.circular(32),
             ),
             child: SizedBox(
-            width: 800,
+            width: 600,
             height: 500,
             child: Row(
                 children: [
@@ -114,15 +112,12 @@ class CartState extends State<Cart>{
                                     fontWeight: FontWeight.bold
                                   ),
                                 ),
-                                Align(
-                                alignment: Alignment.topRight,
-                                  widthFactor: 10.2,
-                                  child: CloseButton(
-                                    style: ButtonStyle(
-                                      iconSize: MaterialStatePropertyAll(40)
-                                    ),
-                                  )
-                              ),
+                                Spacer(),
+                                CloseButton(
+                                  style: ButtonStyle(
+                                    iconSize: MaterialStatePropertyAll(40)
+                                  ),
+                                ),
                               ]
                             ),
                           ),
@@ -165,17 +160,11 @@ class CartState extends State<Cart>{
                           child: TextButton(
                             onPressed: () async {
                               await getProductDetails(widget.title, widget.title != "Espresso Latte" && widget.title != "Coffee Caramel" ? currSize : "16oz");
-                              String size = "";
                               setState(() {
-                                if(widget.type == "croffles" || widget.type == "others"){
-                                  size = "";
-                                }
-                                else{
-                                  size = widget.title != "Espresso Latte" && widget.title != "Coffee Caramel" ? currSize : "16oz";
-                                }
+
                                 globals.orderList.add({
                                   "name": widget.title,
-                                  "size": size,
+                                  "size": currSize,
                                   "qty": qty,
                                   "price": price,
                                 });

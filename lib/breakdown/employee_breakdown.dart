@@ -17,19 +17,22 @@ class _EmployeeBreakdownState extends State<EmployeeBreakdownScreen>{
   Future<void> getEmployeeDTR() async {
     List<DTR> dtrList = await coffeeDB.getDTR();
     DateTime timeInParse, timeOutParse;
-    Duration dif = Duration(hours: 0);
+    Duration dif = const Duration(hours: 0);
 
     setState(() {
       for(int i = 0; i < dtrList.length; i++){
         if (dtrList[i].timeOut.isNotEmpty) {
-          timeInParse = DateFormat.jm().parse(dtrList[i].timeIn);
-          timeOutParse = DateFormat.jm().parse(dtrList[i].timeOut);
+
+          timeInParse = DateFormat("MM/dd/yyyy hh:mm").parse(
+              dtrList[i].timeIn.replaceAll('pm', 'PM').replaceAll('am', 'AM'));
+          timeOutParse = DateFormat("MM/dd/yyyy hh:mm").parse(
+          dtrList[i].timeOut.replaceAll('pm', 'PM').replaceAll('am', 'AM'));
+
           dif = timeOutParse.difference(timeInParse);
         }
         dtr.add(
             {
               "name": dtrList[i].employeeName,
-              "date": dtrList[i].date,
               "time_in": dtrList[i].timeIn,
               "time_out": dtrList[i].timeOut,
               "hours_rendered": dif.inHours
@@ -86,16 +89,6 @@ class _EmployeeBreakdownState extends State<EmployeeBreakdownScreen>{
                           ),
                           DataColumn(label: Center(
                             child: Text(
-                                'Date',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold
-                                )
-                            ),
-                          ),
-                          ),
-                          DataColumn(label: Center(
-                            child: Text(
                                 'Time-In',
                                 style: TextStyle(
                                     fontSize: 16,
@@ -130,15 +123,12 @@ class _EmployeeBreakdownState extends State<EmployeeBreakdownScreen>{
                               DataCell(Text(getFirstWord(e["name"]),
                                 style: const TextStyle(fontSize: 16),),
                               ),
-                              DataCell(Text(e["date"],
-                                style: const TextStyle(fontSize: 16),),
-                              ),
                               DataCell(Center(
                                 child: Text(e["time_in"],
                                   style: const TextStyle(fontSize: 16),),
                               )),
                               DataCell(Center(
-                                child: Text(e["time_out"].toString(),
+                                child: Text(e["time_out"],
                                   style: const TextStyle(fontSize: 16),),
                               )),
                               DataCell(Center(

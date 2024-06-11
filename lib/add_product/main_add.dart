@@ -1,4 +1,6 @@
 import 'package:coffee_break_pos/add_product/add_cups.dart';
+import 'package:coffee_break_pos/add_product/add_food.dart';
+import 'package:coffee_break_pos/add_product/add_others.dart';
 import 'package:coffee_break_pos/hero_dialog_route.dart';
 import 'package:coffee_break_pos/sidebar.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +59,7 @@ class _MainAddState extends State<MainAddScreen>{
                       Navigator.push(context,
                           HeroDialogRoute(
                               builder: (context){
-                                return const AddCupsHero();
+                                return const AddFood();
                               }
                           )
                       );
@@ -70,7 +72,7 @@ class _MainAddState extends State<MainAddScreen>{
                       Navigator.push(context,
                           HeroDialogRoute(
                               builder: (context){
-                                return const AddCupsHero();
+                                return const AddOthers();
                               }
                           )
                       );

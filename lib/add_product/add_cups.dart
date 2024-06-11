@@ -110,8 +110,6 @@ class _AddCupsState extends State<AddCupsHero>{
                             ],
                           ),
                           const Spacer(),
-
-
                         ],
                       ),
                     ),
@@ -152,7 +150,9 @@ class _AddCupsState extends State<AddCupsHero>{
       ),
     );
   }
+  // Add cups based on type (iced, latte, hot)
   Widget addCups(String type){
+    // Condition for iced or latte
     if(type == "iced" || type == "latte"){
       return Center(
         child: Padding(
@@ -182,7 +182,7 @@ class _AddCupsState extends State<AddCupsHero>{
                             Container(
                               color: const Color(0xf0ece0d1),
                               child: Padding(
-                                padding: EdgeInsets.all(5.0),
+                                padding: const EdgeInsets.all(5.0),
                                 child: Row(
                                     children: [
                                       const Padding(padding: EdgeInsets.only(right: 30)),
@@ -343,6 +343,7 @@ class _AddCupsState extends State<AddCupsHero>{
       )
     );
     }
+    // For hot coffee
     else{
       return Center(
         child: Padding(
@@ -360,7 +361,7 @@ class _AddCupsState extends State<AddCupsHero>{
                 ),
                 child: SizedBox(
                   width: 350,
-                  height: 320,
+                  height: 280,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -390,6 +391,99 @@ class _AddCupsState extends State<AddCupsHero>{
                                         ),
                                       ),
                                     ]
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Center(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      width: 180,
+                                      child: TextField(
+                                        autocorrect: false,
+                                        controller: nameController,
+                                        decoration: InputDecoration(
+                                          border: const UnderlineInputBorder(
+                                              borderSide: BorderSide(color: Color(0xff13367A),
+                                              )
+                                          ),
+                                          hintText: 'Name',
+                                          hintStyle: const TextStyle(fontSize: 16),
+                                          errorText: _validate ? "A field is empty": null,
+                                          errorStyle: const TextStyle(
+                                            height: 0,
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                        style: const TextStyle(
+                                            fontSize: 16
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 180,
+                                      child: TextField(
+                                        autocorrect: false,
+                                        controller: priceController,
+                                        decoration: InputDecoration(
+                                          border: const UnderlineInputBorder(
+                                              borderSide: BorderSide(color: Color(0xff13367A),
+                                              )
+                                          ),
+                                          hintText: 'Price',
+                                          hintStyle: const TextStyle(fontSize: 16),
+                                          errorText: _validate ? "A field is empty": null,
+                                          errorStyle: const TextStyle(
+                                            height: 0,
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                        keyboardType: TextInputType.number,
+                                        style: const TextStyle(
+                                            fontSize: 16
+                                        ),
+                                      ),
+                                    ),
+                                    const Padding(padding: EdgeInsets.only(top:20)),
+                                    Container(
+                                      width: 100,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xf0967259),
+                                        borderRadius: BorderRadius.circular(15),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 2,
+                                            blurRadius: 2,
+                                            offset: const Offset(0, 5), // changes position of shadow
+                                          ),
+                                        ],
+                                      ),
+                                      child: TextButton(
+                                        onPressed: () async {
+                                          try {
+                                            await coffeeDB.addHotCoffee(nameController.text, double.parse(priceController.text));
+                                            await alertDialog(context, "Successfully added item!");
+                                            Navigator.pop(context);
+                                          } catch (e) {
+                                            ErrorWidget(e);
+                                          }
+                                        }
+                                        ,
+                                        child: const Text(
+                                          "Add Item",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
