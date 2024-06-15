@@ -1,4 +1,4 @@
-import 'package:coffee_break_pos/mobile/main_menu.dart';
+
 import 'package:coffee_break_pos/responsive/responsive_layout.dart';
 import 'package:flutter/material.dart';
 import 'menu.dart';
@@ -21,8 +21,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Inter'
       ),
       home: const ResponsiveLayout(
-        mobileBody: MainMenu(),
-        tabletBody: Menu(),
+        tabletBody: Menu(), mobileBody: Scaffold(),
       ),
     );
   }
