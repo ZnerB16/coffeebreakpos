@@ -91,35 +91,6 @@ class _BreakdownState extends State<BreakdownScreen>{
                           ),
                         ),
                       ),
-                      Container(
-                        width: 150,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(10),
-                                bottomRight: Radius.circular(10)
-                            ),
-                            color: isInventoryActive? const Color(0xf0634832): Colors.white
-                        ),
-                        child: TextButton(
-                          onPressed: (){
-                            setState(() {
-                              defaultMenu = "Employee";
-                              isSalesActive = false;
-                              isEmployeeActive = false;
-                              isInventoryActive = true;
-                            });
-                          },
-                          child: Text(
-                            'Inventory',
-                            style: TextStyle(
-                                color: isInventoryActive? Colors.white: Colors.black87,
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold
-                            ),
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                   const Padding(padding: EdgeInsets.only(top: 20)),

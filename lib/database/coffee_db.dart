@@ -190,14 +190,14 @@ class CoffeeDB {
       ),
       (
       "Caramel Macchiato",
-      "16oz",
-      49.0,
+      "12oz",
+      39.0,
       "assets/images/iced/CC.png"
       ),
       (
       "Caramel Macchiato",
-      "12oz",
-      39.0,
+      "16oz",
+      49.0,
       "assets/images/iced/CC.png"
       ),
       ("Dark Mocha",
@@ -438,7 +438,7 @@ class CoffeeDB {
     final tableInfo = await database.rawQuery(
         '''
       SELECT DISTINCT name, status, asset_path FROM $icedTable
-      ORDER BY name ASC
+      ORDER BY status DESC, name ASC
       '''
     );
     return tableInfo.map((info) => IcedCoffee.fromSQfliteDatabase(info))
@@ -484,7 +484,7 @@ class CoffeeDB {
     final tableInfo = await database.rawQuery(
         '''
       SELECT * FROM $hotTable
-      ORDER BY name ASC
+      ORDER BY status DESC, name ASC
       '''
     );
     return tableInfo.map((info) => HotCoffee.fromSQfliteDatabase(info))
@@ -530,7 +530,7 @@ class CoffeeDB {
     final tableInfo = await database.rawQuery(
         '''
       SELECT DISTINCT name, status, asset_path FROM $latteTable
-      ORDER BY name ASC 
+      ORDER BY status DESC, name ASC
       '''
     );
     return tableInfo.map((info) => Latte.fromSQfliteDatabase(info)).toList();
@@ -563,7 +563,7 @@ class CoffeeDB {
     final tableInfo = await database.rawQuery(
         '''
       SELECT * FROM $crofflesTable
-      ORDER BY name ASC
+      ORDER BY status DESC, name ASC
       '''
     );
     return tableInfo.map((info) => Croffles.fromSQfliteDatabase(info)).toList();
@@ -975,7 +975,7 @@ class CoffeeDB {
     final tableInfo = await database.rawQuery(
         '''
       SELECT DISTINCT name, status, asset_path FROM $othersTable
-      ORDER BY name ASC
+      ORDER BY status DESC, name ASC
       '''
     );
     return tableInfo.map((info) => Others.fromSQfliteDatabase(info))

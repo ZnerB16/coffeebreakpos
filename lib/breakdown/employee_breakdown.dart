@@ -69,9 +69,6 @@ class _EmployeeBreakdownState extends State<EmployeeBreakdownScreen>{
           child: SizedBox(
             width: 600,
             child: Scrollbar(
-                thumbVisibility: true,
-                scrollbarOrientation: ScrollbarOrientation.right,
-                thickness: 5,
                 child: SingleChildScrollView(
                     child: DataTable(
                         border: TableBorder.all(),

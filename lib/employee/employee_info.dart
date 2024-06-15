@@ -226,68 +226,67 @@ class _EmployeeInfoState extends State<EmployeeInfoScreen>{
                       ),
                     ),
                     const Padding(padding: EdgeInsets.only(top: 20)),
-                    Expanded(
-                      child: SizedBox(
-                        width: 600,
-                        child: Scrollbar(
-                          thumbVisibility: true,
-                          scrollbarOrientation: ScrollbarOrientation.right,
-                          thickness: 5,
-                          child: SingleChildScrollView(
-                            child: DataTable(
-                                border: TableBorder.all(),
-                                columns:  const [
-                                  DataColumn(label: Center(
-                                    child: Text(
-                                        'Date',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold
-                                        )
-                                    ),
+                    SizedBox(
+                      width: 600,
+                      height: 200,
+                      child: Scrollbar(
+                        thumbVisibility: true,
+                        scrollbarOrientation: ScrollbarOrientation.right,
+                        thickness: 5,
+                        child: SingleChildScrollView(
+                          child: DataTable(
+                              border: TableBorder.all(),
+                              columns:  const [
+                                DataColumn(label: Center(
+                                  child: Text(
+                                      'Date',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold
+                                      )
                                   ),
+                                ),
+                                ),
+                                DataColumn(label: Center(
+                                  child: Text(
+                                      'Time-In',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold
+                                      )
                                   ),
-                                  DataColumn(label: Center(
-                                    child: Text(
-                                        'Time-In',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold
-                                        )
-                                    ),
+                                ),
+                                ),
+                                DataColumn(label: Center(
+                                  child: Text(
+                                      'Time-Out',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold
+                                      )
                                   ),
+                                ),
+                                ),
+                              ],
+                              rows: dtrList.map((e) =>
+                                DataRow(cells: [
+                                  DataCell(Text(e["date"],
+                                    style: const TextStyle(fontSize: 16),),
                                   ),
-                                  DataColumn(label: Center(
-                                    child: Text(
-                                        'Time-Out',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold
-                                        )
-                                    ),
-                                  ),
-                                  ),
-                                ],
-                                rows: dtrList.map((e) =>
-                                  DataRow(cells: [
-                                    DataCell(Text(e["date"],
+                                  DataCell(Center(
+                                    child: Text(e['time-in'].isEmpty ? "" : DateFormat.jm().format(DateFormat('MM/dd/yyyy hh:mm').parse(e["time-in"])),
                                       style: const TextStyle(fontSize: 16),),
-                                    ),
-                                    DataCell(Center(
-                                      child: Text(e['time-in'].isEmpty ? "" : DateFormat.jm().format(DateFormat('MM/dd/yyyy hh:mm').parse(e["time-in"])),
-                                        style: const TextStyle(fontSize: 16),),
-                                    )),
-                                    DataCell(Center(
-                                      child: Text(e['time-out'].isEmpty ? "" : DateFormat.jm().format(DateFormat('MM/dd/yyyy hh:mm').parse(e["time-out"])),
-                                        style: const TextStyle(fontSize: 16),),
-                                    )),
-                                  ])
-                                ).toList()
-                                    )
-                                )
-                            ),
+                                  )),
+                                  DataCell(Center(
+                                    child: Text(e['time-out'].isEmpty ? "" : DateFormat.jm().format(DateFormat('MM/dd/yyyy hh:mm').parse(e["time-out"])),
+                                      style: const TextStyle(fontSize: 16),),
+                                  )),
+                                ])
+                              ).toList()
+                                  )
+                              )
                           ),
-                    ),
+                        ),
                   ],
                 ),
               ),
