@@ -1,4 +1,3 @@
-import 'package:coffee_break_pos/hero_dialog_route.dart';
 import 'package:coffee_break_pos/mobile/breakdown/main_breakdown.dart';
 import 'package:coffee_break_pos/mobile/cart_items.dart';
 import 'package:coffee_break_pos/mobile/items_menu.dart';
@@ -98,7 +97,7 @@ class MainMenuState extends State<MainMenu>{
             children: [
               ListTile(
                 leading: const Icon(Icons.stacked_line_chart, color: Color(0xf0634832),),
-                title: const Text("Breakdown of Sales",
+                title: const Text("Breakdown",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 onTap: (){
