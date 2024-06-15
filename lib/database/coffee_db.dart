@@ -4,6 +4,7 @@ import 'package:coffee_break_pos/database/classes/employee.dart';
 import 'package:coffee_break_pos/database/classes/hot_coffee.dart';
 import 'package:coffee_break_pos/database/classes/iced_coffee.dart';
 import 'package:coffee_break_pos/database/classes/latte.dart';
+import 'package:coffee_break_pos/database/classes/waffles.dart';
 import 'package:sqflite/sqflite.dart';
 import 'classes/add_ons.dart';
 import 'classes/order.dart';
@@ -17,6 +18,7 @@ class CoffeeDB {
   final addonsTable = 'add_ons';
   final latteTable = 'latte';
   final crofflesTable = 'croffles';
+  final wafflesTable = 'waffles';
   final ordersTable = 'orders';
   final orderItemsTable = 'order_items';
   final employeeTable = 'employee';
@@ -80,6 +82,17 @@ class CoffeeDB {
       "status" BOOL DEFAULT 1 NOT NULL,
       "asset_path" TEXT,
       PRIMARY KEY("croffle_id" AUTOINCREMENT)
+      );
+      '''
+    );
+    await database.execute(
+      ''' CREATE TABLE IF NOT EXISTS $wafflesTable(
+      "waffle_id" INTEGER NOT NULL,  
+      "name" TEXT NOT NULL,
+      "price" REAL NOT NULL,
+      "status" BOOL DEFAULT 1 NOT NULL,
+      "asset_path" TEXT,
+      PRIMARY KEY("waffle_id" AUTOINCREMENT)
       );
       '''
     );
@@ -411,23 +424,76 @@ class CoffeeDB {
       '''
     );
     await database.execute(
-      '''
-      INSERT INTO $othersTable(name, price)
+        '''
+      INSERT INTO $othersTable(name, size, price)
       VALUES(
       "Cookies Choco",
+      "",
       25.0
       ),
       (
       "Cookies Matcha",
+      "",
       25.0
       ),
       (
       "Cookies Oats",
+      "",
       25.0
       ),
       (
       "Cookies Red Velvet",
+      "",
       25.0
+      ),
+      (
+      "Strawberry Lemonade",
+      "16oz",
+      49.0
+      ),
+      (
+      "Strawberry Lemonade",
+      "22oz",
+      59.0
+      ),
+      (
+      "Blueberry Lemonade",
+      "16oz",
+      49.0
+      ),
+      (
+      "Blueberry Lemonade",
+      "22oz",
+      59.0
+      )
+      '''
+    );
+    await database.execute(
+        '''
+      INSERT INTO $wafflesTable(name, price)
+      VALUES(
+      "Chocolate Waffle",
+      35.0
+      ),
+      (
+      "Strawberry Waffle",
+      35.0
+      ),
+      (
+      "Yema Waffle",
+      35.0
+      ),
+      (
+      "Nutella Waffle",
+      35.0
+      ),
+      (
+      "Oreo Crumble Waffle",
+      45.0
+      ),
+      (
+      "Nutella Strawberry Waffle",
+      45.0
       )
       '''
     );
@@ -488,6 +554,17 @@ class CoffeeDB {
       '''
     );
     return tableInfo.map((info) => HotCoffee.fromSQfliteDatabase(info))
+        .toList();
+  }
+  Future<List<Waffles>> fetchWaffles() async {
+    final database = await DatabaseService().database;
+    final tableInfo = await database.rawQuery(
+        '''
+      SELECT * FROM $wafflesTable
+      ORDER BY name ASC
+      '''
+    );
+    return tableInfo.map((info) => Waffles.fromSQfliteDatabase(info))
         .toList();
   }
 
@@ -579,6 +656,18 @@ class CoffeeDB {
     );
     return tableInfo.map((info) => Croffles.fromSQfliteDatabase(info)).toList();
   }
+
+  Future<List<Waffles>> fetchWafflesSpec(String name) async {
+    final database = await DatabaseService().database;
+    final tableInfo = await database.rawQuery(
+        '''
+      SELECT * FROM $wafflesTable
+      WHERE name = ?
+      ''', [name]
+    );
+    return tableInfo.map((info) => Waffles.fromSQfliteDatabase(info)).toList();
+  }
+
   Future<List<Others>> fetchOthersSpec(String name) async {
     final database = await DatabaseService().database;
     final tableInfo = await database.rawQuery(

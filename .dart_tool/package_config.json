@@ -254,6 +254,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "popover",
+      "rootUri": "file:///C:/Users/Brenz%20Gwynne%20Hababag/AppData/Local/Pub/Cache/hosted/pub.dev/popover-0.3.0+1",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///C:/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -356,7 +362,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-06-11T10:44:21.706121Z",
+  "generated": "2024-06-12T06:03:36.368357Z",
   "generator": "pub",
   "generatorVersion": "3.3.0"
 }
