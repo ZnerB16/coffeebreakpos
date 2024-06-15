@@ -1,7 +1,7 @@
 import 'bar_chart.dart';
 import 'package:coffee_break_pos/database/classes/order.dart';
 import 'package:coffee_break_pos/database/coffee_db.dart';
-import 'hero_dialog_route.dart';
+import 'needed_imports/hero_dialog_route.dart';
 import 'more_info.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';

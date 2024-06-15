@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../database/classes/waffles.dart';
 import '../hero_dialog_route.dart';
-import 'custom_rect_tween.dart';
+import 'needed_imports/custom_rect_tween.dart';
 import '../database/classes/croffles.dart';
 import '../database/classes/hot_coffee.dart';
 import '../database/classes/iced_coffee.dart';

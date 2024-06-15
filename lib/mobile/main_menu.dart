@@ -1,3 +1,5 @@
+import 'package:coffee_break_pos/hero_dialog_route.dart';
+import 'package:coffee_break_pos/mobile/breakdown/main_breakdown.dart';
 import 'package:coffee_break_pos/mobile/cart_items.dart';
 import 'package:coffee_break_pos/mobile/items_menu.dart';
 import 'package:coffee_break_pos/mobile/orders_today.dart';
@@ -15,6 +17,7 @@ class MainMenu extends StatefulWidget{
 class MainMenuState extends State<MainMenu>{
   int _currentIndex = 0;
   int listLength = 0;
+  int adminIndex = 0;
 
   List<Widget> body = [];
 
@@ -99,12 +102,19 @@ class MainMenuState extends State<MainMenu>{
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 onTap: (){
-
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context){
+                            return const MainBreakdown();
+                          }
+                      )
+                    );
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.person_add_alt_1, color: Color(0xf0634832),),
-                title: const Text("Add New Employee",
+                title: const Text("New Employee",
                     style: TextStyle(fontWeight: FontWeight.bold)
                 ),
                 onTap: (){
@@ -113,13 +123,22 @@ class MainMenuState extends State<MainMenu>{
               ),
               ListTile(
                 leading: const Icon(Icons.add_shopping_cart, color: Color(0xf0634832),),
-                title: const Text("Add New Product",
+                title: const Text("New Product",
                     style: TextStyle(fontWeight: FontWeight.bold)
                 ),
                 onTap: (){
 
                 },
-              )
+              ),
+              ListTile(
+                leading: const Icon(Icons.edit_note, color: Color(0xf0634832),),
+                title: const Text("Edit Product",
+                    style: TextStyle(fontWeight: FontWeight.bold)
+                ),
+                onTap: (){
+
+                },
+              ),
             ],
           ),
         ),
@@ -132,7 +151,10 @@ class MainMenuState extends State<MainMenu>{
           else if(_currentIndex == 1){
 
           }
-          return OrdersTodayScreen();
+          else if(_currentIndex == 2){
+
+          }
+          return const OrdersTodayScreen();
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -146,6 +168,7 @@ class MainMenuState extends State<MainMenu>{
         selectedLabelStyle: const TextStyle(color: Color(0xf0634832)),
         unselectedLabelStyle: const TextStyle(color: Colors.grey),
         unselectedItemColor: Colors.grey,
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
             label: "Home",
@@ -154,6 +177,12 @@ class MainMenuState extends State<MainMenu>{
           BottomNavigationBarItem(
               label: "Time-in/out",
               icon: Icon(Icons.timer)
+          ),
+          BottomNavigationBarItem(
+            label: "Edit",
+            icon: Icon(
+              Icons.edit_calendar,
+            ),
           ),
           BottomNavigationBarItem(
               label: "Order List",
