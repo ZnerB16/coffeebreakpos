@@ -1,0 +1,213 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.coffee_break_pos"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="19"
+8-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="33" />
+9-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml
+10    <!--
+11         Required to query activities that can process text, see:
+12         https://developer.android.com/training/package-visibility?hl=en and
+13         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
+14
+15         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin.
+16    -->
+17    <queries>
+17-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:40:5-45:15
+18        <intent>
+18-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:41:9-44:18
+19            <action android:name="android.intent.action.PROCESS_TEXT" />
+19-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:42:13-72
+19-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:42:21-70
+20
+21            <data android:mimeType="text/plain" />
+21-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:43:13-50
+21-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:43:19-48
+22        </intent>
+23    </queries>
+24    <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
+25    <!-- <uses-sdk android:minSdkVersion="14" /> -->
+26    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+26-->[com.google.firebase:firebase-firestore:24.11.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\7dc828c258d41340ff3020aa54732066\transformed\jetified-firebase-firestore-24.11.0\AndroidManifest.xml:10:5-79
+26-->[com.google.firebase:firebase-firestore:24.11.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\7dc828c258d41340ff3020aa54732066\transformed\jetified-firebase-firestore-24.11.0\AndroidManifest.xml:10:22-76
+27    <uses-permission android:name="android.permission.INTERNET" />
+27-->[com.google.firebase:firebase-firestore:24.11.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\7dc828c258d41340ff3020aa54732066\transformed\jetified-firebase-firestore-24.11.0\AndroidManifest.xml:11:5-67
+27-->[com.google.firebase:firebase-firestore:24.11.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\7dc828c258d41340ff3020aa54732066\transformed\jetified-firebase-firestore-24.11.0\AndroidManifest.xml:11:22-64
+28
+29    <application
+30        android:name="android.app.Application"
+30-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:4:9-42
+31        android:allowBackup="true"
+31-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:5:9-35
+32        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+32-->[androidx.core:core:1.6.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\2579a7de00054bf46a8dbc332552f622\transformed\core-1.6.0\AndroidManifest.xml:24:18-86
+33        android:fullBackupOnly="true"
+33-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:6:9-38
+34        android:icon="@mipmap/ic_launcher"
+34-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:7:9-43
+35        android:label="Coffee Break POS" >
+35-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:3:9-41
+36        <activity
+36-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:8:9-28:20
+37            android:name="com.example.coffee_break_pos.MainActivity"
+37-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:9:13-41
+38            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+38-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:13:13-163
+39            android:exported="true"
+39-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:10:13-36
+40            android:hardwareAccelerated="true"
+40-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:14:13-47
+41            android:launchMode="singleTop"
+41-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:11:13-43
+42            android:theme="@style/LaunchTheme"
+42-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:12:13-47
+43            android:windowSoftInputMode="adjustResize" >
+43-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:15:13-55
+44
+45            <!--
+46                 Specifies an Android theme to apply to this Activity as soon as
+47                 the Android process has started. This theme is visible to the user
+48                 while the Flutter UI initializes. After that, this theme continues
+49                 to determine the Window background behind the Flutter UI.
+50            -->
+51            <meta-data
+51-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:20:13-23:17
+52                android:name="io.flutter.embedding.android.NormalTheme"
+52-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:21:15-70
+53                android:resource="@style/NormalTheme" />
+53-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:22:15-52
+54
+55            <intent-filter>
+55-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:24:13-27:29
+56                <action android:name="android.intent.action.MAIN" />
+56-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:25:17-68
+56-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:25:25-66
+57
+58                <category android:name="android.intent.category.LAUNCHER" />
+58-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:26:17-76
+58-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:26:27-74
+59            </intent-filter>
+60        </activity>
+61        <!--
+62             Don't delete the meta-data below.
+63             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+64        -->
+65        <meta-data
+65-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:31:9-33:33
+66            android:name="flutterEmbedding"
+66-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:32:13-44
+67            android:value="2" />
+67-->C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android\app\src\main\AndroidManifest.xml:33:13-30
+68
+69        <service
+69-->[:firebase_database] C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\firebase_database\intermediates\merged_manifest\release\AndroidManifest.xml:10:9-14:19
+70            android:name="com.google.firebase.components.ComponentDiscoveryService"
+70-->[:firebase_database] C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\firebase_database\intermediates\merged_manifest\release\AndroidManifest.xml:10:18-89
+71            android:directBootAware="true"
+71-->[com.google.firebase:firebase-common:20.4.3] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\8d4ee856b0501bd4e2deb987ae70e355\transformed\jetified-firebase-common-20.4.3\AndroidManifest.xml:32:13-43
+72            android:exported="false" >
+72-->[com.google.firebase:firebase-firestore:24.11.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\7dc828c258d41340ff3020aa54732066\transformed\jetified-firebase-firestore-24.11.0\AndroidManifest.xml:16:13-37
+73            <meta-data
+73-->[:firebase_database] C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\firebase_database\intermediates\merged_manifest\release\AndroidManifest.xml:11:13-13:85
+74                android:name="com.google.firebase.components:io.flutter.plugins.firebase.database.FlutterFirebaseAppRegistrar"
+74-->[:firebase_database] C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\firebase_database\intermediates\merged_manifest\release\AndroidManifest.xml:12:17-127
+75                android:value="com.google.firebase.components.ComponentRegistrar" />
+75-->[:firebase_database] C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\firebase_database\intermediates\merged_manifest\release\AndroidManifest.xml:13:17-82
+76            <meta-data
+76-->[:cloud_firestore] C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\cloud_firestore\intermediates\merged_manifest\release\AndroidManifest.xml:11:13-13:85
+77                android:name="com.google.firebase.components:io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestoreRegistrar"
+77-->[:cloud_firestore] C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\cloud_firestore\intermediates\merged_manifest\release\AndroidManifest.xml:12:17-134
+78                android:value="com.google.firebase.components.ComponentRegistrar" />
+78-->[:cloud_firestore] C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\cloud_firestore\intermediates\merged_manifest\release\AndroidManifest.xml:13:17-82
+79            <meta-data
+79-->[:firebase_core] C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\firebase_core\intermediates\merged_manifest\release\AndroidManifest.xml:11:13-13:85
+80                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
+80-->[:firebase_core] C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\firebase_core\intermediates\merged_manifest\release\AndroidManifest.xml:12:17-124
+81                android:value="com.google.firebase.components.ComponentRegistrar" />
+81-->[:firebase_core] C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\firebase_core\intermediates\merged_manifest\release\AndroidManifest.xml:13:17-82
+82            <meta-data
+82-->[com.google.firebase:firebase-firestore:24.11.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\7dc828c258d41340ff3020aa54732066\transformed\jetified-firebase-firestore-24.11.0\AndroidManifest.xml:17:13-19:85
+83                android:name="com.google.firebase.components:com.google.firebase.firestore.FirebaseFirestoreKtxRegistrar"
+83-->[com.google.firebase:firebase-firestore:24.11.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\7dc828c258d41340ff3020aa54732066\transformed\jetified-firebase-firestore-24.11.0\AndroidManifest.xml:18:17-122
+84                android:value="com.google.firebase.components.ComponentRegistrar" />
+84-->[com.google.firebase:firebase-firestore:24.11.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\7dc828c258d41340ff3020aa54732066\transformed\jetified-firebase-firestore-24.11.0\AndroidManifest.xml:19:17-82
+85            <meta-data
+85-->[com.google.firebase:firebase-firestore:24.11.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\7dc828c258d41340ff3020aa54732066\transformed\jetified-firebase-firestore-24.11.0\AndroidManifest.xml:20:13-22:85
+86                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+86-->[com.google.firebase:firebase-firestore:24.11.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\7dc828c258d41340ff3020aa54732066\transformed\jetified-firebase-firestore-24.11.0\AndroidManifest.xml:21:17-111
+87                android:value="com.google.firebase.components.ComponentRegistrar" />
+87-->[com.google.firebase:firebase-firestore:24.11.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\7dc828c258d41340ff3020aa54732066\transformed\jetified-firebase-firestore-24.11.0\AndroidManifest.xml:22:17-82
+88            <meta-data
+88-->[com.google.firebase:firebase-database:20.3.1] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\647611cba3b3d12d43e15dfee971b1fa\transformed\jetified-firebase-database-20.3.1\AndroidManifest.xml:29:13-31:85
+89                android:name="com.google.firebase.components:com.google.firebase.database.FirebaseDatabaseKtxRegistrar"
+89-->[com.google.firebase:firebase-database:20.3.1] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\647611cba3b3d12d43e15dfee971b1fa\transformed\jetified-firebase-database-20.3.1\AndroidManifest.xml:30:17-120
+90                android:value="com.google.firebase.components.ComponentRegistrar" />
+90-->[com.google.firebase:firebase-database:20.3.1] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\647611cba3b3d12d43e15dfee971b1fa\transformed\jetified-firebase-database-20.3.1\AndroidManifest.xml:31:17-82
+91            <meta-data
+91-->[com.google.firebase:firebase-database:20.3.1] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\647611cba3b3d12d43e15dfee971b1fa\transformed\jetified-firebase-database-20.3.1\AndroidManifest.xml:32:13-34:85
+92                android:name="com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar"
+92-->[com.google.firebase:firebase-database:20.3.1] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\647611cba3b3d12d43e15dfee971b1fa\transformed\jetified-firebase-database-20.3.1\AndroidManifest.xml:33:17-109
+93                android:value="com.google.firebase.components.ComponentRegistrar" />
+93-->[com.google.firebase:firebase-database:20.3.1] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\647611cba3b3d12d43e15dfee971b1fa\transformed\jetified-firebase-database-20.3.1\AndroidManifest.xml:34:17-82
+94            <meta-data
+94-->[com.google.firebase:firebase-common-ktx:20.4.3] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\2acaae8c7b458348fda3ee338b8132e2\transformed\jetified-firebase-common-ktx-20.4.3\AndroidManifest.xml:12:13-14:85
+95                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+95-->[com.google.firebase:firebase-common-ktx:20.4.3] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\2acaae8c7b458348fda3ee338b8132e2\transformed\jetified-firebase-common-ktx-20.4.3\AndroidManifest.xml:13:17-116
+96                android:value="com.google.firebase.components.ComponentRegistrar" />
+96-->[com.google.firebase:firebase-common-ktx:20.4.3] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\2acaae8c7b458348fda3ee338b8132e2\transformed\jetified-firebase-common-ktx-20.4.3\AndroidManifest.xml:14:17-82
+97            <meta-data
+97-->[com.google.firebase:firebase-common:20.4.3] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\8d4ee856b0501bd4e2deb987ae70e355\transformed\jetified-firebase-common-20.4.3\AndroidManifest.xml:35:13-37:85
+98                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+98-->[com.google.firebase:firebase-common:20.4.3] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\8d4ee856b0501bd4e2deb987ae70e355\transformed\jetified-firebase-common-20.4.3\AndroidManifest.xml:36:17-109
+99                android:value="com.google.firebase.components.ComponentRegistrar" />
+99-->[com.google.firebase:firebase-common:20.4.3] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\8d4ee856b0501bd4e2deb987ae70e355\transformed\jetified-firebase-common-20.4.3\AndroidManifest.xml:37:17-82
+100        </service>
+101
+102        <provider
+102-->[com.google.firebase:firebase-common:20.4.3] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\8d4ee856b0501bd4e2deb987ae70e355\transformed\jetified-firebase-common-20.4.3\AndroidManifest.xml:23:9-28:39
+103            android:name="com.google.firebase.provider.FirebaseInitProvider"
+103-->[com.google.firebase:firebase-common:20.4.3] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\8d4ee856b0501bd4e2deb987ae70e355\transformed\jetified-firebase-common-20.4.3\AndroidManifest.xml:24:13-77
+104            android:authorities="com.example.coffee_break_pos.firebaseinitprovider"
+104-->[com.google.firebase:firebase-common:20.4.3] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\8d4ee856b0501bd4e2deb987ae70e355\transformed\jetified-firebase-common-20.4.3\AndroidManifest.xml:25:13-72
+105            android:directBootAware="true"
+105-->[com.google.firebase:firebase-common:20.4.3] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\8d4ee856b0501bd4e2deb987ae70e355\transformed\jetified-firebase-common-20.4.3\AndroidManifest.xml:26:13-43
+106            android:exported="false"
+106-->[com.google.firebase:firebase-common:20.4.3] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\8d4ee856b0501bd4e2deb987ae70e355\transformed\jetified-firebase-common-20.4.3\AndroidManifest.xml:27:13-37
+107            android:initOrder="100" />
+107-->[com.google.firebase:firebase-common:20.4.3] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\8d4ee856b0501bd4e2deb987ae70e355\transformed\jetified-firebase-common-20.4.3\AndroidManifest.xml:28:13-36
+108
+109        <uses-library
+109-->[androidx.window:window:1.0.0-beta04] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+110            android:name="androidx.window.extensions"
+110-->[androidx.window:window:1.0.0-beta04] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+111            android:required="false" />
+111-->[androidx.window:window:1.0.0-beta04] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+112        <uses-library
+112-->[androidx.window:window:1.0.0-beta04] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+113            android:name="androidx.window.sidecar"
+113-->[androidx.window:window:1.0.0-beta04] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
+114            android:required="false" />
+114-->[androidx.window:window:1.0.0-beta04] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\032f4dff274e516110d9363a9793a3e3\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+115
+116        <activity
+116-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\4b9d22533576529904e76f8ef61c175c\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
+117            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+117-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\4b9d22533576529904e76f8ef61c175c\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:19-85
+118            android:exported="false"
+118-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\4b9d22533576529904e76f8ef61c175c\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:22:19-43
+119            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+119-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\4b9d22533576529904e76f8ef61c175c\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:21:19-78
+120
+121        <meta-data
+121-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\c3e05c9fbf3e6c63974105ad6d97e1f5\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:21:9-23:69
+122            android:name="com.google.android.gms.version"
+122-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\c3e05c9fbf3e6c63974105ad6d97e1f5\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:22:13-58
+123            android:value="@integer/google_play_services_version" />
+123-->[com.google.android.gms:play-services-basement:18.3.0] C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\c3e05c9fbf3e6c63974105ad6d97e1f5\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:23:13-66
+124    </application>
+125
+126</manifest>
