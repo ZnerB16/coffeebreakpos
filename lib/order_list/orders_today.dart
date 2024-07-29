@@ -26,6 +26,8 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
   List<String> icedTitles = [];
   List<BarChartGroupData> barGroups = [];
   var coffeeDB = CoffeeDB();
+  int value = 0;
+  String currActive = "";
 
   @override
   void initState(){
@@ -54,7 +56,8 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
   }
 
   Future<void> getOrdersToday() async {
-    List<Order> order = await coffeeDB.getOrdersByDate(formattedDate);
+    ordersList = [];
+    List<Order> order = await coffeeDB.getOrdersByDateAndType(formattedDate, value);
     setState(() {
       for(int i = 0; i < order.length; i++){
         ordersList.add(
@@ -93,6 +96,15 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
                       ),
                     ),
                   ),
+                   Row(
+                     crossAxisAlignment: CrossAxisAlignment.center,
+                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                     children: [
+                        customRadioButton("All", 0),
+                        customRadioButton("Cash", 1),
+                        customRadioButton("GCash", 2),
+                     ]
+                   ),
                    Expanded(
                      child: Container(
                         width: 400,
@@ -114,82 +126,86 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
               ),
             ),
           const Padding(padding: EdgeInsets.only(right: 20)),
-          SingleChildScrollView(
-            controller: ScrollController(),
-            child: Column(
-                children: [
-                  const Padding(padding: EdgeInsets.only(top: 20)),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      _countTracker("Cups", cups),
-                      const Padding(padding: EdgeInsets.only(right: 20)),
-                      _countTracker("Croffles", croffles),
-                    ],
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 30)),
-                  const Text(
-                    "Iced Coffee Sales",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold
+          SizedBox(
+            width: MediaQuery.sizeOf(context).width / 2,
+            child: SingleChildScrollView(
+              controller: ScrollController(),
+              child: Column(
+                  children: [
+                    const Padding(padding: EdgeInsets.only(top: 20)),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _countTracker("Cups", cups),
+                        const Padding(padding: EdgeInsets.only(right: 20)),
+                        _countTracker("Croffles", croffles),
+                      ],
                     ),
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 10)),
-                  BarChartWidget(type: "iced", date: formattedDate),
-                  const Padding(padding: EdgeInsets.only(top: 30)),
-                  const Text(
-                    "Hot Coffee Sales",
-                    style: TextStyle(
+                    const Padding(padding: EdgeInsets.only(top: 30)),
+                    const Text(
+                      "Iced Coffee Sales",
+                      style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold
+                      ),
                     ),
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 10)),
-                  BarChartWidget(type: "hot", date: formattedDate),
-                  const Padding(padding: EdgeInsets.only(top: 30)),
-                  const Text(
-                    "Latte Sales",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
+                    const Padding(padding: EdgeInsets.only(top: 10)),
+                    BarChartWidget(type: "iced", date: formattedDate),
+                    const Padding(padding: EdgeInsets.only(top: 30)),
+                    const Text(
+                      "Hot Coffee Sales",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold
+                      ),
                     ),
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 10)),
-                  BarChartWidget(type: "latte", date: formattedDate),
-                  const Padding(padding: EdgeInsets.only(top: 30)),
-                  const Text(
-                    "Croffles Sales",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
+                    const Padding(padding: EdgeInsets.only(top: 10)),
+                    BarChartWidget(type: "hot", date: formattedDate),
+                    const Padding(padding: EdgeInsets.only(top: 30)),
+                    const Text(
+                      "Latte Sales",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold
+                      ),
                     ),
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 10)),
-                  BarChartWidget(type: "croffles", date: formattedDate),
-                  const Padding(padding: EdgeInsets.only(top: 50)),
-                  const Text(
-                    "Add-On Sales",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
+                    const Padding(padding: EdgeInsets.only(top: 10)),
+                    BarChartWidget(type: "latte", date: formattedDate),
+                    const Padding(padding: EdgeInsets.only(top: 30)),
+                    const Text(
+                      "Croffles Sales",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold
+                      ),
                     ),
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 10)),
-                  BarChartWidget(type: "add_ons", date: formattedDate),
-                  const Padding(padding: EdgeInsets.only(top: 50)),
-                  const Text(
-                    "Others Sales",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
+                    const Padding(padding: EdgeInsets.only(top: 10)),
+                    BarChartWidget(type: "croffles", date: formattedDate),
+                    const Padding(padding: EdgeInsets.only(top: 50)),
+                    const Text(
+                      "Add-On Sales",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold
+                      ),
                     ),
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 10)),
-                  BarChartWidget(type: "others", date: formattedDate),
-                  const Padding(padding: EdgeInsets.only(top: 50)),
-                ],
-              ),
+                    const Padding(padding: EdgeInsets.only(top: 10)),
+                    BarChartWidget(type: "add_ons", date: formattedDate),
+                    const Padding(padding: EdgeInsets.only(top: 50)),
+                    const Text(
+                      "Others Sales",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    const Padding(padding: EdgeInsets.only(top: 10)),
+                    BarChartWidget(type: "others", date: formattedDate),
+                    const Padding(padding: EdgeInsets.only(top: 50)),
+                  ],
+                ),
+            ),
           ),
         ],
       ),
@@ -261,6 +277,34 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
           ),
         ),
     );
+  }
+  Widget customRadioButton(String text, int index) {
+      return SizedBox(
+        width: 100,
+        child: OutlinedButton(
+          onPressed: () {
+            setState(() async {
+              value = index;
+              currActive = text;
+
+              await getOrdersToday();
+            });
+          },
+          style: OutlinedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              backgroundColor: value == index ? const Color(0xf0634832) : const Color(0xf0ece0d1)
+          ),
+          child: Text(
+            text,
+            style: TextStyle(
+                color: value == index ? Colors.white : Colors.black87,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+        ),
+      );
   }
 
   Widget _countTracker(String text, int? count){

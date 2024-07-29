@@ -3,11 +3,8 @@ import 'package:coffee_break_pos/database/classes/order.dart';
 import 'package:coffee_break_pos/database/coffee_db.dart';
 import 'package:coffee_break_pos/hero_dialog_route.dart';
 import 'package:coffee_break_pos/order_list/more_info.dart';
-import 'package:coffee_break_pos/sidebar.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-
-import 'package:intl/intl.dart';
 
 import '../database/classes/order_items.dart';
 
@@ -35,6 +32,8 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
   double totalCroffles = 0.0;
   double totalCookies = 0.0;
   double totalAddOns = 0.0;
+  int value = 0;
+  String currActive = "";
 
   List<String> icedTitles = [];
   List<BarChartGroupData> barGroups = [];
@@ -87,7 +86,8 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
   }
 
   Future<void> getOrdersToday() async {
-    List<Order> order = await coffeeDB.getOrdersByDate(formattedDate);
+    ordersList = [];
+    List<Order> order = await coffeeDB.getOrdersByDateAndType(formattedDate, value);
     setState(() {
       for(int i = 0; i < order.length; i++){
         ordersList.add(
@@ -173,6 +173,16 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
 
                     ],
                   )
+                ),
+
+                Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      customRadioButton("All", 0),
+                      customRadioButton("Cash", 1),
+                      customRadioButton("GCash", 2),
+                    ]
                 ),
 
                 Expanded(
@@ -337,6 +347,34 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+  Widget customRadioButton(String text, int index) {
+    return SizedBox(
+      width: 100,
+      child: OutlinedButton(
+        onPressed: () {
+          setState(() async {
+            value = index;
+            currActive = text;
+
+            await getOrdersToday();
+          });
+        },
+        style: OutlinedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            backgroundColor: value == index ? const Color(0xf0634832) : const Color(0xf0ece0d1)
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+              color: value == index ? Colors.white : Colors.black87,
+              fontWeight: FontWeight.bold
+          ),
         ),
       ),
     );

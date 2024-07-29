@@ -1,3 +1,5 @@
+
+
 plugins {
     id "com.android.application"
     id "kotlin-android"
@@ -26,6 +28,13 @@ android {
     namespace "com.example.coffee_break_pos"
     compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
+
+    configurations.all{
+        resolutionStrategy {
+            force 'com.google.android.gms:play-services-places:11.8.0'
+            force 'com.google.android.gms:play-services-location:11.8.0'
+        }
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

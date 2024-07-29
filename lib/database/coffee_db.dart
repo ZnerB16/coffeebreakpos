@@ -635,6 +635,41 @@ class CoffeeDB {
     );
     return tableInfo.map((info) => Order.fromSQfliteDatabase(info)).toList();
   }
+  Future<List<Order>> getOrdersByDateAndType(String date, int value) async {
+    final database = await DatabaseService().database;
+    String type = "";
+    List<Map<String, Object?>> tableInfo = [];
+    if(value == 1){
+      tableInfo = await database.rawQuery(
+          """
+      SELECT * FROM $ordersTable
+      WHERE date = ? 
+      AND mode = "Cash"
+      ORDER BY order_id DESC
+      """, [date]
+      );
+    }
+    else if(value == 2){
+      tableInfo = await database.rawQuery(
+          """
+      SELECT * FROM $ordersTable
+      WHERE date = ? 
+      AND mode = "GCash"
+      ORDER BY order_id DESC
+      """, [date]
+      );
+    }
+    else{
+      tableInfo = await database.rawQuery(
+          """
+      SELECT * FROM $ordersTable
+      WHERE date = ? 
+      ORDER BY order_id DESC
+      """, [date]
+      );
+    }
+    return tableInfo.map((info) => Order.fromSQfliteDatabase(info)).toList();
+  }
 
   Future<List<OrderItems>> getOrdersItemsByID(int orderID) async {
     final database = await DatabaseService().database;

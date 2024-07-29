@@ -87,8 +87,8 @@ class _BarChartState extends State<BarChartWidget>{
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 250,
-      height: 180,
+      width: 300,
+      height: 200,
       child: BarChart(
         BarChartData(
           barTouchData: barTouchData,

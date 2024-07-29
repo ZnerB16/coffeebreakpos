@@ -4,45 +4,6 @@
       jars="C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\app\intermediates\flutter\release\libs.jar"
       resolved="__local_aars__:C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\app\intermediates\flutter\release\libs.jar:unspecified"/>
   <library
-      name="C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android@@:firebase_database::release"
-      jars="C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\firebase_database\.transforms\20042511d8fedcb45bc8eb1df81b2c1f\transformed\out\jars\classes.jar;C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\firebase_database\.transforms\20042511d8fedcb45bc8eb1df81b2c1f\transformed\out\jars\libs\R.jar"
-      resolved="io.flutter.plugins.firebase.database:firebase_database:unspecified"
-      folder="C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\firebase_database\.transforms\20042511d8fedcb45bc8eb1df81b2c1f\transformed\out"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android@@:cloud_firestore::release"
-      jars="C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\cloud_firestore\.transforms\9ded3ff0d6260fad49cfeeb176f1ae5d\transformed\out\jars\classes.jar;C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\cloud_firestore\.transforms\9ded3ff0d6260fad49cfeeb176f1ae5d\transformed\out\jars\libs\R.jar"
-      resolved="io.flutter.plugins.firebase.cloudfirestore:cloud_firestore:unspecified"
-      folder="C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\cloud_firestore\.transforms\9ded3ff0d6260fad49cfeeb176f1ae5d\transformed\out"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android@@:firebase_core::release"
-      jars="C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\firebase_core\.transforms\51baaf9b41d7de6f3e60001f5bb030ec\transformed\out\jars\classes.jar;C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\firebase_core\.transforms\51baaf9b41d7de6f3e60001f5bb030ec\transformed\out\jars\libs\R.jar"
-      resolved="io.flutter.plugins.firebase.core:firebase_core:unspecified"
-      folder="C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\firebase_core\.transforms\51baaf9b41d7de6f3e60001f5bb030ec\transformed\out"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
       name="C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\android@@:sqflite::release"
       jars="C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\sqflite\.transforms\eef2da7d6741728a112be9d19e35ae37\transformed\out\jars\classes.jar;C:\Users\Brenz Gwynne Hababag\Desktop\Android Dev\Flutter Dev Journey\coffee_break_pos\build\sqflite\.transforms\eef2da7d6741728a112be9d19e35ae37\transformed\out\jars\libs\R.jar"
       resolved="com.tekartik.sqflite:sqflite:unspecified"
@@ -86,13 +47,13 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
-      name="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-android\1.6.4\f955fc8b2ad196e2f4429598440e15f7492eeb2b\kotlinx-coroutines-android-1.6.4.jar"
-      resolved="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"/>
+      name="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2@jar"
+      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-android\1.5.2\d246a704a55b7bddb79407cce4348890eaa341d9\kotlinx-coroutines-android-1.5.2.jar"
+      resolved="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2"/>
   <library
-      name="org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-core-jvm\1.6.4\2c997cd1c0ef33f3e751d3831929aeff1390cb30\kotlinx-coroutines-core-jvm-1.6.4.jar"
-      resolved="org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4"/>
+      name="org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.5.2@jar"
+      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-core-jvm\1.5.2\f4cc07a50437659e0043e7da762809a46932b6a0\kotlinx-coroutines-core-jvm-1.5.2.jar"
+      resolved="org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.5.2"/>
   <library
       name="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10@jar"
       jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk8\1.7.10\d70d7d2c56371f7aa18f32e984e3e2e998fe9081\kotlin-stdlib-jdk8-1.7.10.jar"
@@ -122,10 +83,6 @@
       name="io.flutter:x86_64_release:1.0.0-04817c99c9fd4956f27505204f7e344335810aed@jar"
       jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\io.flutter\x86_64_release\1.0.0-04817c99c9fd4956f27505204f7e344335810aed\9a40d6a486e44cdca88de950fef76ef42a2421d8\x86_64_release-1.0.0-04817c99c9fd4956f27505204f7e344335810aed.jar"
       resolved="io.flutter:x86_64_release:1.0.0-04817c99c9fd4956f27505204f7e344335810aed"/>
-  <library
-      name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk7\1.7.10\1ef73fee66f45d52c67e2aca12fd945dbe0659bf\kotlin-stdlib-jdk7-1.7.10.jar"
-      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10"/>
   <library
       name="androidx.lifecycle:lifecycle-common-java8:2.2.0@jar"
       jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\androidx.lifecycle\lifecycle-common-java8\2.2.0\cd3478503da69b1a7e0319bd2d1389943db9b364\lifecycle-common-java8-2.2.0.jar"
@@ -312,21 +269,9 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
-      name="androidx.annotation:annotation-jvm:1.7.0@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\androidx.annotation\annotation-jvm\1.7.0\920472d40adcdef5e18708976b3e314f9a636fcd\annotation-jvm-1.7.0.jar"
-      resolved="androidx.annotation:annotation-jvm:1.7.0"/>
-  <library
-      name="org.jetbrains.kotlin:kotlin-stdlib:1.7.10@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib\1.7.10\d2abf9e77736acc4450dc4a3f707fa2c10f5099d\kotlin-stdlib-1.7.10.jar"
-      resolved="org.jetbrains.kotlin:kotlin-stdlib:1.7.10"/>
-  <library
-      name="org.jetbrains.kotlin:kotlin-stdlib-common:1.7.10@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-common\1.7.10\bac80c520d0a9e3f3673bc2658c6ed02ef45a76a\kotlin-stdlib-common-1.7.10.jar"
-      resolved="org.jetbrains.kotlin:kotlin-stdlib-common:1.7.10"/>
-  <library
-      name="org.jetbrains:annotations:13.0@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\13.0\919f0dfe192fb4e063e7dacadee7f8bb9a2672a9\annotations-13.0.jar"
-      resolved="org.jetbrains:annotations:13.0"/>
+      name="androidx.annotation:annotation:1.2.0@jar"
+      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\androidx.annotation\annotation\1.2.0\57136ff68ee784c6e19db34ed4a175338fadfde1\annotation-1.2.0.jar"
+      resolved="androidx.annotation:annotation:1.2.0"/>
   <library
       name="androidx.annotation:annotation-experimental:1.1.0@aar"
       jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\3f96ca76068ab400b494bc7d541ee256\transformed\jetified-annotation-experimental-1.1.0\jars\classes.jar"
@@ -354,264 +299,19 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
-      name="com.google.firebase:firebase-firestore:24.11.0@aar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\7dc828c258d41340ff3020aa54732066\transformed\jetified-firebase-firestore-24.11.0\jars\classes.jar"
-      resolved="com.google.firebase:firebase-firestore:24.11.0"
-      folder="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\7dc828c258d41340ff3020aa54732066\transformed\jetified-firebase-firestore-24.11.0"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
+      name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10@jar"
+      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk7\1.7.10\1ef73fee66f45d52c67e2aca12fd945dbe0659bf\kotlin-stdlib-jdk7-1.7.10.jar"
+      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10"/>
   <library
-      name="com.google.firebase:firebase-database:20.3.1@aar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\647611cba3b3d12d43e15dfee971b1fa\transformed\jetified-firebase-database-20.3.1\jars\classes.jar"
-      resolved="com.google.firebase:firebase-database:20.3.1"
-      folder="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\647611cba3b3d12d43e15dfee971b1fa\transformed\jetified-firebase-database-20.3.1"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
+      name="org.jetbrains.kotlin:kotlin-stdlib:1.7.10@jar"
+      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib\1.7.10\d2abf9e77736acc4450dc4a3f707fa2c10f5099d\kotlin-stdlib-1.7.10.jar"
+      resolved="org.jetbrains.kotlin:kotlin-stdlib:1.7.10"/>
   <library
-      name="com.google.firebase:firebase-common-ktx:20.4.3@aar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\2acaae8c7b458348fda3ee338b8132e2\transformed\jetified-firebase-common-ktx-20.4.3\jars\classes.jar"
-      resolved="com.google.firebase:firebase-common-ktx:20.4.3"
-      folder="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\2acaae8c7b458348fda3ee338b8132e2\transformed\jetified-firebase-common-ktx-20.4.3"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
+      name="org.jetbrains.kotlin:kotlin-stdlib-common:1.7.10@jar"
+      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-common\1.7.10\bac80c520d0a9e3f3673bc2658c6ed02ef45a76a\kotlin-stdlib-common-1.7.10.jar"
+      resolved="org.jetbrains.kotlin:kotlin-stdlib-common:1.7.10"/>
   <library
-      name="com.google.firebase:firebase-common:20.4.3@aar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\8d4ee856b0501bd4e2deb987ae70e355\transformed\jetified-firebase-common-20.4.3\jars\classes.jar"
-      resolved="com.google.firebase:firebase-common:20.4.3"
-      folder="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\8d4ee856b0501bd4e2deb987ae70e355\transformed\jetified-firebase-common-20.4.3"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-play-services\1.6.4\e8e5e0dbe20eadc35a0eb112bcc1b2089768c906\kotlinx-coroutines-play-services-1.6.4.jar"
-      resolved="org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4"/>
-  <library
-      name="com.google.firebase:firebase-appcheck-interop:17.1.0@aar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\cf3711ac839d34e74f773fb1632a1ae7\transformed\jetified-firebase-appcheck-interop-17.1.0\jars\classes.jar"
-      resolved="com.google.firebase:firebase-appcheck-interop:17.1.0"
-      folder="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\cf3711ac839d34e74f773fb1632a1ae7\transformed\jetified-firebase-appcheck-interop-17.1.0"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="com.google.firebase:firebase-auth-interop:20.0.0@aar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\c6a02f983a15746f43bf8039f758a00b\transformed\jetified-firebase-auth-interop-20.0.0\jars\classes.jar"
-      resolved="com.google.firebase:firebase-auth-interop:20.0.0"
-      folder="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\c6a02f983a15746f43bf8039f758a00b\transformed\jetified-firebase-auth-interop-20.0.0"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="com.google.firebase:firebase-database-collection:18.0.1@aar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\93ee2037c2c407d25f6a3820caf56267\transformed\jetified-firebase-database-collection-18.0.1\jars\classes.jar"
-      resolved="com.google.firebase:firebase-database-collection:18.0.1"
-      folder="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\93ee2037c2c407d25f6a3820caf56267\transformed\jetified-firebase-database-collection-18.0.1"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="com.google.android.gms:play-services-base:18.1.0@aar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\4b9d22533576529904e76f8ef61c175c\transformed\jetified-play-services-base-18.1.0\jars\classes.jar"
-      resolved="com.google.android.gms:play-services-base:18.1.0"
-      folder="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\4b9d22533576529904e76f8ef61c175c\transformed\jetified-play-services-base-18.1.0"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="com.google.android.gms:play-services-tasks:18.1.0@aar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\dd8a2bf1c10ec55fe6eff843bfdb2b0a\transformed\jetified-play-services-tasks-18.1.0\jars\classes.jar"
-      resolved="com.google.android.gms:play-services-tasks:18.1.0"
-      folder="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\dd8a2bf1c10ec55fe6eff843bfdb2b0a\transformed\jetified-play-services-tasks-18.1.0"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="com.google.android.gms:play-services-basement:18.3.0@aar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\c3e05c9fbf3e6c63974105ad6d97e1f5\transformed\jetified-play-services-basement-18.3.0\jars\classes.jar"
-      resolved="com.google.android.gms:play-services-basement:18.3.0"
-      folder="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\c3e05c9fbf3e6c63974105ad6d97e1f5\transformed\jetified-play-services-basement-18.3.0"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="com.google.firebase:firebase-components:17.1.5@aar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\e4883182308f82efeff8244125c4e99c\transformed\jetified-firebase-components-17.1.5\jars\classes.jar"
-      resolved="com.google.firebase:firebase-components:17.1.5"
-      folder="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\e4883182308f82efeff8244125c4e99c\transformed\jetified-firebase-components-17.1.5"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="androidx.concurrent:concurrent-futures:1.1.0@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\androidx.concurrent\concurrent-futures\1.1.0\50b7fb98350d5f42a4e49704b03278542293ba48\concurrent-futures-1.1.0.jar"
-      resolved="androidx.concurrent:concurrent-futures:1.1.0"/>
-  <library
-      name="io.grpc:grpc-android:1.57.2@aar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\65ffbf7ff5a5fa53bf2b305a168dede4\transformed\jetified-grpc-android-1.57.2\jars\classes.jar"
-      resolved="io.grpc:grpc-android:1.57.2"
-      folder="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\65ffbf7ff5a5fa53bf2b305a168dede4\transformed\jetified-grpc-android-1.57.2"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="io.grpc:grpc-okhttp:1.57.2@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\io.grpc\grpc-okhttp\1.57.2\6dbccffc5531af73b739205f8a24d7e77a0e51fc\grpc-okhttp-1.57.2.jar"
-      resolved="io.grpc:grpc-okhttp:1.57.2"/>
-  <library
-      name="io.grpc:grpc-protobuf-lite:1.57.2@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\io.grpc\grpc-protobuf-lite\1.57.2\14d8e0cab40bf2f661e07b8d0dcc4192d4e9e85a\grpc-protobuf-lite-1.57.2.jar"
-      resolved="io.grpc:grpc-protobuf-lite:1.57.2"/>
-  <library
-      name="io.grpc:grpc-stub:1.57.2@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\io.grpc\grpc-stub\1.57.2\df47b4eb69fb36940689649400c8e9cbf7c3dc2c\grpc-stub-1.57.2.jar"
-      resolved="io.grpc:grpc-stub:1.57.2"/>
-  <library
-      name="com.google.firebase:firebase-annotations:16.2.0@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\com.google.firebase\firebase-annotations\16.2.0\ba0806703ca285d03fa9c888b5868f101134a501\firebase-annotations-16.2.0.jar"
-      resolved="com.google.firebase:firebase-annotations:16.2.0"/>
-  <library
-      name="com.google.firebase:protolite-well-known-types:18.0.0@aar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\9f69f0524f044217ee057b21fea5dcb5\transformed\jetified-protolite-well-known-types-18.0.0\jars\classes.jar"
-      resolved="com.google.firebase:protolite-well-known-types:18.0.0"
-      folder="C:\Users\Brenz Gwynne Hababag\.gradle\caches\transforms-3\9f69f0524f044217ee057b21fea5dcb5\transformed\jetified-protolite-well-known-types-18.0.0"
-      manifest="AndroidManifest.xml"
-      resFolder="res"
-      assetsFolder="assets"
-      lintJar="lint.jar"
-      publicResources="public.txt"
-      symbolFile="R.txt"
-      externalAnnotations="annotations.zip"
-      proguardRules="proguard.txt"/>
-  <library
-      name="io.grpc:grpc-core:1.57.2@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\io.grpc\grpc-core\1.57.2\2e04aac0fe659243f4ed5dbe4c2839e88408dffc\grpc-core-1.57.2.jar"
-      resolved="io.grpc:grpc-core:1.57.2"/>
-  <library
-      name="io.grpc:grpc-context:1.57.2@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\io.grpc\grpc-context\1.57.2\d2aa34eebfec2ce045873f410a7dd76437465509\grpc-context-1.57.2.jar"
-      resolved="io.grpc:grpc-context:1.57.2"/>
-  <library
-      name="io.grpc:grpc-api:1.57.2@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\io.grpc\grpc-api\1.57.2\c71a006b81ddae7bc4b7cb1d2da78c1b173761f4\grpc-api-1.57.2.jar"
-      resolved="io.grpc:grpc-api:1.57.2"/>
-  <library
-      name="com.google.guava:guava:32.0.1-android@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\32.0.1-android\d3fe54a75aeaca33fc562a2a9c1dc181e54cc5e9\guava-32.0.1-android.jar"
-      resolved="com.google.guava:guava:32.0.1-android"/>
-  <library
-      name="com.squareup.okio:okio:1.17.5@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.17.5\34336f82f14dde1c0752fd5f0546dbf3c3225aba\okio-1.17.5.jar"
-      resolved="com.squareup.okio:okio:1.17.5"/>
-  <library
-      name="io.perfmark:perfmark-api:0.26.0@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\io.perfmark\perfmark-api\0.26.0\ef65452adaf20bf7d12ef55913aba24037b82738\perfmark-api-0.26.0.jar"
-      resolved="io.perfmark:perfmark-api:0.26.0"/>
-  <library
-      name="com.google.protobuf:protobuf-javalite:3.22.3@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\com.google.protobuf\protobuf-javalite\3.22.3\7df7200bce0ff77dc66dd063df79ff74c6114bfc\protobuf-javalite-3.22.3.jar"
-      resolved="com.google.protobuf:protobuf-javalite:3.22.3"/>
-  <library
-      name="com.google.code.findbugs:jsr305:3.0.2@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\3.0.2\25ea2e8b0c338a877313bd4672d3fe056ea78f0d\jsr305-3.0.2.jar"
-      resolved="com.google.code.findbugs:jsr305:3.0.2"/>
-  <library
-      name="com.google.errorprone:error_prone_annotations:2.18.0@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\com.google.errorprone\error_prone_annotations\2.18.0\89b684257096f548fa39a7df9fdaa409d4d4df91\error_prone_annotations-2.18.0.jar"
-      resolved="com.google.errorprone:error_prone_annotations:2.18.0"/>
-  <library
-      name="javax.inject:javax.inject:1@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\javax.inject\javax.inject\1\6975da39a7040257bd51d21a231b76c915872d38\javax.inject-1.jar"
-      resolved="javax.inject:javax.inject:1"/>
-  <library
-      name="com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\com.google.guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\b421526c5f297295adef1c886e5246c39d4ac629\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar"
-      resolved="com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava"/>
-  <library
-      name="com.google.code.gson:gson:2.10.1@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.10.1\b3add478d4382b78ea20b1671390a858002feb6c\gson-2.10.1.jar"
-      resolved="com.google.code.gson:gson:2.10.1"/>
-  <library
-      name="com.google.android:annotations:4.1.1.4@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\com.google.android\annotations\4.1.1.4\a1678ba907bf92691d879fef34e1a187038f9259\annotations-4.1.1.4.jar"
-      resolved="com.google.android:annotations:4.1.1.4"/>
-  <library
-      name="org.codehaus.mojo:animal-sniffer-annotations:1.23@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\org.codehaus.mojo\animal-sniffer-annotations\1.23\3c0daebd5f0e1ce72cc50c818321ac957aeb5d70\animal-sniffer-annotations-1.23.jar"
-      resolved="org.codehaus.mojo:animal-sniffer-annotations:1.23"/>
-  <library
-      name="com.google.guava:failureaccess:1.0.1@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\com.google.guava\failureaccess\1.0.1\1dcf1de382a0bf95a3d8b0849546c88bac1292c9\failureaccess-1.0.1.jar"
-      resolved="com.google.guava:failureaccess:1.0.1"/>
-  <library
-      name="org.checkerframework:checker-qual:3.33.0@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\org.checkerframework\checker-qual\3.33.0\de2b60b62da487644fc11f734e73c8b0b431238f\checker-qual-3.33.0.jar"
-      resolved="org.checkerframework:checker-qual:3.33.0"/>
-  <library
-      name="com.google.j2objc:j2objc-annotations:2.8@jar"
-      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\com.google.j2objc\j2objc-annotations\2.8\c85270e307e7b822f1086b93689124b89768e273\j2objc-annotations-2.8.jar"
-      resolved="com.google.j2objc:j2objc-annotations:2.8"/>
+      name="org.jetbrains:annotations:13.0@jar"
+      jars="C:\Users\Brenz Gwynne Hababag\.gradle\caches\modules-2\files-2.1\org.jetbrains\annotations\13.0\919f0dfe192fb4e063e7dacadee7f8bb9a2672a9\annotations-13.0.jar"
+      resolved="org.jetbrains:annotations:13.0"/>
 </libraries>

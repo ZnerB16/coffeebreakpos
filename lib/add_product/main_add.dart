@@ -26,59 +26,62 @@ class _MainAddState extends State<MainAddScreen>{
         children: [
           Sidebar(currentScreen: "AD"),
           CoffeeMenu(isAdd: true, isEditing: false,),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-              const Text(
-                  "Add Item",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold
-                  ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: addButton(
-                    "Cups",
-                    (){
-                      Navigator.push(context,
-                        HeroDialogRoute(
-                            builder: (context){
-                              return const AddCupsHero();
-                            }
-                        )
-                      );
-                    }
+          SizedBox(
+            width: MediaQuery.sizeOf(context).width / 2,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+                const Text(
+                    "Add Item",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold
+                    ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: addButton("Food",
-                     (){
-                      Navigator.push(context,
-                          HeroDialogRoute(
-                              builder: (context){
-                                return const AddFood();
-                              }
-                          )
-                      );
-                    }),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: addButton("Others",
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: addButton(
+                      "Cups",
                       (){
-                      Navigator.push(context,
+                        Navigator.push(context,
                           HeroDialogRoute(
                               builder: (context){
-                                return const AddOthers();
+                                return const AddCupsHero();
                               }
                           )
-                      );
-                    }),
-              )
-            ],
+                        );
+                      }
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: addButton("Food",
+                       (){
+                        Navigator.push(context,
+                            HeroDialogRoute(
+                                builder: (context){
+                                  return const AddFood();
+                                }
+                            )
+                        );
+                      }),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: addButton("Others",
+                        (){
+                        Navigator.push(context,
+                            HeroDialogRoute(
+                                builder: (context){
+                                  return const AddOthers();
+                                }
+                            )
+                        );
+                      }),
+                )
+              ],
+            ),
           ),
         ],
       ),

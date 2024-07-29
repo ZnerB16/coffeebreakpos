@@ -180,7 +180,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                         ),
                       ),
                       Container(
-                        width: topButtonWidth,
+                        width: topButtonWidth + 50,
                         height: topButtonHeight,
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.only(
@@ -200,7 +200,7 @@ class _CoffeeMenuState extends State<CoffeeMenu>{
                             getMapVal();
                           },
                           child: Text(
-                            'Latte',
+                            'Non-Coffee',
                             style: TextStyle(
                                 color: isLatteActive? Colors.white: Colors.black87,
                                 fontSize: 20,
