@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import '../../database/classes/order.dart';
+import '../../database/classes/order_items.dart';
 import '../../database/coffee_db.dart';
 import '../../hero_dialog_route.dart';
 import '../bar_chart.dart';
@@ -9,10 +10,12 @@ import '../more_info.dart';
 
 class OrdersByDateScreen extends StatefulWidget{
   final String date;
+  final double total;
 
   const OrdersByDateScreen ({
     super.key,
-    required this.date
+    required this.date,
+    required this.total
   });
 
   @override
@@ -23,6 +26,13 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
   DateTime now = DateTime.now();
   int? cups = 0;
   int? croffles = 0;
+  double total12oz = 0.0;
+  double total16oz = 0.0;
+  double total22oz = 0.0;
+  double totalWaffles = 0.0;
+  double totalOthers = 0.0;
+  double totalAddOns = 0.0;
+
   List<String> icedTitles = [];
   List<BarChartGroupData> barGroups = [];
   var coffeeDB = CoffeeDB();
@@ -33,8 +43,10 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       ordersList = [];
+      await getDivision();
       await getOrdersToday();
       await getCounts();
+
     });
 
   }
@@ -66,6 +78,22 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
             }
         );
       }
+    });
+  }
+  Future<void> getDivision() async {
+    List<OrderItems> total12 = await coffeeDB.getTotal12oz(widget.date);
+    List<OrderItems> total16 = await coffeeDB.getTotal16oz(widget.date);
+    List<OrderItems> total22 = await coffeeDB.getTotal22oz(widget.date);
+    List<OrderItems> totalWafflesList = await coffeeDB.getTotalWaffles(widget.date);
+    List<OrderItems> totalAddOnsList = await coffeeDB.getTotalAddons(widget.date);
+
+    setState(() {
+      total12oz = total12[0].price;
+      total16oz = total16[0].price;
+      total22oz = total22[0].price;
+      totalWaffles = totalWafflesList[0].price;
+      totalAddOns = totalAddOnsList[0].price;
+
     });
   }
 
@@ -102,11 +130,50 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Orders Today: ${widget.date}",
+                  "Date: ${widget.date}",
                   style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold
                   ),
+                ),
+                Text(
+                  "Total: ${widget.total}",
+                  style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                            "Total 12oz: $total12oz"
+                        ),
+                        Text(
+                            "Total 16oz: $total16oz"
+                        ),
+                        Text(
+                            "Total 22oz: $total22oz"
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                            "Total Waffles: $totalWaffles"
+                        ),
+                        Text(
+                            "Total Others: $totalOthers"
+                        ),
+                        Text(
+                            "Total Add-Ons: $totalAddOns"
+                        ),
+                      ],
+                    )
+                  ],
                 ),
                 Container(
                   height: 250,

@@ -21,7 +21,7 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
   DateTime now = DateTime.now();
   String formattedDate = "";
   int? cups = 0;
-  int? croffles = 0;
+  int? waffles = 0;
   List<String> icedTitles = [];
   List<BarChartGroupData> barGroups = [];
   var coffeeDB = CoffeeDB();
@@ -41,13 +41,13 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
 
   Future<void> getCounts() async {
     int? count1 = await coffeeDB.countCups(formattedDate);
-    int? count2 = await coffeeDB.countCroffles(formattedDate);
+    int? count2 = await coffeeDB.countWaffles(formattedDate);
     setState(() {
       if(count1 != null){
         cups = count1;
       }
       if(count2 != null){
-        croffles = count2;
+        waffles = count2;
       }
     });
   }
@@ -124,7 +124,7 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
                           children: [
                             _countTracker("Cups", cups),
                             const Padding(padding: EdgeInsets.only(right: 20)),
-                            _countTracker("Waffles", croffles),
+                            _countTracker("Waffles", waffles),
                           ],
                         ),
                         const Padding(padding: EdgeInsets.only(top: 30)),

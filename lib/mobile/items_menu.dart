@@ -33,9 +33,9 @@ class _ItemsMenuState extends State<ItemsMenu>{
   bool isOthersActive = false;
   bool isWaffleActive = false;
 
-  double topButtonWidth = 80;
+  double topButtonWidth = 70;
   double topButtonHeight = 40;
-  double buttonFontSize = 16;
+  double buttonFontSize = 12;
 
   @override
   void initState(){
@@ -142,7 +142,7 @@ class _ItemsMenuState extends State<ItemsMenu>{
                     getMapVal();
                   },
                   child: Text(
-                    'Croffles',
+                    'Croffle',
                     style: TextStyle(
                         color: isCrofflesActive? Colors.white: Colors.black87,
                         fontSize: buttonFontSize,
@@ -173,7 +173,7 @@ class _ItemsMenuState extends State<ItemsMenu>{
                     getMapVal();
                   },
                   child: Text(
-                    'Waffles',
+                    'Waffle',
                     style: TextStyle(
                         color: isWaffleActive? Colors.white: Colors.black87,
                         fontSize: buttonFontSize,
@@ -452,7 +452,7 @@ class _ItemsMenuState extends State<ItemsMenu>{
               children: [
                 Image.asset(
                   imgPath,
-                  width: 70,
+                  width: 50,
                 ),
                 Visibility(
                   visible: !status,
@@ -467,7 +467,7 @@ class _ItemsMenuState extends State<ItemsMenu>{
                   child: const Text(
                     "Unavailable",
                       style:TextStyle(
-                          fontSize: 16,
+                          fontSize: 14,
                           color: Colors.black,
                           fontWeight: FontWeight.bold
                       )
@@ -479,7 +479,7 @@ class _ItemsMenuState extends State<ItemsMenu>{
             Text(
               title,
               style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 16,
                   color: Colors.black
               ),
               maxLines: 2,

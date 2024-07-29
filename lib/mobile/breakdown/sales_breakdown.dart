@@ -100,7 +100,7 @@ class _SalesBreakdownState extends State<SalesBreakdownScreen>{
               ],
             ),
             Container(
-              width: 120,
+              width: 90,
               height: 50,
               decoration: BoxDecoration(
                   color: const Color(0xf0967259),
@@ -117,13 +117,13 @@ class _SalesBreakdownState extends State<SalesBreakdownScreen>{
                   onPressed: (){
                     Navigator.push(context, HeroDialogRoute(
                         builder: (context){
-                          return OrdersByDateScreen(date: orders[index]["date"]);
+                          return OrdersByDateScreen(total: orders[index]["sales"], date: orders[index]["date"]);
                         }
                     )
                     );
                   },
                   child: const Text(
-                    "More Info ->",
+                    "Info ->",
                     style: TextStyle(
                         fontSize: 16,
                         color: Colors.white,

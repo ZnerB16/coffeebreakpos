@@ -751,6 +751,8 @@ class CoffeeDB {
       (SELECT name FROM $hotTable)
       OR product_name IN
       (SELECT name FROM $latteTable))
+      OR product_name IN
+      (SELECT name FROM $othersTable WHERE name LIKE "%Lemonade%"))
       
       """, [date]
     );
@@ -766,6 +768,21 @@ class CoffeeDB {
       FROM $orderItemsTable
       WHERE product_name IN
       (SELECT name FROM $crofflesTable)
+      AND order_id IN
+      (SELECT order_id FROM $ordersTable WHERE date = ?)
+      """, [date]
+    );
+    int? result = Sqflite.firstIntValue(countCups);
+    return result;
+  }
+  Future<int?> countWaffles(String date) async {
+    final database = await DatabaseService().database;
+    final countCups = await database.rawQuery(
+        """
+      SELECT SUM(qty)
+      FROM $orderItemsTable
+      WHERE product_name IN
+      (SELECT name FROM $wafflesTable)
       AND order_id IN
       (SELECT order_id FROM $ordersTable WHERE date = ?)
       """, [date]
@@ -1120,6 +1137,21 @@ class CoffeeDB {
       SELECT SUM(price) AS price
       FROM $orderItemsTable
       WHERE size = '22oz'
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ?)
+      ''', [date]
+    );
+    return result.map((info) => OrderItems.fromSQfliteDatabase(info))
+        .toList();
+  }
+  Future<List<OrderItems>> getTotalWaffles(String date) async {
+    final database = await DatabaseService().database;
+    final result = await database.rawQuery(
+        '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE product_name
+      IN (SELECT name FROM $wafflesTable)
       AND order_id
       IN (SELECT order_id FROM $ordersTable WHERE date = ?)
       ''', [date]

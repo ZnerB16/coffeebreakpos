@@ -45,7 +45,7 @@ class _CartItemsState extends State<CartItems>{
         ),
         const Padding(padding: EdgeInsets.only(top: 10)),
         Container(
-            width: 340,
+            width: 300,
             height: 60,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
@@ -70,7 +70,7 @@ class _CartItemsState extends State<CartItems>{
         ),
         const Padding(padding: EdgeInsets.only(top: 10)),
         Container(
-            width: 340,
+            width: 300,
             height: 400,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -81,7 +81,7 @@ class _CartItemsState extends State<CartItems>{
               child: SingleChildScrollView(
                 child: DataTable(
                   dataRowMaxHeight: 80,
-                  columnSpacing: 20,
+                  columnSpacing: 12,
                   dataRowMinHeight: 50,
                   horizontalMargin: 5,
                   columns: const [
@@ -89,9 +89,10 @@ class _CartItemsState extends State<CartItems>{
                       child: Text(
                           'Item',
                           style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 12,
                               fontWeight: FontWeight.bold
-                          )
+                          ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                     ),
@@ -99,9 +100,10 @@ class _CartItemsState extends State<CartItems>{
                       child: Text(
                           'Size',
                           style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 12,
                               fontWeight: FontWeight.bold
-                          )
+                          ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                     ),
@@ -109,9 +111,10 @@ class _CartItemsState extends State<CartItems>{
                       child: Text(
                           'Qty',
                           style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 12,
                               fontWeight: FontWeight.bold
-                          )
+                          ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                     ),
@@ -119,9 +122,10 @@ class _CartItemsState extends State<CartItems>{
                       child: Text(
                           'Price',
                           style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 12,
                               fontWeight: FontWeight.bold
-                          )
+                          ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                     ),
@@ -135,19 +139,19 @@ class _CartItemsState extends State<CartItems>{
                     DataRow(
                         cells: [
                           DataCell(Text(e["name"],
-                            style: const TextStyle(fontSize: 16),),
+                            style: const TextStyle(fontSize: 14),),
                           ),
                           DataCell(Center(
                             child: Text(e["size"],
-                              style: const TextStyle(fontSize: 16),),
+                              style: const TextStyle(fontSize: 14),),
                           )),
                           DataCell(Center(
                             child: Text(e["qty"].toString(),
-                              style: const TextStyle(fontSize: 16),),
+                              style: const TextStyle(fontSize: 14),),
                           )),
                           DataCell(Center(
                             child: Text(e["price"].toString(),
-                              style: const TextStyle(fontSize: 16),),
+                              style: const TextStyle(fontSize: 14),),
                           )),
                           DataCell(
                               IconButton(

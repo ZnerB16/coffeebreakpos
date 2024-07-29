@@ -56,7 +56,7 @@ class MainMenuState extends State<MainMenu>{
                         showPopover(
                           context: context,
                           bodyBuilder: (context) => CartItems(orders: globals.orderList, onDelete: refresh,),
-                          width: 360,
+                          width: 330,
                           height: 660,
                           backgroundColor: const Color(0xf0967259),
                           direction: PopoverDirection.bottom

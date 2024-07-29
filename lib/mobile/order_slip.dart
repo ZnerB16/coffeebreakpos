@@ -198,7 +198,7 @@ class _OrderPaymentState extends State<OrderPaymentScreen>{
         });
       },
       style: OutlinedButton.styleFrom(
-          fixedSize: const Size(150, 50),
+          fixedSize: const Size(100, 50),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
