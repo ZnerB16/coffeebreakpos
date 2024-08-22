@@ -127,7 +127,7 @@ class _OrdersTodayState extends State<OrdersTodayScreen>{
             ),
           const Padding(padding: EdgeInsets.only(right: 20)),
           SizedBox(
-            width: MediaQuery.sizeOf(context).width / 2,
+            width: MediaQuery.sizeOf(context).width / 3,
             child: SingleChildScrollView(
               controller: ScrollController(),
               child: Column(

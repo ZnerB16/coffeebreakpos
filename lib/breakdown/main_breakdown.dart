@@ -119,4 +119,36 @@ class _BreakdownState extends State<BreakdownScreen>{
     }
     return Container();
   }
+  Widget _countTracker(String text, int? count){
+    return Container(
+      width: 100,
+      height: 150,
+      decoration: BoxDecoration(
+        color: const Color(0xf0967259),
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            text,
+            style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white
+            ),
+          ),
+          Text(
+            "$count",
+            style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.white
+            ),
+          )
+        ],
+      ),
+    );
+  }
 }

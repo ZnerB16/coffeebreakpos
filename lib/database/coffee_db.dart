@@ -703,6 +703,26 @@ class CoffeeDB {
     int? result = Sqflite.firstIntValue(countCups);
     return result;
   }
+  Future<int?> countCupsTotal() async {
+    final database = await DatabaseService().database;
+    final countCups = await database.rawQuery(
+        """
+      SELECT SUM(qty)
+      FROM $orderItemsTable
+      WHERE order_id IN
+      (SELECT order_id FROM $ordersTable)
+      AND (product_name IN
+      (SELECT name FROM $icedTable)
+      OR product_name IN
+      (SELECT name FROM $hotTable)
+      OR product_name IN
+      (SELECT name FROM $latteTable))
+      
+      """
+    );
+    int? result = Sqflite.firstIntValue(countCups);
+    return result;
+  }
 
   Future<int?> countCroffles(String date) async {
     final database = await DatabaseService().database;
@@ -715,6 +735,21 @@ class CoffeeDB {
       AND order_id IN
       (SELECT order_id FROM $ordersTable WHERE date = ?)
       """, [date]
+    );
+    int? result = Sqflite.firstIntValue(countCups);
+    return result;
+  }
+  Future<int?> countCrofflesTotal() async {
+    final database = await DatabaseService().database;
+    final countCups = await database.rawQuery(
+        """
+      SELECT SUM(qty)
+      FROM $orderItemsTable
+      WHERE product_name IN
+      (SELECT name FROM $crofflesTable)
+      AND order_id IN
+      (SELECT order_id FROM $ordersTable)
+      """
     );
     int? result = Sqflite.firstIntValue(countCups);
     return result;
@@ -922,7 +957,7 @@ class CoffeeDB {
       FROM $ordersTable
       GROUP BY date
       ORDER BY date DESC
-      LIMIT 10
+      LIMIT 90
       """
     );
     return result.map((info) => Order.fromSQfliteDatabase(info)).toList();
@@ -1031,9 +1066,59 @@ class CoffeeDB {
       ''', [orderID]
     );
   }
-  Future<List<OrderItems>> getTotal12oz(String date) async {
+  Future<List<OrderItems>> getTotalCash(String date) async {
     final database = await DatabaseService().database;
     final result = await database.rawQuery(
+        '''
+      SELECT SUM(total_price) AS price
+      FROM $ordersTable
+      WHERE mode = 'Cash' 
+      AND date = ?
+      ''', [date]
+    );
+    return result.map((info) => OrderItems.fromSQfliteDatabase(info))
+        .toList();
+  }
+  Future<List<OrderItems>> getTotalGCash(String date) async {
+    final database = await DatabaseService().database;
+    final result = await database.rawQuery(
+        '''
+      SELECT SUM(total_price) AS price
+      FROM $ordersTable
+      WHERE mode = 'GCash' 
+      AND date = ?
+      ''', [date]
+    );
+    return result.map((info) => OrderItems.fromSQfliteDatabase(info))
+        .toList();
+  }
+  Future<List<OrderItems>> getTotal12oz(String date, int value) async {
+    final database = await DatabaseService().database;
+    List<Map<String, Object?>> result = [];
+    if(value == 1){
+      result = await database.rawQuery(
+          '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE size = '12oz' 
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ? AND mode = 'Cash')
+      ''', [date]
+      );
+    }
+    else if(value == 2){
+      result = await database.rawQuery(
+      '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE size = '12oz' 
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ? AND mode = 'GCash')
+      ''', [date]
+      );
+    }
+    else{
+      result = await database.rawQuery(
       '''
       SELECT SUM(price) AS price
       FROM $orderItemsTable
@@ -1041,80 +1126,212 @@ class CoffeeDB {
       AND order_id
       IN (SELECT order_id FROM $ordersTable WHERE date = ?)
       ''', [date]
-    );
+      );
+    }
     return result.map((info) => OrderItems.fromSQfliteDatabase(info))
         .toList();
   }
-  Future<List<OrderItems>> getTotal16oz(String date) async {
+  Future<List<OrderItems>> getTotal16oz(String date, int value) async {
     final database = await DatabaseService().database;
-    final result = await database.rawQuery(
-        '''
+    List<Map<String, Object?>> result = [];
+    if(value == 1){
+      result = await database.rawQuery(
+          '''
       SELECT SUM(price) AS price
       FROM $orderItemsTable
-      WHERE size = '16oz'
+      WHERE size = '16oz' 
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ? AND mode = 'Cash')
+      ''', [date]
+      );
+    }
+    else if(value == 2){
+      result = await database.rawQuery(
+          '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE size = '16oz' 
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ? AND mode = 'GCash')
+      ''', [date]
+      );
+    }
+    else{
+      result = await database.rawQuery(
+          '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE size = '16oz' 
       AND order_id
       IN (SELECT order_id FROM $ordersTable WHERE date = ?)
       ''', [date]
-    );
+      );
+    }
     return result.map((info) => OrderItems.fromSQfliteDatabase(info))
         .toList();
   }
-  Future<List<OrderItems>> getTotal22oz(String date) async {
+  Future<List<OrderItems>> getTotal22oz(String date, int value) async {
     final database = await DatabaseService().database;
-    final result = await database.rawQuery(
-        '''
+    List<Map<String, Object?>> result = [];
+    if(value == 1){
+      result = await database.rawQuery(
+          '''
       SELECT SUM(price) AS price
       FROM $orderItemsTable
-      WHERE size = '22oz'
+      WHERE size = '22oz' 
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ? AND mode = 'Cash')
+      ''', [date]
+      );
+    }
+    else if(value == 2){
+      result = await database.rawQuery(
+          '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE size = '22oz' 
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ? AND mode = 'GCash')
+      ''', [date]
+      );
+    }
+    else{
+      result = await database.rawQuery(
+          '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE size = '22oz' 
       AND order_id
       IN (SELECT order_id FROM $ordersTable WHERE date = ?)
       ''', [date]
-    );
+      );
+    }
     return result.map((info) => OrderItems.fromSQfliteDatabase(info))
         .toList();
   }
-  Future<List<OrderItems>> getTotalCroffles(String date) async {
+  Future<List<OrderItems>> getTotalCroffles(String date, int value) async {
     final database = await DatabaseService().database;
-    final result = await database.rawQuery(
-        '''
+    List<Map<String, Object?>> result = [];
+    if(value == 1){
+      result = await database.rawQuery(
+          '''
       SELECT SUM(price) AS price
       FROM $orderItemsTable
-      WHERE product_name
-      IN (SELECT name FROM $crofflesTable)
+      WHERE product_name 
+      IN (SELECT name FROM $crofflesTable) 
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ? AND mode = 'Cash')
+      ''', [date]
+      );
+    }
+    else if(value == 2){
+      result = await database.rawQuery(
+          '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE product_name 
+      IN (SELECT name FROM $crofflesTable) 
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ? AND mode = 'GCash')
+      ''', [date]
+      );
+    }
+    else{
+      result = await database.rawQuery(
+          '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE product_name 
+      IN (SELECT name FROM $crofflesTable) 
       AND order_id
       IN (SELECT order_id FROM $ordersTable WHERE date = ?)
       ''', [date]
-    );
+      );
+    }
     return result.map((info) => OrderItems.fromSQfliteDatabase(info))
         .toList();
   }
-  Future<List<OrderItems>> getTotalCookies(String date) async {
+  Future<List<OrderItems>> getTotalCookies(String date, int value) async {
     final database = await DatabaseService().database;
-    final result = await database.rawQuery(
-        '''
+    List<Map<String, Object?>> result = [];
+    if(value == 1){
+      result = await database.rawQuery(
+          '''
       SELECT SUM(price) AS price
       FROM $orderItemsTable
-      WHERE product_name
+      WHERE product_name 
+      IN (SELECT name FROM $othersTable)
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ? AND mode = 'Cash')
+      ''', [date]
+      );
+    }
+    else if(value == 2){
+      result = await database.rawQuery(
+          '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE product_name 
+      IN (SELECT name FROM $othersTable)
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ? AND mode = 'GCash')
+      ''', [date]
+      );
+    }
+    else{
+      result = await database.rawQuery(
+          '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE product_name 
       IN (SELECT name FROM $othersTable)
       AND order_id
       IN (SELECT order_id FROM $ordersTable WHERE date = ?)
       ''', [date]
-    );
+      );
+    }
     return result.map((info) => OrderItems.fromSQfliteDatabase(info))
         .toList();
   }
-  Future<List<OrderItems>> getTotalAddons(String date) async {
+  Future<List<OrderItems>> getTotalAddons(String date, int value) async {
     final database = await DatabaseService().database;
-    final result = await database.rawQuery(
-        '''
+    List<Map<String, Object?>> result = [];
+    if(value == 1){
+      result = await database.rawQuery(
+          '''
       SELECT SUM(price) AS price
       FROM $orderItemsTable
-      WHERE product_name
+      WHERE product_name 
+      IN (SELECT name FROM $addonsTable)
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ? AND mode = 'Cash')
+      ''', [date]
+      );
+    }
+    else if(value == 2){
+      result = await database.rawQuery(
+          '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE product_name 
+      IN (SELECT name FROM $addonsTable)
+      AND order_id
+      IN (SELECT order_id FROM $ordersTable WHERE date = ? AND mode = 'GCash')
+      ''', [date]
+      );
+    }
+    else{
+      result = await database.rawQuery(
+          '''
+      SELECT SUM(price) AS price
+      FROM $orderItemsTable
+      WHERE product_name 
       IN (SELECT name FROM $addonsTable)
       AND order_id
       IN (SELECT order_id FROM $ordersTable WHERE date = ?)
       ''', [date]
-    );
+      );
+    }
     return result.map((info) => OrderItems.fromSQfliteDatabase(info))
         .toList();
   }

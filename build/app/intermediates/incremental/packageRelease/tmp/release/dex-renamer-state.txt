@@ -1,4 +1,4 @@
-#Mon Jul 29 22:38:20 PST 2024
+#Tue Aug 20 19:30:51 EDT 2024
 base.0=C\:\\Users\\Brenz Gwynne Hababag\\Desktop\\Android Dev\\Flutter Dev Journey\\coffee_break_pos\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

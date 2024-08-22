@@ -19,6 +19,8 @@ class _SalesBreakdownState extends State<SalesBreakdownScreen>{
   bool isWeekActive = false;
   bool isMonthActive = false;
   String defaultMenu = "sales";
+  int? cupsTracker = 0;
+  int? crofflesTracker = 0;
   List<Map<String, dynamic>> salesList = [];
   var coffeeDB = CoffeeDB();
 
@@ -28,8 +30,22 @@ class _SalesBreakdownState extends State<SalesBreakdownScreen>{
     salesList = [];
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getSalesDay();
+      await getCounts();
     });
   }
+  Future<void> getCounts() async {
+    int? count1 = await coffeeDB.countCupsTotal();
+    int? count2 = await coffeeDB.countCrofflesTotal();
+    setState(() {
+      if(count1 != null){
+        cupsTracker = count1;
+      }
+      if(count2 != null){
+        crofflesTracker = count2;
+      }
+    });
+  }
+
 
   Future<void> getSalesDay() async {
     List<Order> salesDay = await coffeeDB.getSalesDay();
@@ -49,117 +65,18 @@ class _SalesBreakdownState extends State<SalesBreakdownScreen>{
   Widget build(BuildContext context){
     return Column(
       children: [
-        salesList.isEmpty ? const SizedBox() : const LineChartWidget(),
-              // SizedBox(
-              //   width: 600,
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //     children: [
-              //       Container(
-              //         width: 80,
-              //         height: 40,
-              //         decoration: BoxDecoration(
-              //           borderRadius: BorderRadius.circular(30),
-              //           color: isDayActive ? const Color(0xf0634832): const Color(0xf0ECE7DF),
-              //           boxShadow: [
-              //             BoxShadow(
-              //               color: Colors.black.withOpacity(0.2),
-              //               spreadRadius: 5,
-              //               blurRadius: 5,
-              //               offset: const Offset(0, 4),
-              //             )
-              //           ],
-              //         ),
-              //         child: TextButton(
-              //           onPressed: () {
-              //             setState(() {
-              //               defaultMenu = "day";
-              //               isDayActive = true;
-              //               isWeekActive = false;
-              //               isMonthActive = false;
-              //
-              //             });
-              //           },
-              //           child: Text(
-              //             'Day',
-              //             style: TextStyle(
-              //                 color: isDayActive? Colors.white: Colors.black87,
-              //                 fontSize: 18
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //       Container(
-              //         width: 80,
-              //         height: 40,
-              //         decoration: BoxDecoration(
-              //           borderRadius: BorderRadius.circular(30),
-              //           color: isWeekActive ? const Color(0xf0634832): const Color(0xf0ECE7DF),
-              //           boxShadow: [
-              //             BoxShadow(
-              //               color: Colors.black.withOpacity(0.2),
-              //               spreadRadius: 5,
-              //               blurRadius: 5,
-              //               offset: const Offset(0, 4),
-              //             )
-              //           ],
-              //         ),
-              //         child: TextButton(
-              //           onPressed: () {
-              //             setState(() {
-              //               defaultMenu = "week";
-              //               isDayActive = false;
-              //               isWeekActive = true;
-              //               isMonthActive = false;
-              //
-              //             });
-              //           },
-              //           child: Text(
-              //             'Week',
-              //             style: TextStyle(
-              //                 color: isWeekActive? Colors.white: Colors.black87,
-              //                 fontSize: 18
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //       Container(
-              //         width: 80,
-              //         height: 40,
-              //         decoration: BoxDecoration(
-              //           borderRadius: BorderRadius.circular(30),
-              //           color: isMonthActive ? const Color(0xf0634832): const Color(0xf0ECE7DF),
-              //           boxShadow: [
-              //             BoxShadow(
-              //               color: Colors.black.withOpacity(0.2),
-              //               spreadRadius: 5,
-              //               blurRadius: 5,
-              //               offset: const Offset(0, 4),
-              //             )
-              //           ],
-              //         ),
-              //         child: TextButton(
-              //           onPressed: () {
-              //             setState(() {
-              //               defaultMenu = "month";
-              //               isDayActive = false;
-              //               isWeekActive = false;
-              //               isMonthActive = true;
-              //
-              //             });
-              //           },
-              //           child: Text(
-              //             'Month',
-              //             style: TextStyle(
-              //                 color: isMonthActive? Colors.white: Colors.black87,
-              //                 fontSize: 18
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
+        salesList.isEmpty ? const SizedBox() : Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const LineChartWidget(),
+            Column(
+              children: [
+                _countTracker("Cups", cupsTracker),
+                _countTracker("Croffles", crofflesTracker)
+              ],
+            )
+          ],
+        ),
             const Padding(padding: EdgeInsets.only(top: 20)),
             Expanded(
               child: Padding(
@@ -177,6 +94,41 @@ class _SalesBreakdownState extends State<SalesBreakdownScreen>{
                 ),
               ),
           ],
+    );
+  }
+  Widget _countTracker(String text, int? count){
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Container(
+        width: 100,
+        height: 150,
+        decoration: BoxDecoration(
+          color: const Color(0xf0967259),
+          borderRadius: BorderRadius.circular(25),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              text,
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white
+              ),
+            ),
+            Text(
+              "$count",
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
   Widget _item(List<Map<String, dynamic>> orders, int index) {
@@ -258,4 +210,5 @@ class _SalesBreakdownState extends State<SalesBreakdownScreen>{
       ),
     );
   }
+
 }

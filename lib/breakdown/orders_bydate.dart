@@ -26,6 +26,7 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
   String formattedDate = "";
   int? cups = 0;
   int? croffles = 0;
+  double total = 0.0;
   double total12oz = 0.0;
   double total16oz = 0.0;
   double total22oz = 0.0;
@@ -49,6 +50,7 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
       await getOrdersToday();
       await getCounts();
       await getDivision();
+      total = widget.total;
     });
 
   }
@@ -67,12 +69,12 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
   }
 
   Future<void> getDivision() async {
-    List<OrderItems> total12 = await coffeeDB.getTotal12oz(widget.date);
-    List<OrderItems> total16 = await coffeeDB.getTotal16oz(widget.date);
-    List<OrderItems> total22 = await coffeeDB.getTotal22oz(widget.date);
-    List<OrderItems> totalCrofflesList = await coffeeDB.getTotalCroffles(widget.date);
-    List<OrderItems> totalCookiesList = await coffeeDB.getTotalCookies(widget.date);
-    List<OrderItems> totalAddOnsList = await coffeeDB.getTotalAddons(widget.date);
+    List<OrderItems> total12 = await coffeeDB.getTotal12oz(widget.date, value);
+    List<OrderItems> total16 = await coffeeDB.getTotal16oz(widget.date, value);
+    List<OrderItems> total22 = await coffeeDB.getTotal22oz(widget.date, value);
+    List<OrderItems> totalCrofflesList = await coffeeDB.getTotalCroffles(widget.date, value);
+    List<OrderItems> totalCookiesList = await coffeeDB.getTotalCookies(widget.date, value);
+    List<OrderItems> totalAddOnsList = await coffeeDB.getTotalAddons(widget.date, value);
 
     setState(() {
       total12oz = total12[0].price;
@@ -81,6 +83,22 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
       totalCroffles = totalCrofflesList[0].price;
       totalCookies = totalCookiesList[0].price;
       totalAddOns = totalAddOnsList[0].price;
+
+    });
+  }
+  Future<void> changeTotal() async{
+    List<OrderItems> totalCash = await coffeeDB.getTotalCash(widget.date);
+    List<OrderItems> totalGCash = await coffeeDB.getTotalGCash(widget.date);
+    setState(() {
+      if(value == 1){
+        total = totalCash[0].price;
+      }
+      else if(value == 2){
+        total = totalGCash[0].price;
+      }
+      else{
+        total = widget.total;
+      }
 
     });
   }
@@ -132,7 +150,7 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Total: ${widget.total}",
+                        "Total: $total",
                         style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold
@@ -355,13 +373,16 @@ class _OrdersByDateState extends State<OrdersByDateScreen>{
     return SizedBox(
       width: 100,
       child: OutlinedButton(
-        onPressed: () {
-          setState(() async {
+        onPressed: () async {
+          setState(() {
             value = index;
             currActive = text;
 
-            await getOrdersToday();
+
           });
+          await getOrdersToday();
+          await changeTotal();
+          await getDivision();
         },
         style: OutlinedButton.styleFrom(
             shape: RoundedRectangleBorder(

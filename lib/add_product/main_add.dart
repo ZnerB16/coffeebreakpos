@@ -27,7 +27,7 @@ class _MainAddState extends State<MainAddScreen>{
           Sidebar(currentScreen: "AD"),
           CoffeeMenu(isAdd: true, isEditing: false,),
           SizedBox(
-            width: MediaQuery.sizeOf(context).width / 2,
+            width: MediaQuery.sizeOf(context).width / 3,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
